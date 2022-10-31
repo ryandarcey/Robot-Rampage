@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     // Public attributes for player movement
     public float walkSpeed = 15f;
     public float gravity = -5f;
-    public float jumpHeight = 6f;
+    public float jumpHeight = 3f;
 
     // Vertical velocity vector for gravity and movement
     Vector3 verticalVelocity;
