@@ -24,6 +24,7 @@ public class LevelGenerator : MonoBehaviour
         //      - NOTE: i'm pretty sure you can't check collision/overlaps in the Start() method (???)
 
         SquareRoom baseRoom = Instantiate(squareRoomPrefab);
+        baseRoom.setDownWall();
         
         baseRoom.transform.SetPositionAndRotation(new Vector3(0, 0, 0), baseRoom.transform.rotation);
         Component connection = baseRoom.FindNewConnection();
