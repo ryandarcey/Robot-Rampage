@@ -7,6 +7,9 @@ public class LevelGenerator : MonoBehaviour
 {
     public SquareRoom squareRoomPrefab;
     public Hallway hallwayPrefab;
+    public TConnection tConnectionPrefab;
+    public TallRoom tallRoomPrefab;
+
     public ArrayList roomPositions = new();
 
 	public int numRooms = 3;
@@ -35,14 +38,22 @@ public class LevelGenerator : MonoBehaviour
             // instantiate newest room being placed
             Room nextRoom;
 
-			int r = UnityEngine.Random.Range(0, 2);
+			int r = UnityEngine.Random.Range(0, 4);
             if (r == 0)
             {
 				nextRoom = Instantiate(squareRoomPrefab);
 			}
-            else
+            else if(r == 1)
             {
                 nextRoom = Instantiate(hallwayPrefab);
+            }
+            else if(r == 2)
+            {
+                nextRoom = Instantiate(tConnectionPrefab);
+            }
+            else
+            {
+                nextRoom = Instantiate(tallRoomPrefab);
             }
 			
             nextRoom.setDownWall(false);

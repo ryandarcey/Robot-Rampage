@@ -50,6 +50,12 @@ public abstract class Room : MonoBehaviour
 					//connectionArr.Insert(0, component);
 					openConnections.Add(component);
 				}
+				else if (compString.Contains("TopConnection"))
+				{
+					connectionArr.Add(component);
+					//connectionArr.Insert(0, component);
+					openConnections.Add(component);
+				}
 			}
 
 			if (compString.Contains("Wall"))
@@ -70,6 +76,10 @@ public abstract class Room : MonoBehaviour
 					walls.Add(component);
 				}
 				else if (compString.Contains("Wall Right"))
+				{
+					walls.Add(component);
+				}
+				else if (compString.Contains("Wall Top"))
 				{
 					walls.Add(component);
 				}

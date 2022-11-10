@@ -500,7 +500,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 865958464}
-  - component: {fileID: 865958463}
+  - component: {fileID: 865958465}
   m_Layer: 0
   m_Name: LevelGenerator
   m_TagString: Untagged
@@ -508,22 +508,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &865958463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 865958462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd2f0d19538a0244d8ae87f4338c12cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  squareRoomPrefab: {fileID: 2629545303901220196, guid: 98b52cfde867250428dde00a2e9b345f, type: 3}
-  hallwayPrefab: {fileID: 1002876581803783680, guid: cb6dc0f08b03d184f8989e7c0b0e5163, type: 3}
-  numRooms: 20
-  overlapCheckRadius: 10
 --- !u!4 &865958464
 Transform:
   m_ObjectHideFlags: 0
@@ -539,6 +523,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &865958465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865958462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2f0d19538a0244d8ae87f4338c12cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  squareRoomPrefab: {fileID: 2629545303901220196, guid: 98b52cfde867250428dde00a2e9b345f, type: 3}
+  hallwayPrefab: {fileID: 1002876581803783680, guid: cb6dc0f08b03d184f8989e7c0b0e5163, type: 3}
+  tConnectionPrefab: {fileID: -7495841329023442115, guid: 7231f3e1d61c2c14ca79abab6d28b3f0, type: 3}
+  tallRoomPrefab: {fileID: -2539705296309299186, guid: 741bb4555f6f91a4c903cb5fa73557b9, type: 3}
+  numRooms: 20000
+  overlapCheckRadius: 17
 --- !u!1 &1141354162
 GameObject:
   m_ObjectHideFlags: 0
