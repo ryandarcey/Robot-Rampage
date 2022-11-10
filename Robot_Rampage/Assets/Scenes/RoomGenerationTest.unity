@@ -521,6 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squareRoomPrefab: {fileID: 2629545303901220196, guid: 98b52cfde867250428dde00a2e9b345f, type: 3}
+  numRooms: 20
 --- !u!4 &865958464
 Transform:
   m_ObjectHideFlags: 0

@@ -86,7 +86,7 @@ public class SquareRoom : MonoBehaviour
 
 	// rotate and move this room to connect the 'down' connection point
 	//	to the provided connection
-	public void ConnectRoomToConnection(Component connection)
+	public Vector3 ConnectRoomToConnection(Component connection)
 	{
 		// based on connection, find new rotation (so 'down' so is pointing opposite 'connection')
 		// and rotate this room accordingly
@@ -95,25 +95,17 @@ public class SquareRoom : MonoBehaviour
 		// and move this room accordingly
 		this.transform.position = FindNewPosition(connection);
 		FindNewRotation(connection);
+		return this.transform.position;
 	}
 
-	public void FindNewRotation(Component connection)
+	private void FindNewRotation(Component connection)
 	{
 		Vector3 connForward = connection.transform.forward;
 		Vector3 target = this.transform.position + connForward;
 		this.transform.LookAt(target);
-		//Debug.Log(connForward);
-		/*Component down = (Component)connectionArr[0];
-		Vector3 downForward = down.transform.forward;
-		Vector3 diff = (-1 * connForward) - downForward;
-		Debug.Log(diff);
-		Vector3 currentRot = this.transform.rotation.eulerAngles;
-		Quaternion newRotQ = Quaternion.Euler(currentRot.x + diff.x, currentRot.y + diff.y, currentRot.z + diff.z);*/
-
-		//return newRotQ;
 	}
 
-	public Vector3 FindNewPosition(Component connection)
+	private Vector3 FindNewPosition(Component connection)
 	{
 		//Vector3 upRot = connectionArr[2].transform.forward;
 		Vector3 connForward = connection.transform.forward;
@@ -142,12 +134,18 @@ public class SquareRoom : MonoBehaviour
 		return newPos;
 	}
 
-	public UnityEngine.Component FindNewConnection()
+	// picks random connection from ones that are open
+	// returns null if none are available
+	public Component FindNewConnection()
 	{
+		if(openConnections.Count == 0)
+		{
+			return null;
+		}
 		int r = UnityEngine.Random.Range(0, openConnections.Count);
 		Component c = (Component)openConnections[r];
 		string compString = c.ToString();
-		Debug.Log("Connection Name: " + compString);
+		//Debug.Log("Connection Name: " + compString);
 
 		// Remove the open connection
 		openConnections.RemoveAt(r);
@@ -155,18 +153,16 @@ public class SquareRoom : MonoBehaviour
 		// Using component string, find which open connection is being used, disable the corresponding wall, and disable all other open connections
 		setWalls(compString);
 		
-		
-		
-		
-		
 		return c;
 	}
 
+	// makes a wall closed/open depending on if there is a room connected to it
+	//	(both start as active, then it sets one inactive)
 	public void setWalls(string componentName)
     {
 		string direction = componentName.Replace("Connection", "");
 
-		Debug.Log("Direction: " + direction);
+		//Debug.Log("Direction: " + direction);
 
 		// Strings representing the name of both the wall and entrance given the direction
 		string wallName = "Wall " + direction;
@@ -181,18 +177,17 @@ public class SquareRoom : MonoBehaviour
 			if ((compString.Contains("Entrance") && !(compString.Contains(entranceName) || compString.Contains("Entrance Down")))
 				|| (compString.Contains(wallName)))
 			{
-				Debug.Log("Setting false: " + compString);
+				//Debug.Log("Setting false: " + compString);
 				component.gameObject.SetActive(false);
 			}
 		}
-
 	}
 
 	// Removes down wall unless it is the starting room
     // only to be called on starting room -- sets "down" to be a wall instead of doorway
 	public void setDownWall(bool isStartingRoom)
 	{
-		Debug.Log("Setting down wall");
+		//Debug.Log("Setting down wall");
 		Component[] components = this.GetComponentsInChildren(typeof(Component));
 		foreach (Component component in components)
 		{
@@ -202,7 +197,7 @@ public class SquareRoom : MonoBehaviour
 			if (compString.Contains("Wall Down") && !isStartingRoom)
 			{
 				component.gameObject.SetActive(false);
-				Debug.Log("Setting true: " + compString);
+				//Debug.Log("Setting true: " + compString);
 			}
 
 			// Remove the down entrance if it is the starting room
