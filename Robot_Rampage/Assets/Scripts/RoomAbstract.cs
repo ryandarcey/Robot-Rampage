@@ -1,24 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 
-using Component = UnityEngine.Component;
-
-public class SquareRoom : MonoBehaviour
+public abstract class Room : MonoBehaviour
 {
 	// TODO: get size from code?
-    Vector3 roomSize = new Vector3(30, 15, 30);	// (x-axis size, y-axis size, z-axis size)
-    // down, left, up, right
+	public Vector3 roomSize;
 	ArrayList connectionArr = new();
 	ArrayList openConnections = new();
 	ArrayList walls = new();
-
-	public SquareRoom()
-	{
-		
-	}
 
 	public void Awake()
 	{
@@ -43,17 +34,20 @@ public class SquareRoom : MonoBehaviour
 				}
 				else if (compString.Contains("LeftConnection"))
 				{
-					connectionArr.Insert(1, component);
+					connectionArr.Add(component);
+					//connectionArr.Insert(1, component);
 					openConnections.Add(component);
 				}
 				else if (compString.Contains("UpConnection"))
 				{
-					connectionArr.Insert(2, component);
+					connectionArr.Add(component);
+					//connectionArr.Insert(2, component);
 					openConnections.Add(component);
 				}
 				else if (compString.Contains("RightConnection"))
 				{
-					connectionArr.Insert(0, component);
+					connectionArr.Add(component);
+					//connectionArr.Insert(0, component);
 					openConnections.Add(component);
 				}
 			}
@@ -114,23 +108,24 @@ public class SquareRoom : MonoBehaviour
 
 		Vector3 newPos = new Vector3(connPosition.x, connPosition.y, connPosition.z);
 		float roomLength = roomSize.z;
-		
+
 		// floating point makes these vector components sometimes very small when they "should" be zero
-		if(Math.Abs(connForward.x) > 0.01)
+		if (Math.Abs(connForward.x) > 0.01)
 		{
 			newPos.x += connForward.x * roomLength / 2;
 			//Debug.Log("New X = " + newPos.x);
 		}
-		else if(Math.Abs(connForward.y) > 0.01) {
+		else if (Math.Abs(connForward.y) > 0.01)
+		{
 			newPos.y += connForward.y * roomLength / 2;
 			//Debug.Log("New Y = " + newPos.y);
 		}
-		else if(Math.Abs(connForward.z) > 0.01)
+		else if (Math.Abs(connForward.z) > 0.01)
 		{
 			newPos.z += connForward.z * roomLength / 2;
 			//Debug.Log("New Z = " + newPos.z);
 		}
-		
+
 		return newPos;
 	}
 
@@ -138,7 +133,7 @@ public class SquareRoom : MonoBehaviour
 	// returns null if none are available
 	public Component FindNewConnection()
 	{
-		if(openConnections.Count == 0)
+		if (openConnections.Count == 0)
 		{
 			return null;
 		}
@@ -152,14 +147,14 @@ public class SquareRoom : MonoBehaviour
 
 		// Using component string, find which open connection is being used, disable the corresponding wall, and disable all other open connections
 		setWalls(compString);
-		
+
 		return c;
 	}
 
 	// makes a wall closed/open depending on if there is a room connected to it
 	//	(both start as active, then it sets one inactive)
 	public void setWalls(string componentName)
-    {
+	{
 		string direction = componentName.Replace("Connection", "");
 
 		//Debug.Log("Direction: " + direction);
@@ -184,7 +179,7 @@ public class SquareRoom : MonoBehaviour
 	}
 
 	// Removes down wall unless it is the starting room
-    // only to be called on starting room -- sets "down" to be a wall instead of doorway
+	// only to be called on starting room -- sets "down" to be a wall instead of doorway
 	public void setDownWall(bool isStartingRoom)
 	{
 		//Debug.Log("Setting down wall");

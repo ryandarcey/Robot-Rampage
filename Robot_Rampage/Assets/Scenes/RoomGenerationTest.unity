@@ -521,7 +521,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squareRoomPrefab: {fileID: 2629545303901220196, guid: 98b52cfde867250428dde00a2e9b345f, type: 3}
+  hallwayPrefab: {fileID: 1002876581803783680, guid: cb6dc0f08b03d184f8989e7c0b0e5163, type: 3}
   numRooms: 20
+  overlapCheckRadius: 10
 --- !u!4 &865958464
 Transform:
   m_ObjectHideFlags: 0
