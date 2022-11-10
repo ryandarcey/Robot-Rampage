@@ -28,33 +28,59 @@ public class SquareRoom : MonoBehaviour
 		foreach (Component component in components)
 		{
 			string compString = component.ToString();
+
 			if (compString.Contains("Connection"))
 			{
 				//Debug.Log(component.transform.forward);
 				//Debug.Log(component.ToString());
+
+				// switch statement for compString wasn't working for some reason
+				if (compString.Contains("DownConnection"))
+				{
+					//Debug.Log(component.ToString());
+					connectionArr.Insert(0, component);
+					// down is never an open connection
+				}
+				else if (compString.Contains("LeftConnection"))
+				{
+					connectionArr.Insert(1, component);
+					openConnections.Add(component);
+				}
+				else if (compString.Contains("UpConnection"))
+				{
+					connectionArr.Insert(2, component);
+					openConnections.Add(component);
+				}
+				else if (compString.Contains("RightConnection"))
+				{
+					connectionArr.Insert(0, component);
+					openConnections.Add(component);
+				}
 			}
 
-			// switch statement for compString wasn't working for some reason
-			if (compString.Contains("DownConnection")) {
+			if (compString.Contains("Wall"))
+			{
+				//Debug.Log(component.transform.forward);
 				//Debug.Log(component.ToString());
-				connectionArr.Insert(0, component);
-				// down is never an open connection
+
+				if (compString.Contains("Wall Down"))
+				{
+					// down is always an open entrance
+				}
+				else if (compString.Contains("Wall Left"))
+				{
+					walls.Add(component);
+				}
+				else if (compString.Contains("Wall Up"))
+				{
+					walls.Add(component);
+				}
+				else if (compString.Contains("Wall Right"))
+				{
+					walls.Add(component);
+				}
 			}
-			else if (compString.Contains("LeftConnection"))
-			{
-				connectionArr.Insert(1, component);
-				openConnections.Add(component);
-			}
-			else if (compString.Contains("UpConnection"))
-			{
-				connectionArr.Insert(2, component);
-				openConnections.Add(component);
-			}
-			else if (compString.Contains("RightConnection"))
-			{
-				connectionArr.Insert(0, component);
-				openConnections.Add(component);
-			}
+
 		}
 	}
 
@@ -121,8 +147,13 @@ public class SquareRoom : MonoBehaviour
 		int r = UnityEngine.Random.Range(0, openConnections.Count);
 		Component c = (Component)openConnections[r];
 		string compString = c.ToString();
+		Debug.Log("Connection Name: " + compString);
+
+		// Remove the open connection
 		openConnections.RemoveAt(r);
-		
+
+		// Using component string, find which open connection is being used, disable the corresponding wall, and disable all other open connections
+		setWalls(compString);
 		
 		
 		
@@ -131,20 +162,51 @@ public class SquareRoom : MonoBehaviour
 		return c;
 	}
 
-	// only to be called on starting room --
-	//	sets "down" to be a wall instead of doorway
-	public void setDownWall()
-	{
+	public void setWalls(string componentName)
+    {
+		string direction = componentName.Replace("Connection", "");
+
+		Debug.Log("Direction: " + direction);
+
+		// Strings representing the name of both the wall and entrance given the direction
+		string wallName = "Wall " + direction;
+		string entranceName = "Entrance " + direction;
+
 		Component[] components = this.GetComponentsInChildren(typeof(Component));
 		foreach (Component component in components)
 		{
 			string compString = component.ToString();
-			if (compString.Equals("Wall Down"))
+
+			// If an open entrance is found that isnt the already chosen one the corresponding wall is found, disable it
+			if ((compString.Contains("Entrance") && !(compString.Contains(entranceName) || compString.Contains("Entrance Down")))
+				|| (compString.Contains(wallName)))
 			{
-				component.gameObject.SetActive(true);
+				Debug.Log("Setting false: " + compString);
+				component.gameObject.SetActive(false);
+			}
+		}
+
+	}
+
+	// Removes down wall unless it is the starting room
+    // only to be called on starting room -- sets "down" to be a wall instead of doorway
+	public void setDownWall(bool isStartingRoom)
+	{
+		Debug.Log("Setting down wall");
+		Component[] components = this.GetComponentsInChildren(typeof(Component));
+		foreach (Component component in components)
+		{
+			string compString = component.ToString();
+
+			// Remove the wall if it is not the starting room
+			if (compString.Contains("Wall Down") && !isStartingRoom)
+			{
+				component.gameObject.SetActive(false);
+				Debug.Log("Setting true: " + compString);
 			}
 
-			if (compString.Equals("Door Wall Down"))
+			// Remove the down entrance if it is the starting room
+			if (compString.Contains("Entrance Down") && isStartingRoom)
 			{
 				component.gameObject.SetActive(false);
 			}

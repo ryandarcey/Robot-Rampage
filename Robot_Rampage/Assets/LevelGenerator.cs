@@ -24,7 +24,7 @@ public class LevelGenerator : MonoBehaviour
         //      - NOTE: i'm pretty sure you can't check collision/overlaps in the Start() method (???)
 
         SquareRoom baseRoom = Instantiate(squareRoomPrefab);
-        baseRoom.setDownWall();
+        baseRoom.setDownWall(true);
         
         baseRoom.transform.SetPositionAndRotation(new Vector3(0, 0, 0), baseRoom.transform.rotation);
         Component connection = baseRoom.FindNewConnection();
@@ -32,7 +32,9 @@ public class LevelGenerator : MonoBehaviour
         for(int i = 0; i < numRooms; i++)
         {
             SquareRoom nextRoom = Instantiate(squareRoomPrefab);
-            
+            nextRoom.setDownWall(false);
+
+
             nextRoom.ConnectRoomToConnection(connection);
             connection = nextRoom.FindNewConnection();
         }
