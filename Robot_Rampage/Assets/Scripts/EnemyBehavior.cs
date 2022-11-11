@@ -19,7 +19,7 @@ public class EnemyBehavior : MonoBehaviour
     public Transform player;
 
     // Used to manage time between shots
-    float coolDownTime = .5f;
+    float coolDownTime = .4f;
     float nextShotTime = 0f;
 
     // Check whether or not a player is in range to be attacked

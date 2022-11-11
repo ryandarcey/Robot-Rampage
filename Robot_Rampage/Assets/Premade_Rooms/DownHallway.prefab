@@ -727,8 +727,8 @@ GameObject:
   - component: {fileID: 6708311360695113512}
   - component: {fileID: 2440708360946470956}
   - component: {fileID: 4514679351660594776}
-  m_Layer: 0
-  m_Name: Cube
+  m_Layer: 3
+  m_Name: Slope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

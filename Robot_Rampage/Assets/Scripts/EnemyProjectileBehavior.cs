@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class EnemyProjectileBehavior : MonoBehaviour
 {
-
-    // Player model for collision
-    public Transform player;
-
     // Damage dealt when colliding with player
     public float damage = 5f;
 
@@ -26,7 +22,8 @@ public class EnemyProjectileBehavior : MonoBehaviour
         {
             hitPlayer(collision);
         }
-        else if (collision.gameObject.name == "Ground")
+        // 3 represents the ground layer
+        else if (collision.gameObject.layer == 3 || collision.gameObject.name.Contains("Wall"))
         {
             Debug.Log("Hit ground");
             Destroy(gameObject);
@@ -36,7 +33,7 @@ public class EnemyProjectileBehavior : MonoBehaviour
     void hitPlayer(Collision collision)
     {
 
-        PlayerHealth health = player.transform.GetComponent<PlayerHealth>();
+        PlayerHealth health = collision.gameObject.transform.GetComponent<PlayerHealth>();
         if (health != null)
         {
             health.isHit(damage);
