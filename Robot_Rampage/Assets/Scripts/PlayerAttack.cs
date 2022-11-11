@@ -19,8 +19,15 @@ public class PlayerAttack : MonoBehaviour
     // Player camera
     public Camera camera;
 
+    // Sound effect for shooting
+    public AudioSource shot;
+
     // Check if player can shoot an enemy
     bool canShoot;
+
+    // Used to manage time between shots
+    float coolDownTime = .5f;
+    float nextShotTime = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -47,15 +54,23 @@ public class PlayerAttack : MonoBehaviour
             crosshair.color = Color.black;
         }
 
-        // Shoots the gun
-        if (Input.GetButtonDown("Fire1"))
+        // Shoots the gun if the cooldown time is over
+        if (nextShotTime < Time.time)
         {
-            ShootGun(hitInformation);
+            if (Input.GetButtonDown("Fire1"))
+            {
+                // Sets the next time a shot can be made and checks if a shot connected
+                nextShotTime = coolDownTime + Time.time;
+                ShootGun(hitInformation);
+            }
         }
     }
 
     void ShootGun(RaycastHit hitInformation)
     {
+        // Play sound
+        shot.Play();
+
         // Only deal damage if the player is shooting at an enemy
         if (canShoot)
         {
