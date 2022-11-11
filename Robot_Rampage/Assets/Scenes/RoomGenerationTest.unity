@@ -787,8 +787,10 @@ MonoBehaviour:
   hallwayPrefab: {fileID: 1002876581803783680, guid: cb6dc0f08b03d184f8989e7c0b0e5163, type: 3}
   tConnectionPrefab: {fileID: -7495841329023442115, guid: 7231f3e1d61c2c14ca79abab6d28b3f0, type: 3}
   tallRoomPrefab: {fileID: -2539705296309299186, guid: 741bb4555f6f91a4c903cb5fa73557b9, type: 3}
-  numRooms: 100
+  downHallwayPrefab: {fileID: -8815893632699820143, guid: df72509d09fc01d4db4b2a964ec50281, type: 3}
+  numRooms: 20
   overlapCheckRadius: 17
+  maxNumHallwaysInARow: 2
 --- !u!1 &1141354162
 GameObject:
   m_ObjectHideFlags: 0

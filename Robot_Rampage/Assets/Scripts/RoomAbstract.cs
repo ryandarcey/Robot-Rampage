@@ -156,16 +156,24 @@ public abstract class Room : MonoBehaviour
 		openConnections.RemoveAt(r);
 
 		// Using component string, find which open connection is being used, disable the corresponding wall, and disable all other open connections
-		setWalls(compString);
+		//setWalls(compString);
 
 		return c;
 	}
 
 	// makes a wall closed/open depending on if there is a room connected to it
 	//	(both start as active, then it sets one inactive)
-	public void setWalls(string componentName)
+	public void setWalls(Component c)
 	{
-		string direction = componentName.Replace("Connection", "");
+		string direction;
+		if(c != null) 
+		{ 
+			direction = c.ToString().Replace("Connection", ""); 
+		}
+		else
+		{
+			direction = "NULL";
+		}
 
 		//Debug.Log("Direction: " + direction);
 
@@ -178,7 +186,7 @@ public abstract class Room : MonoBehaviour
 		{
 			string compString = component.ToString();
 
-			// If an open entrance is found that isnt the already chosen one the corresponding wall is found, disable it
+			// If an open entrance is found that isn't the already chosen one the corresponding wall is found, disable it
 			if ((compString.Contains("Entrance") && !(compString.Contains(entranceName) || compString.Contains("Entrance Down")))
 				|| (compString.Contains(wallName)))
 			{

@@ -9,11 +9,13 @@ public class LevelGenerator : MonoBehaviour
     public Hallway hallwayPrefab;
     public TConnection tConnectionPrefab;
     public TallRoom tallRoomPrefab;
+    public DownHallway downHallwayPrefab;
 
     public ArrayList roomPositions = new();
 
 	public int numRooms = 3;
-    public float overlapCheckRadius = 10;
+    public float overlapCheckRadius = 20;
+    public int maxNumHallwaysInARow = 3;
 
 	// Start is called before the first frame update
 	void Start()
@@ -29,7 +31,9 @@ public class LevelGenerator : MonoBehaviour
         roomPositions.Add(Vector3.zero);
 
         Component connection = baseRoom.FindNewConnection();
+        baseRoom.setWalls(connection);
 
+        int currentNumHallways = 0;
         for(int i = 0; i < numRooms; i++)
         {
             //Debug.Log("Adding room #" + (i + 1));
@@ -38,23 +42,52 @@ public class LevelGenerator : MonoBehaviour
             // instantiate newest room being placed
             Room nextRoom;
 
-			int r = UnityEngine.Random.Range(0, 4);
-            if (r == 0)
+            if(i == numRooms-1)
             {
-				nextRoom = Instantiate(squareRoomPrefab);
+                nextRoom = nextRoom = Instantiate(squareRoomPrefab);
 			}
-            else if(r == 1)
+            // simple logic to prevent more than 3 hallways from being placed in a row,
+            //  "hallway" currently being a hallway, tConnection, or downHallway
+            else if (currentNumHallways < maxNumHallwaysInARow)
             {
-                nextRoom = Instantiate(hallwayPrefab);
-            }
-            else if(r == 2)
-            {
-                nextRoom = Instantiate(tConnectionPrefab);
+                int r = UnityEngine.Random.Range(0, 5);
+                if (r == 0)
+                {
+                    nextRoom = Instantiate(squareRoomPrefab);
+                }
+                else if (r == 1)
+                {
+                    nextRoom = Instantiate(hallwayPrefab);
+                    currentNumHallways++;
+                }
+                else if (r == 2)
+                {
+                    nextRoom = Instantiate(tConnectionPrefab);
+					currentNumHallways++;
+				}
+                else if (r == 3)
+                {
+                    nextRoom = Instantiate(tallRoomPrefab);
+                }
+                else
+                {
+                    nextRoom = Instantiate(downHallwayPrefab);
+					currentNumHallways++;
+				}
             }
             else
             {
-                nextRoom = Instantiate(tallRoomPrefab);
-            }
+                currentNumHallways = 0;
+                int r = UnityEngine.Random.Range(0, 2);
+				if (r == 0)
+				{
+					nextRoom = Instantiate(squareRoomPrefab);
+				}
+				else
+				{
+					nextRoom = Instantiate(tallRoomPrefab);
+				}
+			}
 			
             nextRoom.setDownWall(false);
 
@@ -62,23 +95,32 @@ public class LevelGenerator : MonoBehaviour
             //  and add it's position to the list
             Vector3 nextRoomPos = nextRoom.ConnectRoomToConnection(connection);
             roomPositions.Add(nextRoomPos);
-            
-            // choose a connection from newest room that won't result in overlapping with previous rooms
-            while(connection != null)
-            {
-				connection = nextRoom.FindNewConnection();
 
-                // if the connection won't result in the next room overlapping an existing room,
-                //  then break out of the while()
-                if(connection != null && !WillConnectionOverlap(connection))
-                {
-                    break;
-                }
-			}
-            if(connection == null)
+            if (i != numRooms - 1)
             {
-                break;  // if it gets 'stuck', exit for loop
-            }
+                // choose a connection from newest room that won't result in overlapping with previous rooms
+                while (connection != null)
+                {
+                    connection = nextRoom.FindNewConnection();
+
+                    // if the connection won't result in the next room overlapping an existing room,
+                    //  then break out of the while()
+                    if (connection != null && !WillConnectionOverlap(connection))
+                    {
+                        break;
+                    }
+                }
+                if (connection == null)
+                {
+                    break;  // if it gets 'stuck', exit for loop
+                }
+
+				nextRoom.setWalls(connection);
+			}
+            else
+            {
+				nextRoom.setWalls(null);
+			}
         }
     }
 
