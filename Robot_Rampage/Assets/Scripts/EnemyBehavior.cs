@@ -16,7 +16,7 @@ public class EnemyBehavior : MonoBehaviour
     public LayerMask playerLayer;
 
     // Player character
-    public Transform player;
+    private GameObject player;
 
     // Used to manage time between shots
     float coolDownTime = .4f;
@@ -24,6 +24,11 @@ public class EnemyBehavior : MonoBehaviour
 
     // Check whether or not a player is in range to be attacked
     bool inAttackRange;
+
+    public void SetPlayer(GameObject player)
+    {
+        this.player = player;
+    }
 
     void Update()
     {
@@ -38,7 +43,7 @@ public class EnemyBehavior : MonoBehaviour
     void attack()
     {
         // Face player for attacking
-        transform.LookAt(player);
+        transform.LookAt(player.transform.position);
 
         // Shoots if the cooldown time is over
         if (nextShotTime < Time.time)

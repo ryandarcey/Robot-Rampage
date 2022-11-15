@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class Room : MonoBehaviour
 {
+	public EnemyBehavior enemyPrefab;
+
 	// TODO: get size from code?
 	public Vector3 roomSize;
 	ArrayList connectionArr = new();
@@ -219,5 +221,18 @@ public abstract class Room : MonoBehaviour
 				component.gameObject.SetActive(false);
 			}
 		}
+	}
+
+	// FOR NOW, SHOULD ONLY BE CALLED ON SQUARE ROOMS
+	public void SpawnEnemies(GameObject player)
+	{
+		EnemyBehavior enemy1 = Instantiate(enemyPrefab);
+		EnemyBehavior enemy2 = Instantiate(enemyPrefab);
+
+		enemy1.SetPlayer(player);
+		enemy2.SetPlayer(player);
+
+		enemy1.transform.position = this.transform.position + new Vector3(6, 2, 6);
+		enemy2.transform.position = this.transform.position + new Vector3(-6, 2, 6);
 	}
 }

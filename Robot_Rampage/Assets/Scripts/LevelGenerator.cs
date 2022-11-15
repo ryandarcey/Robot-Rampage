@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    private GameObject playerObj = null;
+    
     public SquareRoom squareRoomPrefab;
     public Hallway hallwayPrefab;
     public TConnection tConnectionPrefab;
@@ -20,11 +22,16 @@ public class LevelGenerator : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        // TODO:
-        //  - choose different types of rooms
-        //  - set end room (idk what we want to do for this for now)
+        if (playerObj == null)
+        {
+            playerObj = GameObject.Find("Player");
+        }
 
-        SquareRoom baseRoom = Instantiate(squareRoomPrefab);
+		// TODO:
+		//  - choose different types of rooms
+		//  - set end room (idk what we want to do for this for now)
+
+		SquareRoom baseRoom = Instantiate(squareRoomPrefab);
         baseRoom.setDownWall(true);
         
         baseRoom.transform.SetPositionAndRotation(Vector3.zero, baseRoom.transform.rotation);
@@ -37,7 +44,7 @@ public class LevelGenerator : MonoBehaviour
         for(int i = 0; i < numRooms; i++)
         {
             //Debug.Log("Adding room #" + (i + 1));
-
+            bool isSquare = false;
 
             // instantiate newest room being placed
             Room nextRoom;
@@ -54,6 +61,7 @@ public class LevelGenerator : MonoBehaviour
                 if (r == 0)
                 {
                     nextRoom = Instantiate(squareRoomPrefab);
+                    isSquare = true;
                 }
                 else if (r == 1)
                 {
@@ -116,6 +124,11 @@ public class LevelGenerator : MonoBehaviour
                 }
 
 				nextRoom.setWalls(connection);
+                if (isSquare)
+                {
+                    nextRoom.SpawnEnemies(playerObj);
+                    Debug.Log("SPAWNING ENEMIES");
+                }
 			}
             else
             {

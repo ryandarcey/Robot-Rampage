@@ -25,7 +25,7 @@ public class EnemyProjectileBehavior : MonoBehaviour
         // 3 represents the ground layer
         else if (collision.gameObject.layer == 3 || collision.gameObject.name.Contains("Wall"))
         {
-            Debug.Log("Hit ground");
+            //Debug.Log("Hit ground");
             Destroy(gameObject);
         }
     }
