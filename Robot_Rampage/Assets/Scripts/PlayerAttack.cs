@@ -51,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
         else
         {
             canShoot = false;
-            crosshair.color = Color.black;
+            crosshair.color = Color.white;
         }
 
         // Shoots the gun if the cooldown time is over
