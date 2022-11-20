@@ -14,7 +14,7 @@ public class PlayerAttack : MonoBehaviour
     public LayerMask enemyLayer;
 
     // Crosshair for player
-    public Image crosshair;
+    public CanvasRenderer crosshair;
 
     // Player camera
     public Camera camera;
@@ -32,7 +32,15 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (camera == null)
+        {
+            camera = Camera.main;
+        }
+
+        if (crosshair == null)
+        {
+            crosshair = FindObjectsOfType<CanvasRenderer>()[0];
+        }
     }
 
     // Update is called once per frame
@@ -46,12 +54,12 @@ public class PlayerAttack : MonoBehaviour
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hitInformation, range, enemyLayer)) 
         {
             canShoot = true;
-            crosshair.color = Color.red;
+            crosshair.SetColor(Color.red);
         }
         else
         {
             canShoot = false;
-            crosshair.color = Color.white;
+            crosshair.SetColor(Color.white);
         }
 
         // Shoots the gun if the cooldown time is over
@@ -69,7 +77,7 @@ public class PlayerAttack : MonoBehaviour
     void ShootGun(RaycastHit hitInformation)
     {
         // Play sound
-        shot.Play();
+        //shot.Play();
 
         // Only deal damage if the player is shooting at an enemy
         if (canShoot)

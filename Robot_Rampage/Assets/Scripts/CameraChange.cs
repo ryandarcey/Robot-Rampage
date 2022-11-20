@@ -8,6 +8,10 @@ public class CameraChange : MonoBehaviour
     public GameObject thirdPersonCamera;
     public bool isFirstPerson;
 
+    // Player Mesh for Third Person and Gun for First Person
+    public GameObject playerModel;
+    public GameObject firstPersonGun;
+
     // Update is called once per frame
     void Update()
     {
@@ -26,11 +30,17 @@ public class CameraChange : MonoBehaviour
         {
             firstPersonCamera.SetActive(true);
             thirdPersonCamera.SetActive(false);
+
+            playerModel.SetActive(false);
+            firstPersonGun.SetActive(true);
         }
         else
         {
             firstPersonCamera.SetActive(false);
             thirdPersonCamera.SetActive(true);
+
+            playerModel.SetActive(true);
+            firstPersonGun.SetActive(false);
         }
     }
 }
