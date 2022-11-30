@@ -2934,6 +2934,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  crosshair: {fileID: 8245490035790421363}
+  crosshair: {fileID: 0}
   camera: {fileID: 163042469941119595}
   shot: {fileID: 2582768051596611195}
