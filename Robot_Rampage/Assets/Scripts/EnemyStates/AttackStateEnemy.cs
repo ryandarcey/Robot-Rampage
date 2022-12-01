@@ -8,7 +8,7 @@ public class AttackStateEnemy : StateMachineBehaviour
     float timer;
     Transform player;
 
-    float attackRange = 15;
+    float attackRange = 20;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -19,11 +19,16 @@ public class AttackStateEnemy : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-/*        timer += Time.deltaTime;
-        if (timer > 5)
-        {
-            animator.SetBool("isPatrolling", true);
-        }*/
+        /*        timer += Time.deltaTime;
+                if (timer > 5)
+                {
+                    animator.SetBool("isPatrolling", true);
+                }*/
+
+        Vector3 playerPosition = new Vector3(player.position.x, 0, player.position.z);
+
+        animator.transform.LookAt(playerPosition);
+        animator.transform.rotation *= Quaternion.Euler(0, 90, 0);
 
         float playerDistance = Vector3.Distance(player.position, animator.transform.position);
 

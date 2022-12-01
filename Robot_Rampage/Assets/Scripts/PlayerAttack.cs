@@ -79,10 +79,10 @@ public class PlayerAttack : MonoBehaviour
         // Play sound
         //shot.Play();
 
-        // Only deal damage if the player is shooting at an enemy
+        // Only deal damage if the player is shooting at an enemy. Calls specific script within enemy that contains health
         if (canShoot)
         {
-            EnemyBehavior enemy = hitInformation.transform.GetComponent<EnemyBehavior>();
+            EnemyAction enemy = hitInformation.transform.GetComponent<EnemyAction>();
             if (enemy != null)
             {
                 enemy.isHit(damage);

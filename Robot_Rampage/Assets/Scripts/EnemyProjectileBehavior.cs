@@ -18,8 +18,9 @@ public class EnemyProjectileBehavior : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "PlayerModel")
+        if (collision.gameObject.name == "PlayerArmature")
         {
+            Destroy(gameObject);
             hitPlayer(collision);
         }
         // 3 represents the ground layer
