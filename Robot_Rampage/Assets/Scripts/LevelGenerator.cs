@@ -12,6 +12,7 @@ public class LevelGenerator : MonoBehaviour
     public TConnection tConnectionPrefab;
     public TallRoom tallRoomPrefab;
     public DownHallway downHallwayPrefab;
+    public GameObject robotPrefab;
 
     public ArrayList roomPositions = new();
 
@@ -126,7 +127,7 @@ public class LevelGenerator : MonoBehaviour
 				nextRoom.setWalls(connection);
                 if (isSquare)
                 {
-                    nextRoom.SpawnEnemies(playerObj);
+                    nextRoom.SpawnEnemies(robotPrefab);
                     Debug.Log("SPAWNING ENEMIES");
                 }
 			}

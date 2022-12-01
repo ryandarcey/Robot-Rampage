@@ -8,7 +8,7 @@ public class IdleStateEnemy : StateMachineBehaviour
     float timer;
     Transform player;
 
-    float attackRange = 15;
+    float attackRange = 10;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -19,11 +19,11 @@ public class IdleStateEnemy : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer += Time.deltaTime;
+/*        timer += Time.deltaTime;
         if (timer > 5)
         {
             animator.SetBool("isPatrolling", true);
-        }
+        }*/
 
         float playerDistance = Vector3.Distance(player.position, animator.transform.position);
 

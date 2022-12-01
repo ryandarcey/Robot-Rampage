@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Room : MonoBehaviour
 {
-	public EnemyBehavior enemyPrefab;
+	public EnemyAction enemyPrefab;
 
 	// TODO: get size from code?
 	public Vector3 roomSize;
@@ -224,15 +224,18 @@ public abstract class Room : MonoBehaviour
 	}
 
 	// FOR NOW, SHOULD ONLY BE CALLED ON SQUARE ROOMS
-	public void SpawnEnemies(GameObject player)
+	public void SpawnEnemies(GameObject robot)
 	{
-		EnemyBehavior enemy1 = Instantiate(enemyPrefab);
-		EnemyBehavior enemy2 = Instantiate(enemyPrefab);
+/*		EnemyAction enemy1 = Instantiate(enemyPrefab);
+		EnemyAction enemy2 = Instantiate(enemyPrefab);*/
 
-		enemy1.SetPlayer(player);
-		enemy2.SetPlayer(player);
+		GameObject enemy1 = Instantiate(robot);
+		GameObject enemy2 = Instantiate(robot);
 
-		enemy1.transform.position = this.transform.position + new Vector3(6, 2, 6);
-		enemy2.transform.position = this.transform.position + new Vector3(-6, 2, 6);
+		/*enemy1.SetPlayer(player);
+		enemy2.SetPlayer(player);*/
+
+		enemy1.transform.position = this.transform.position + new Vector3(6, 5, 6);
+		enemy2.transform.position = this.transform.position + new Vector3(-6, 5, 6);
 	}
 }

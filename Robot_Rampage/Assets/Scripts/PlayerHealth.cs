@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log("Current health: " + health);
 
-        if (health < 0)
+        if (health <= 0)
         {
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
