@@ -7,36 +7,62 @@ public class RunStateEnemy : StateMachineBehaviour
 {
 
     float timer;
-/*    List<Transform> waypoints = new List<Transform>();
-    NavMeshAgent agent;*/
+
+    Transform player;
+
+    float chaseRange = 25;
+    float attackRange = 10;
+
+    /*    List<Transform> waypoints = new List<Transform>();
+        NavMeshAgent agent;*/
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         timer = 0;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
 
-/*        agent = animator.GetComponent<NavMeshAgent>();
+        /*        agent = animator.GetComponent<NavMeshAgent>();
 
-        GameObject points = GameObject.FindGameObjectWithTag("EnemyWaypoints");
-        foreach (Transform w in points.transform)
-        {
-            waypoints.Add(w);
-        }
+                GameObject points = GameObject.FindGameObjectWithTag("EnemyWaypoints");
+                foreach (Transform w in points.transform)
+                {
+                    waypoints.Add(w);
+                }
 
-        agent.SetDestination(waypoints[Random.Range(0, waypoints.Count)].position);
-*/    }
+                agent.SetDestination(waypoints[Random.Range(0, waypoints.Count)].position);
+        */
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-/*        if (agent.remainingDistance <= agent.stoppingDistance)
-        {
-            agent.SetDestination(waypoints[Random.Range(0, waypoints.Count)].position);
-        }*/
+        /*        if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    agent.SetDestination(waypoints[Random.Range(0, waypoints.Count)].position);
+                }*/
 
-        timer += Time.deltaTime;
-        if (timer > 5)
+        /*        timer += Time.deltaTime;
+                if (timer > 5)
+                {
+                    animator.SetBool("isPatrolling", false);
+                }*/
+
+        Vector3 playerPosition = new Vector3(player.position.x, animator.transform.position.y, player.position.z);
+        animator.transform.LookAt(playerPosition);
+        animator.transform.rotation *= Quaternion.Euler(0, 90, 0);
+        //animator.transform.Rotate(new Vector3(0, 90f, 0));
+        //animator.transform.position += animator.transform.forward * Time.deltaTime * 8f;
+        animator.transform.Translate(Vector3.left * Time.deltaTime * 8f, Space.Self);
+
+        float playerDistance = Vector3.Distance(player.position, animator.transform.position);
+
+        if (playerDistance < attackRange)
         {
-            animator.SetBool("isPatrolling", false);
+            animator.SetBool("isAttacking", true);
+        }
+        else if (playerDistance > chaseRange)
+        {
+            animator.SetBool("isChasing", false);
         }
     }
 

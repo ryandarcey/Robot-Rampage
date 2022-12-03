@@ -8,6 +8,7 @@ public class IdleStateEnemy : StateMachineBehaviour
     float timer;
     Transform player;
 
+    float chaseRange = 25;
     float attackRange = 10;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -30,6 +31,10 @@ public class IdleStateEnemy : StateMachineBehaviour
         if (playerDistance < attackRange)
         {
             animator.SetBool("isAttacking", true);
+        }
+        else if (playerDistance < chaseRange)
+        {
+            animator.SetBool("isChasing", true);
         }
     }
 
