@@ -34,12 +34,11 @@ public class EnemyProjectileBehavior : MonoBehaviour
     void hitPlayer(Collision collision)
     {
 
-        PlayerHealth health = collision.gameObject.transform.GetComponent<PlayerHealth>();
+        PlayerStats health = collision.gameObject.transform.GetComponent<PlayerStats>();
         if (health != null)
         {
+            Debug.Log("Hit player");
             health.isHit(damage);
         }
-
-        Debug.Log("Hit player");
     }
 }

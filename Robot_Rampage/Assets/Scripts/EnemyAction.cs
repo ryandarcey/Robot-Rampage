@@ -10,6 +10,10 @@ public class EnemyAction : MonoBehaviour
     // Gameobject used for attack projectile
     public GameObject enemyProjectile;
 
+    // Gameobjects used for health and ammo packs
+    public GameObject healthPack;
+    public GameObject ammoPack;
+
     // Position where projectile is instantiated
     public Transform projectilePosition;
 
@@ -30,7 +34,28 @@ public class EnemyAction : MonoBehaviour
         health -= damage;
         if (health <= 0f)
         {
+            dropPack();
             Destroy(gameObject);
         }
     }
+ 
+    // Randomly determines whether or not to drop an item pack, then chooses which one
+    void dropPack()
+    {
+        int randomNum = Random.Range(0, 2);
+
+        Rigidbody pack;
+
+/*        if (randomNum == 1) {
+            randomNum = Random.Range(0, 1);*/
+            if(randomNum == 1)
+            {
+                pack = Instantiate(healthPack, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
+            }
+            else
+            {
+                pack = Instantiate(ammoPack, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
+            }
+        }
+    //}
 }

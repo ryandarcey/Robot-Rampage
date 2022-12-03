@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
+    // Used to update ammo
+    PlayerStats stats;
 
     // Damage and range for the current gun
     public float damage = 5f;
@@ -39,7 +41,17 @@ public class PlayerAttack : MonoBehaviour
 
         if (crosshair == null)
         {
-            crosshair = FindObjectsOfType<CanvasRenderer>()[0];
+            crosshair = FindObjectsOfType<CanvasRenderer>()[2];
+        }
+
+        if (shot == null)
+        {
+            shot = transform.GetComponent<AudioSource>();
+        }
+
+        if (stats == null)
+        {
+            stats = transform.GetComponentInParent<PlayerStats>();
         }
     }
 
@@ -76,17 +88,22 @@ public class PlayerAttack : MonoBehaviour
 
     void ShootGun(RaycastHit hitInformation)
     {
-        // Play sound
-        //shot.Play();
-
-        // Only deal damage if the player is shooting at an enemy. Calls specific script within enemy that contains health
-        if (canShoot)
+        float newAmmo = stats.loseAmmo();
+        if (newAmmo > 0)
         {
-            EnemyAction enemy = hitInformation.transform.GetComponent<EnemyAction>();
-            if (enemy != null)
+            // Play sound
+            shot.Play();
+
+            // Only deal damage if the player is shooting at an enemy. Calls specific script within enemy that contains health
+            if (canShoot)
             {
-                enemy.isHit(damage);
+                EnemyAction enemy = hitInformation.transform.GetComponent<EnemyAction>();
+                if (enemy != null)
+                {
+                    enemy.isHit(damage);
+                }
             }
         }
+
     }
 }

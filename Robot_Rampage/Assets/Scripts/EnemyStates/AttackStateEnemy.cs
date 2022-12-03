@@ -25,8 +25,13 @@ public class AttackStateEnemy : StateMachineBehaviour
                     animator.SetBool("isPatrolling", true);
                 }*/
 
-        Vector3 playerPosition = new Vector3(player.position.x, 0, player.position.z);
+        //Vector3 playerPosition = new Vector3(player.position.x, 0, player.position.z);
 
+        //var playerPosition = player.position;
+        //playerPosition.y = 0f;
+
+
+        Vector3 playerPosition = new Vector3(player.position.x, animator.transform.position.y, player.position.z);
         animator.transform.LookAt(playerPosition);
         animator.transform.rotation *= Quaternion.Euler(0, 90, 0);
 
