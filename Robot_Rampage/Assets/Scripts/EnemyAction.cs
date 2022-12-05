@@ -7,6 +7,9 @@ public class EnemyAction : MonoBehaviour
 
     public float health = 10f;
 
+    // Animator for enemy
+    public Animator animator;
+
     // Gameobject used for attack projectile
     public GameObject enemyProjectile;
 
@@ -16,6 +19,18 @@ public class EnemyAction : MonoBehaviour
 
     // Position where projectile is instantiated
     public Transform projectilePosition;
+
+    // Sets when the enemy has been destroyed
+    bool isDestroyed = false;
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (animator == null)
+        {
+            animator = transform.GetComponent<Animator>();
+        }
+    }
 
     // Update is called once per frame
     public void Shoot()
@@ -32,10 +47,12 @@ public class EnemyAction : MonoBehaviour
     public void isHit(float damage)
     {
         health -= damage;
-        if (health <= 0f)
+        if (health <= 0f && !isDestroyed)
         {
+            isDestroyed = true;
             dropPack();
-            Destroy(gameObject);
+            animator.SetTrigger("destroyed");
+            //GetComponentInChildren<BoxCollider>().enabled = false;
         }
     }
  
