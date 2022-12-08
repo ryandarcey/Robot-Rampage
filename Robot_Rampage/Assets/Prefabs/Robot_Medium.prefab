@@ -60,6 +60,10 @@ PrefabInstance:
       value: Robot_Medium
       objectReference: {fileID: 0}
     - target: {fileID: 5178157772714245311, guid: 51b8fc57b62d76244865e7cebf9465c6, type: 3}
+      propertyPath: damage
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178157772714245311, guid: 51b8fc57b62d76244865e7cebf9465c6, type: 3}
       propertyPath: health
       value: 25
       objectReference: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyProjectileBehavior : MonoBehaviour
 {
     // Damage dealt when colliding with player
-    public float damage = 5f;
+    public float damage;
 
     // Layer for checking ground collisions
     //public LayerMask groundLayer;
