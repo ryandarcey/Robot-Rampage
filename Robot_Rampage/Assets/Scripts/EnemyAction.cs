@@ -5,7 +5,13 @@ using UnityEngine;
 public class EnemyAction : MonoBehaviour
 {
 
+    // Stats for enemy. Changes depending on the enemy type
     public float health = 10f;
+    public float chaseSpeed;
+    public float chaseRange;
+    public float attackRange;
+    public bool canChase;
+    public bool canAttack;
 
     // Animator for enemy
     public Animator animator;
@@ -73,6 +79,6 @@ public class EnemyAction : MonoBehaviour
             {
                 pack = Instantiate(ammoPack, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
             }
-        }
+    }
     //}
 }

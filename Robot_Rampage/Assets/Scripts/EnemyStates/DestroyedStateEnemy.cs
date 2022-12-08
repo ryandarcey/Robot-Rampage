@@ -5,19 +5,14 @@ using UnityEngine.AI;
 
 public class DestroyedStateEnemy : StateMachineBehaviour
 {
-    float timer;
-    Transform player;
 
-    float chaseRange = 25;
-    float attackRange = 10;
+    Transform player;
 
     /*    List<Transform> waypoints = new List<Transform>();
         NavMeshAgent agent;*/
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer = 0;
-
         player = GameObject.FindGameObjectWithTag("Player").transform;
         Vector3 playerPosition = new Vector3(player.position.x, animator.transform.position.y, player.position.z);
         animator.transform.LookAt(playerPosition);

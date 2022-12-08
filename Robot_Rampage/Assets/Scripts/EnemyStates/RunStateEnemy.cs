@@ -5,58 +5,48 @@ using UnityEngine.AI;
 
 public class RunStateEnemy : StateMachineBehaviour
 {
-
-    float timer;
-
+    // Player used to determine position
     Transform player;
 
-    float chaseRange = 25;
-    float attackRange = 10;
+    // Chase and attack ranges set based on the value in the specific enemy
+    float chaseRange;
+    float attackRange;
+
+    // Ability to attack based on the value in the specific enemy
+    bool canAttack;
+
+    // Speed of chasing based on the value in the specific enemy
+    float chaseSpeed;
 
     /*    List<Transform> waypoints = new List<Transform>();
         NavMeshAgent agent;*/
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer = 0;
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        /*        agent = animator.GetComponent<NavMeshAgent>();
+        chaseRange = animator.transform.GetComponent<EnemyAction>().chaseRange;
+        attackRange = animator.transform.GetComponent<EnemyAction>().attackRange;
 
-                GameObject points = GameObject.FindGameObjectWithTag("EnemyWaypoints");
-                foreach (Transform w in points.transform)
-                {
-                    waypoints.Add(w);
-                }
+        canAttack = animator.transform.GetComponent<EnemyAction>().canAttack;
 
-                agent.SetDestination(waypoints[Random.Range(0, waypoints.Count)].position);
-        */
+        chaseSpeed = animator.transform.GetComponent<EnemyAction>().chaseSpeed;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        /*        if (agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    agent.SetDestination(waypoints[Random.Range(0, waypoints.Count)].position);
-                }*/
-
-        /*        timer += Time.deltaTime;
-                if (timer > 5)
-                {
-                    animator.SetBool("isPatrolling", false);
-                }*/
-
+        // Find player position and properly rotate the enemy towards the player
         Vector3 playerPosition = new Vector3(player.position.x, animator.transform.position.y, player.position.z);
         animator.transform.LookAt(playerPosition);
         animator.transform.rotation *= Quaternion.Euler(0, 90, 0);
         //animator.transform.Rotate(new Vector3(0, 90f, 0));
         //animator.transform.position += animator.transform.forward * Time.deltaTime * 8f;
-        animator.transform.Translate(Vector3.left * Time.deltaTime * 8f, Space.Self);
+        animator.transform.Translate(Vector3.left * Time.deltaTime * chaseSpeed, Space.Self);
 
         float playerDistance = Vector3.Distance(player.position, animator.transform.position);
 
-        if (playerDistance < attackRange)
+        if (playerDistance < attackRange && canAttack)
         {
             animator.SetBool("isAttacking", true);
         }

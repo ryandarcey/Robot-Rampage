@@ -5,32 +5,24 @@ using UnityEngine;
 public class AttackStateEnemy : StateMachineBehaviour
 {
 
-    float timer;
+    // Player used to determine position
     Transform player;
 
-    float attackRange = 10;
+    // Attack range set based on the value in the specific enemy
+    float attackRange;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer = 0;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        attackRange = animator.transform.GetComponent<EnemyAction>().attackRange;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        /*        timer += Time.deltaTime;
-                if (timer > 5)
-                {
-                    animator.SetBool("isPatrolling", true);
-                }*/
 
-        //Vector3 playerPosition = new Vector3(player.position.x, 0, player.position.z);
-
-        //var playerPosition = player.position;
-        //playerPosition.y = 0f;
-
-
+        // Find player position and properly rotate the enemy towards the player
         Vector3 playerPosition = new Vector3(player.position.x, animator.transform.position.y, player.position.z);
         animator.transform.LookAt(playerPosition);
         animator.transform.rotation *= Quaternion.Euler(0, 90, 0);

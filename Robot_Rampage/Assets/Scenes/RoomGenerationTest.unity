@@ -1343,7 +1343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.20000005
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1351,7 +1351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.24
+      value: -3.76
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1432,7 +1432,9 @@ MonoBehaviour:
   tConnectionPrefab: {fileID: -7495841329023442115, guid: 7231f3e1d61c2c14ca79abab6d28b3f0, type: 3}
   tallRoomPrefab: {fileID: -2539705296309299186, guid: 741bb4555f6f91a4c903cb5fa73557b9, type: 3}
   downHallwayPrefab: {fileID: -8815893632699820143, guid: df72509d09fc01d4db4b2a964ec50281, type: 3}
-  robotPrefab: {fileID: 5186459816709308999, guid: 1404e3d077be42a43ba2174be529a800, type: 3}
+  robotEasyPrefab: {fileID: 3818329113558598490, guid: 51b8fc57b62d76244865e7cebf9465c6, type: 3}
+  robotMediumPrefab: {fileID: 1243355303252313515, guid: 66e1506867160f343a40f3de7795b072, type: 3}
+  robotHardPrefab: {fileID: 2837587908702567597, guid: 3cb0e4cdd7712d04783d861fa163aae3, type: 3}
   numRooms: 20
   overlapCheckRadius: 17
   maxNumHallwaysInARow: 2
@@ -2083,7 +2085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 95
   healthMax: 100
-  ammo: 15
+  ammo: 25
   ammoMax: 50
   healthText: {fileID: 682653478}
   ammoText: {fileID: 480320910}

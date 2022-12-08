@@ -712,6 +712,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  chaseRange: 25
+  attackRange: 10
+  canChase: 0
+  canAttack: 1
+  animator: {fileID: 0}
   enemyProjectile: {fileID: 5694467063962508460, guid: 494e6cc9c8d6e3848b05075e8324e36d, type: 3}
   healthPack: {fileID: 8938195931814358227, guid: fbd39f365bef48045b8980b100426742, type: 3}
   ammoPack: {fileID: 867605460628769545, guid: c4eac0422fcd40d498c65837a6f02fd4, type: 3}

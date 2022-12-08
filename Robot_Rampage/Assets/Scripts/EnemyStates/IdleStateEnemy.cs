@@ -4,17 +4,29 @@ using UnityEngine;
 
 public class IdleStateEnemy : StateMachineBehaviour
 {
-
     float timer;
+    // Player used to determine position
     Transform player;
 
-    float chaseRange = 25;
-    float attackRange = 10;
+    // Chase and attack ranges set based on the value in the specific enemy
+    float chaseRange;
+    float attackRange;
+
+    // Ability to chase or attack based on the value in the specific enemy
+    bool canChase;
+    bool canAttack;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         timer = 0;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        chaseRange = animator.transform.GetComponent<EnemyAction>().chaseRange;
+        attackRange = animator.transform.GetComponent<EnemyAction>().attackRange;
+
+        canChase = animator.transform.GetComponent<EnemyAction>().canChase;
+        canAttack = animator.transform.GetComponent<EnemyAction>().canAttack;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -28,11 +40,11 @@ public class IdleStateEnemy : StateMachineBehaviour
 
         float playerDistance = Vector3.Distance(player.position, animator.transform.position);
 
-        if (playerDistance < attackRange)
+        if (playerDistance < attackRange && canAttack)
         {
             animator.SetBool("isAttacking", true);
         }
-        else if (playerDistance < chaseRange)
+        else if (playerDistance < chaseRange && canChase)
         {
             animator.SetBool("isChasing", true);
         }

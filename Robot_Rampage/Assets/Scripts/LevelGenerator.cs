@@ -12,7 +12,10 @@ public class LevelGenerator : MonoBehaviour
     public TConnection tConnectionPrefab;
     public TallRoom tallRoomPrefab;
     public DownHallway downHallwayPrefab;
-    public GameObject robotPrefab;
+
+    public GameObject robotEasyPrefab;
+    public GameObject robotMediumPrefab;
+    public GameObject robotHardPrefab;
 
     public ArrayList roomPositions = new();
 
@@ -28,11 +31,14 @@ public class LevelGenerator : MonoBehaviour
             playerObj = GameObject.Find("Player");
         }
 
-		// TODO:
-		//  - choose different types of rooms
-		//  - set end room (idk what we want to do for this for now)
+        GameObject[] robotPrefabs = { robotEasyPrefab, robotMediumPrefab, robotHardPrefab };
 
-		SquareRoom baseRoom = Instantiate(squareRoomPrefab);
+
+        // TODO:
+        //  - choose different types of rooms
+        //  - set end room (idk what we want to do for this for now)
+
+        SquareRoom baseRoom = Instantiate(squareRoomPrefab);
         baseRoom.setDownWall(true);
         
         baseRoom.transform.SetPositionAndRotation(Vector3.zero, baseRoom.transform.rotation);
@@ -127,7 +133,8 @@ public class LevelGenerator : MonoBehaviour
 				nextRoom.setWalls(connection);
                 if (isSquare)
                 {
-                    nextRoom.SpawnEnemies(robotPrefab);
+                    int random = UnityEngine.Random.Range(0, 3);
+                    nextRoom.SpawnEnemies(robotPrefabs[random]);
                     Debug.Log("SPAWNING ENEMIES");
                 }
 			}
