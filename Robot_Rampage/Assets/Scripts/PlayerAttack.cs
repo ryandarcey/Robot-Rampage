@@ -41,7 +41,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (crosshair == null)
         {
-            crosshair = FindObjectsOfType<CanvasRenderer>()[2];
+            crosshair = FindObjectsOfType<CanvasRenderer>()[3];
         }
 
         if (shot == null)
