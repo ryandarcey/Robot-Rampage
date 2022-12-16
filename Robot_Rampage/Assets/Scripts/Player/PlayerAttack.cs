@@ -24,6 +24,9 @@ public class PlayerAttack : MonoBehaviour
     // Sound effect for shooting
     public AudioSource shot;
 
+    // Animator for player
+    public Animator animator;
+
     // Check if player can shoot an enemy
     bool canShoot;
 
@@ -34,6 +37,11 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (animator == null)
+        {
+            animator = transform.GetComponent<Animator>();
+        }
+
         if (camera == null)
         {
             camera = Camera.main;
@@ -81,6 +89,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 // Sets the next time a shot can be made and checks if a shot connected
                 nextShotTime = coolDownTime + Time.time;
+                animator.SetBool("Shoot", true);
                 ShootGun(hitInformation);
             }
         }
