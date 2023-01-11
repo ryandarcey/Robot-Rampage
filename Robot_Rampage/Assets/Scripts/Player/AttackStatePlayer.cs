@@ -16,11 +16,11 @@ public class AttackStatePlayer : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-/*        timer += Time.deltaTime;
+        timer += Time.deltaTime;
         if(timer > .3)
         {
             animator.SetBool("Shoot", false);
-        }*/
+        }
         
     }
 

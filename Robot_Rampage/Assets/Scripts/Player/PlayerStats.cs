@@ -30,7 +30,7 @@ public class PlayerStats : MonoBehaviour
     {
         if(time <= 0)
         {
-
+            endGame();
         }
         time -= Time.deltaTime;
 
