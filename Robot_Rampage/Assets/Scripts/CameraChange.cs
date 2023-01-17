@@ -21,6 +21,7 @@ public class CameraChange : MonoBehaviour
     void Start()
     {
         thirdPersonController = playerArmature.GetComponent<ThirdPersonController>();
+        CamChange();
     }
 
     // Update is called once per frame

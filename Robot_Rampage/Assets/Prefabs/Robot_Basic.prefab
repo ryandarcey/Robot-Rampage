@@ -712,6 +712,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  damage: 0
+  chaseSpeed: 0
   chaseRange: 25
   attackRange: 10
   canChase: 0
