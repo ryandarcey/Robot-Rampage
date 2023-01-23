@@ -10,6 +10,7 @@ namespace StarterAssets
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
+		public float horizontalLook;
 		public bool jump;
 		public bool sprint;
 
@@ -18,7 +19,7 @@ namespace StarterAssets
 
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
-		public bool cursorInputForLook = true;
+		public bool cursorInputForLook = false;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
@@ -32,6 +33,8 @@ namespace StarterAssets
 			{
 				LookInput(value.Get<Vector2>());
 			}
+
+
 		}
 
 		public void OnJump(InputValue value)

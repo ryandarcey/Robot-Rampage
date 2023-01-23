@@ -11,7 +11,7 @@ public class CameraChange : MonoBehaviour
     public GameObject firstPersonCamera;    // 0
     public GameObject thirdPersonCamera;    // 1
     public GameObject overheadCamera;       // 2
-    public int cameraMode = 1;
+    public int cameraMode;
 
     // Player Mesh for Third Person and Gun for First Person
     public GameObject playerModel;
@@ -30,17 +30,35 @@ public class CameraChange : MonoBehaviour
         if(Input.GetButtonDown("Camera"))
         { 
             cameraMode = (cameraMode + 1) % 3;
-			Debug.Log("camera button down, camera mode  " + cameraMode);
+			//Debug.Log("camera button down, camera mode  " + cameraMode);
 			StartCoroutine(CamChange());
 		}
     }
 
-    IEnumerator CamChange()
+    private IEnumerator CamChange()
     {
         yield return new WaitForSeconds(0.01f);
 
         if(cameraMode == 0)
         {
+            SetCameraMode("firstPerson");
+        }
+        else if (cameraMode == 1)
+        {
+            SetCameraMode("thirdPerson");
+		}
+        else if (cameraMode == 2)
+        {
+            SetCameraMode("overhead");
+		}
+    }
+
+    public void SetCameraMode(string cameraModeStr)
+    {
+        //Debug.Log(cameraModeStr);
+        if(cameraModeStr == "firstPerson")
+        {
+            cameraMode = 0;
             firstPersonCamera.SetActive(true);
             thirdPersonCamera.SetActive(false);
             overheadCamera.SetActive(false);
@@ -50,30 +68,39 @@ public class CameraChange : MonoBehaviour
             //playerRenderer.enabled = false;
             //firstPersonGun.SetActive(true);
             thirdPersonController.LockCameraPosition = false;
+            return;
         }
-        else if (cameraMode == 1)
+        if(cameraModeStr == "overhead")
         {
+            cameraMode = 2;
             firstPersonCamera.SetActive(false);
-            thirdPersonCamera.SetActive(true);
-			overheadCamera.SetActive(false);
+            thirdPersonCamera.SetActive(false);
+            overheadCamera.SetActive(true);
 
-			//playerModel.SetActive(true);
-			playerModel.GetComponent<SkinnedMeshRenderer>().enabled = true;
-			//playerRenderer.enabled = true;
-			//firstPersonGun.SetActive(false);
-			thirdPersonController.LockCameraPosition = false;
-		}
-        else if (cameraMode == 2)
+            //playerModel.SetActive(true);
+            playerModel.GetComponent<SkinnedMeshRenderer>().enabled = true;
+            //playerRenderer.enabled = true;
+            //firstPersonGun.SetActive(false);
+            thirdPersonController.LockCameraPosition = true;
+            return;
+        }
+        
+        if(cameraModeStr != "thirdPerson")
         {
-			firstPersonCamera.SetActive(false);
-			thirdPersonCamera.SetActive(false);
-			overheadCamera.SetActive(true);
+            Debug.Log("Invalid camera mode passed to CameraChange.SetCameraMode()");
+        }
 
-			//playerModel.SetActive(true);
-			playerModel.GetComponent<SkinnedMeshRenderer>().enabled = true;
-			//playerRenderer.enabled = true;
-			//firstPersonGun.SetActive(false);
-			thirdPersonController.LockCameraPosition = true;
-		}
+        // defaults to third person
+        // if "thirdPerson" is passed, or if an invalid string is passed
+        cameraMode = 1;
+        firstPersonCamera.SetActive(false);
+        thirdPersonCamera.SetActive(true);
+        overheadCamera.SetActive(false);
+
+        //playerModel.SetActive(true);
+        playerModel.GetComponent<SkinnedMeshRenderer>().enabled = true;
+        //playerRenderer.enabled = true;
+        //firstPersonGun.SetActive(false);
+        thirdPersonController.LockCameraPosition = false;
     }
 }
