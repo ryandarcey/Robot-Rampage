@@ -77,6 +77,7 @@ namespace StarterAssets
 
         // cinemachine
         private float _cinemachineTargetYaw;
+        float rotationY;    // starts same as _cmTargetYaw, but needed for overhead view
         private float _cinemachineTargetPitch;
 
         // player
@@ -135,6 +136,7 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+            rotationY = _cinemachineTargetYaw;
             
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
@@ -207,12 +209,19 @@ namespace StarterAssets
                 _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * cameraRotationSpeed;
                 _cinemachineTargetPitch += -1 * _input.look.y * deltaTimeMultiplier * cameraRotationSpeed;
                 //  --> input from up/down arrow keys seems to be inverted
-            }
-            //_cinemachineTargetYaw = transform.rotation.eulerAngles.y;
 
+                if (rotationY != _cinemachineTargetYaw)
+                {
+                    rotationY = _cinemachineTargetYaw;
+                }
+            }
+
+            if (LockCameraPosition)
+            {
+                rotationY += (_input.look.x * Time.deltaTime * cameraRotationSpeed);
+            }
             // R.R. --> locks player model rotation to direction camera is facing
-            transform.rotation = Quaternion.Euler(0.0f, _cinemachineTargetYaw, 0.0f);
-            //_cinemachineTargetPitch += 0;
+            transform.rotation = Quaternion.Euler(0.0f, rotationY, 0.0f);
 
             // clamp our rotations so our values are limited 360 degrees
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
