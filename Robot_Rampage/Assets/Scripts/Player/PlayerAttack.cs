@@ -135,7 +135,7 @@ public class PlayerAttack : MonoBehaviour
 		// Shoots the gun if the cooldown time is over
 		if (nextShotTime < Time.time)
 		{
-			if (Input.GetButtonDown("Fire1"))
+			if (Input.GetButtonDown("Fire3"))   // currently left alt
 			{
 				// Sets the next time a shot can be made and checks if a shot connected
 				nextShotTime = coolDownTime + Time.time;

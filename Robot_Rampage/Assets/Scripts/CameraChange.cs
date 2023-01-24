@@ -55,6 +55,11 @@ public class CameraChange : MonoBehaviour
 
     public void SetCameraMode(string cameraModeStr)
     {
+        if(thirdPersonController == null)
+        {
+            thirdPersonController = playerArmature.GetComponent<ThirdPersonController>();
+        }
+        
         //Debug.Log(cameraModeStr);
         if(cameraModeStr == "firstPerson")
         {
