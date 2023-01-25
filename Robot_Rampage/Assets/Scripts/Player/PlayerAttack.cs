@@ -37,8 +37,6 @@ public class PlayerAttack : MonoBehaviour
     float coolDownTime = .5f;
     float nextShotTime = 0f;
 
-
-
     private ArrayList enemyList;
     public GameObject playerModel;
     public GameObject playerCameraRoot;
@@ -76,40 +74,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-         * OLD WAY OF SHOOTING (raycasting from center of camera)
-         * 
-        
-        // Information about the item hit by the Raycast
-        RaycastHit hitInformation;
-
-        // Checks if the raycast from player collides with an enemy, then allows them to shoot if so and changes the crosshair color
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hitInformation, range, enemyLayer)) 
-        {
-            canShoot = true;
-            crosshair.SetColor(Color.red);
-        }
-        else
-        {
-            canShoot = false;
-            crosshair.SetColor(Color.white);
-        }
-
-        // Shoots the gun if the cooldown time is over
-        if (nextShotTime < Time.time)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                // Sets the next time a shot can be made and checks if a shot connected
-                nextShotTime = coolDownTime + Time.time;
-                animator.SetBool("Shoot", true);
-                ShootGun(hitInformation);
-            }
-        }
-        */
-
-        
-		//Debug.Log(playerModel.transform.position);
+		// DEBUG RAYS 
 		Debug.DrawRay(playerCameraRoot.transform.position, range*playerModel.transform.forward, Color.cyan, Time.deltaTime);
         Vector3 forward = playerModel.transform.forward;
 		Vector3 DEBUGminus = Vector3.Normalize( Quaternion.Euler(0, -horizontalRange/2, 0) * forward );
@@ -137,42 +102,20 @@ public class PlayerAttack : MonoBehaviour
 		{
 			if (Input.GetButtonDown("Fire3"))   // currently left alt
 			{
-				// Sets the next time a shot can be made and checks if a shot connected
-				nextShotTime = coolDownTime + Time.time;
-				animator.SetBool("Shoot", true);
                 if (canShoot)
                 {
+                    // Sets the next time a shot can be made and checks if a shot connected
+                    nextShotTime = coolDownTime + Time.time;
+                    animator.SetBool("Shoot", true);
                     ShootGun();
                 }
 			}
 		}
 	}
 
-    // OLD METHOD
-    void ShootGun(RaycastHit hitInformation)
-    {
-        float newAmmo = stats.loseAmmo();
-        if (newAmmo > 0)
-        {
-            // Play sound
-            shot.Play();
-
-            // Only deal damage if the player is shooting at an enemy. Calls specific script within enemy that contains health
-            if (canShoot)
-            {
-                EnemyAction enemy = hitInformation.transform.GetComponent<EnemyAction>();
-                if (enemy != null)
-                {
-                    enemy.isHit(damage);
-                }
-            }
-        }
-
-    }
-
     void ShootGun()
     {
-        GameObject enemy = (GameObject)enemyList[0];
+        GameObject enemy = GetEnemyWithSmallestXZAngle();   // get enemy that is closest to direction player is facing
         EnemyAction enemyAction = enemy.GetComponent<EnemyAction>();
 
 		float newAmmo = stats.loseAmmo();
@@ -259,7 +202,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void FindEnemiesThatCanBeShot()
     {
-		//Debug.Log("enemyList.Count =>  " + enemyList.Count);
+        // set enemyList to only enemies within range of player
 		ArrayList updatedEnemyList = new ArrayList();
         for(int i = 0; i < enemyList.Count; i++)
         {
@@ -271,9 +214,10 @@ public class PlayerAttack : MonoBehaviour
         }
 
         enemyList = updatedEnemyList;
-        //Debug.Log("enemyList.Count =>  " + enemyList.Count);
 
-		updatedEnemyList = new ArrayList();
+        // set enemyList to only enemies within 
+        // horizontal angle of the direction the player is facing
+        updatedEnemyList = new ArrayList();
 		for (int i = 0; i < enemyList.Count; i++)
 		{
 			GameObject enemy = (GameObject)enemyList[i];
@@ -284,8 +228,8 @@ public class PlayerAttack : MonoBehaviour
 		}
 
 		enemyList = updatedEnemyList;
-		//Debug.Log("enemyList.Count =>  " + enemyList.Count);
 
+        // set enemy list to only enemies the player has line of sight to
 		updatedEnemyList = new ArrayList();
 		for (int i = 0; i < enemyList.Count; i++)
 		{
@@ -297,7 +241,25 @@ public class PlayerAttack : MonoBehaviour
 		}
 
 		enemyList = updatedEnemyList;
-		//Debug.Log("enemyList.Count =>  " + enemyList.Count);
 	}
+
+    private GameObject GetEnemyWithSmallestXZAngle()
+    {
+        GameObject enemy = (GameObject)enemyList[0];
+        float xzAngle = GetXZAngleToPlayer(enemy);
+
+        for (int i = 0; i < enemyList.Count; i++)
+        {
+            GameObject e = (GameObject)enemyList[i];
+            float xzA = GetXZAngleToPlayer(e);
+            if (xzA < xzAngle)
+            {
+                xzAngle = xzA;
+                enemy = e;
+            }
+        }
+
+        return enemy;
+    }
 
 }
