@@ -8,6 +8,8 @@ public class RunStateEnemy : StateMachineBehaviour
     // Player used to determine position
     Transform player;
 
+    GameObject settingsManager;
+
     // Chase and attack ranges set based on the value in the specific enemy
     float chaseRange;
     float attackRange;
@@ -17,6 +19,7 @@ public class RunStateEnemy : StateMachineBehaviour
 
     // Speed of chasing based on the value in the specific enemy
     float chaseSpeed;
+    float chaseSpeedMultiplier = 1;
 
     /*    List<Transform> waypoints = new List<Transform>();
         NavMeshAgent agent;*/
@@ -24,6 +27,7 @@ public class RunStateEnemy : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        settingsManager = GameObject.FindGameObjectWithTag("SettingsManager");
 
         chaseRange = animator.transform.GetComponent<EnemyAction>().chaseRange;
         attackRange = animator.transform.GetComponent<EnemyAction>().attackRange;
@@ -31,6 +35,8 @@ public class RunStateEnemy : StateMachineBehaviour
         canAttack = animator.transform.GetComponent<EnemyAction>().canAttack;
 
         chaseSpeed = animator.transform.GetComponent<EnemyAction>().chaseSpeed;
+        chaseSpeedMultiplier = settingsManager.GetComponent<SettingsManager>().getEnemyMovementSpeed();
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -42,7 +48,7 @@ public class RunStateEnemy : StateMachineBehaviour
         animator.transform.rotation *= Quaternion.Euler(0, 90, 0);
         //animator.transform.Rotate(new Vector3(0, 90f, 0));
         //animator.transform.position += animator.transform.forward * Time.deltaTime * 8f;
-        animator.transform.Translate(Vector3.left * Time.deltaTime * chaseSpeed, Space.Self);
+        animator.transform.Translate(Vector3.left * Time.deltaTime * (chaseSpeed * chaseSpeedMultiplier), Space.Self);
 
         float playerDistance = Vector3.Distance(player.position, animator.transform.position);
 

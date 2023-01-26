@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RoomConnection
   - CinemachineTarget
+  - SettingsManager
   layers:
   - Default
   - TransparentFX

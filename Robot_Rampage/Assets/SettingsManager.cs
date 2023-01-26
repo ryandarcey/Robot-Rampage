@@ -9,6 +9,9 @@ using System;
 public class SettingsManager : MonoBehaviour
 {
     public CameraChange cameraChange;
+    public GameObject playerArmature;
+
+    float enemyMovementSpeed = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +39,15 @@ public class SettingsManager : MonoBehaviour
         JSON json = JSON.ParseString(fileContents);
 
         // call methods to set parameters
+
+        // Change the camera type between "firstPerson", "thirdPerson", or "overhead"
         cameraChange.SetCameraMode(json.GetString("cameraMode"));
+        // Change player attack accuracy by adjusting the horizontal range
+        playerArmature.GetComponent<PlayerAttack>().horizontalRange = json.GetFloat("horizontalRange");
+
+        // Change enemy movement speed given the multiplier provided
+        enemyMovementSpeed = json.GetFloat("enemyMovementSpeed");
+
         // TODO
     }
 
@@ -44,5 +55,10 @@ public class SettingsManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public float getEnemyMovementSpeed()
+    {
+        return enemyMovementSpeed;
     }
 }

@@ -1,0 +1,5 @@
+{
+"cameraMode" : "firstPerson",
+"horizontalRange" : 30.0,
+"enemyMovementSpeed" : 2.0
+}
