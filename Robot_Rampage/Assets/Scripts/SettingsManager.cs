@@ -49,6 +49,8 @@ public class SettingsManager : MonoBehaviour
         enemyMovementSpeed = json.GetFloat("enemyMovementSpeed");
 
         // TODO
+
+        Application.targetFrameRate = json.GetInt("targetFPS");
     }
 
     // Update is called once per frame
