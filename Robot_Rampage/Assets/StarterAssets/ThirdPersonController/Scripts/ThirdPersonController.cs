@@ -192,9 +192,10 @@ namespace StarterAssets
             }
         }
 
-        private float cameraRotationSpeed = 100;
+        private readonly float cameraRotationSpeed = 1;
+		private readonly float overheadRotationMultiplier = 2;
 
-        private void CameraRotation()
+		private void CameraRotation()
         {
             // UNBOUND MOUSE INPUT FROM CAMERA MOVEMENT FOR R.R.
 
@@ -202,12 +203,12 @@ namespace StarterAssets
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
                 //Don't multiply mouse input by Time.deltaTime;
-                //float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                float deltaTimeMultiplier = Time.deltaTime;
+                //float deltaTimeMultiplier = Time.deltaTime;
 
                 _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * cameraRotationSpeed;
-                _cinemachineTargetPitch += -1 * _input.look.y * deltaTimeMultiplier * cameraRotationSpeed;
+                //_cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * cameraRotationSpeed;
                 //  --> input from up/down arrow keys seems to be inverted
 
                 if (rotationY != _cinemachineTargetYaw)
@@ -218,7 +219,7 @@ namespace StarterAssets
 
             if (LockCameraPosition)
             {
-                rotationY += (_input.look.x * Time.deltaTime * cameraRotationSpeed);
+                rotationY += (_input.look.x * (IsCurrentDeviceMouse ? 1.0f : Time.deltaTime) * cameraRotationSpeed * overheadRotationMultiplier);
             }
             // R.R. --> locks player model rotation to direction camera is facing
             transform.rotation = Quaternion.Euler(0.0f, rotationY, 0.0f);
