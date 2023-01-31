@@ -1,5 +1,10 @@
 {
-"cameraMode" : "firstPerson",
-"horizontalRange" : 30.0,
-"enemyMovementSpeed" : 2.0
+"cameraMode" : "thirdPerson",
+"horizontalRange" : 20.0,
+"enemyMovementSpeed" : 1.0,
+"enemyProjectileSpeed" : 40.0,
+"targetFPS" : 60,
+"shaderResolution" : 512,
+"shaderPixelWidth" : 4,
+"shaderPixelHeight" : 4
 }

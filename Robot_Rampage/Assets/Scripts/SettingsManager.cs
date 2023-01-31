@@ -29,7 +29,8 @@ public class SettingsManager : MonoBehaviour
         string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\testing_game_settings.txt";
         if (!File.Exists(path))
         {
-            Debug.Log("file at  " + path + "  does not exist");
+            //Debug.Log("file at  " + path + "  does not exist");
+            path = @".\testing_game_settings.txt";
         }
 
         // get JSON object as a string
