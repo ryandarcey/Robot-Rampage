@@ -10,6 +10,8 @@ public class SettingsManager : MonoBehaviour
 {
     public CameraChange cameraChange;
     public GameObject playerArmature;
+    public GameObject roundManagerGO;
+    private RoundManager roundManager;
 
     float enemyMovementSpeed = 1;
 
@@ -24,6 +26,10 @@ public class SettingsManager : MonoBehaviour
             Debug.Log("CAMERA CHANGER IS NULL");
         }
         // TODO
+        if (roundManager == null)
+        {
+            roundManager = roundManagerGO.GetComponent<RoundManager>();
+        }
 
         // grab settings .txt file as string
         string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\testing_game_settings.txt";
@@ -52,6 +58,8 @@ public class SettingsManager : MonoBehaviour
         // TODO
 
         Application.targetFrameRate = json.GetInt("targetFPS");
+
+        roundManager.roundNumber = json.GetInt("roundNumber");
     }
 
     // Update is called once per frame

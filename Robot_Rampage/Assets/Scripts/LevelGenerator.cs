@@ -58,13 +58,13 @@ public class LevelGenerator : MonoBehaviour
 
             if(i == numRooms-1)
             {
-                nextRoom = nextRoom = Instantiate(squareRoomPrefab);
+                nextRoom = Instantiate(squareRoomPrefab);
 			}
             // simple logic to prevent more than 3 hallways from being placed in a row,
             //  "hallway" currently being a hallway, tConnection, or downHallway
             else if (currentNumHallways < maxNumHallwaysInARow)
             {
-                int r = UnityEngine.Random.Range(0, 5);
+                int r = UnityEngine.Random.Range(0, 4);
                 if (r == 0)
                 {
                     nextRoom = Instantiate(squareRoomPrefab);
@@ -80,10 +80,10 @@ public class LevelGenerator : MonoBehaviour
                     nextRoom = Instantiate(tConnectionPrefab);
 					currentNumHallways++;
 				}
-                else if (r == 3)
+                /*else if (r == 3)
                 {
                     nextRoom = Instantiate(tallRoomPrefab);
-                }
+                }*/
                 else
                 {
                     nextRoom = Instantiate(downHallwayPrefab);
@@ -100,7 +100,8 @@ public class LevelGenerator : MonoBehaviour
 				}
 				else
 				{
-					nextRoom = Instantiate(tallRoomPrefab);
+					//nextRoom = Instantiate(tallRoomPrefab);
+					nextRoom = Instantiate(squareRoomPrefab);
 				}
 			}
 			

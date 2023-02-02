@@ -130,6 +130,11 @@ public class PlayerAttack : MonoBehaviour
 				if (enemyAction != null)
 				{
 					enemyAction.isHit(damage);
+                    stats.ShotGun();
+                    stats.ShotHit();
+                    // TODO: tell player stats / round manager if shot that was fired hit enemy
+                    //          --> may have enemy itself tell RM this
+                    //          (currently not necessary -- all shots fired hit enemy)
 				}
 			}
 		}

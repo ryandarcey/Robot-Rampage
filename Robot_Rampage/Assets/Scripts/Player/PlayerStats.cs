@@ -12,30 +12,24 @@ public class PlayerStats : MonoBehaviour
     // Starting and max ammo for player
     public float ammo = 20f;
     public float ammoMax = 50f;
-    // Starting time for player
-    public float time = 180f;
-    double timeRounded;
+    
 
     // UI elements for health and ammo
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI ammoText;
-    public TextMeshProUGUI timeText;
+
+    public GameObject roundManagerGO;
+    private RoundManager roundManager;
 
     public void Start()
     {
+        roundManager = roundManagerGO.GetComponent<RoundManager>();
         updateUI();
     }
 
     private void Update()
     {
-        if(time <= 0)
-        {
-            endGame();
-        }
-        time -= Time.deltaTime;
-
-        timeRounded = System.Math.Round(time, 2);
-        timeText.text = "Time: " + timeRounded.ToString();
+        
     }
 
     // Update is called once per frame
@@ -50,8 +44,8 @@ public class PlayerStats : MonoBehaviour
 
         if (health <= 0)
         {
-            endGame();
-        }
+			roundManager.EndRound();
+		}
     }
 
     public float loseAmmo()
@@ -104,8 +98,13 @@ public class PlayerStats : MonoBehaviour
         ammoText.text = "Ammo: " + ammo + " / " + ammoMax.ToString();
     }
 
-    void endGame()
+    public void ShotGun()
     {
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        roundManager.ShotGun();
+    }
+
+    public void ShotHit()
+    {
+        roundManager.ShotHit();
     }
 }
