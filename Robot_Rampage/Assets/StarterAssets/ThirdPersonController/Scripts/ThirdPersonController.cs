@@ -279,11 +279,14 @@ namespace StarterAssets
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _mainCamera.transform.eulerAngles.y;
-                if(LockCameraPosition)
+                
+                // potential overhead camera movement change
+                //  --> makes player move relative to direction the player model is facing (instead of the camera direction)
+                /*if(LockCameraPosition)
                 {
                     _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
 								  transform.eulerAngles.y;
-				}
+				}*/
 
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
