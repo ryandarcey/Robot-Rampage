@@ -279,11 +279,16 @@ namespace StarterAssets
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _mainCamera.transform.eulerAngles.y;
+                if(LockCameraPosition)
+                {
+                    _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
+								  transform.eulerAngles.y;
+				}
+
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                //  --> DON'T WANT THIS FOR R.R.
                 //transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
             
