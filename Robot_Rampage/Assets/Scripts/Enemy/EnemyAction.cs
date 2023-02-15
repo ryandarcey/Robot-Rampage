@@ -14,6 +14,8 @@ public class EnemyAction : MonoBehaviour
     public bool canChase;
     public bool canAttack;
 
+    public ParticleSystem sparks;
+
     // Animator for enemy
     public Animator animator;
 
@@ -55,6 +57,7 @@ public class EnemyAction : MonoBehaviour
     public void isHit(float damage)
     {
         health -= damage;
+        sparks.Play();
         if (health <= 0f && !isDestroyed)
         {
             isDestroyed = true;
