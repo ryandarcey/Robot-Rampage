@@ -1,5 +1,5 @@
 {
-"cameraMode" : "thirdPerson",
+"cameraMode" : "firstPerson",
 "horizontalRange" : 20.0,
 "enemyMovementSpeed" : 1.0,
 "enemyProjectileSpeed" : 40.0,

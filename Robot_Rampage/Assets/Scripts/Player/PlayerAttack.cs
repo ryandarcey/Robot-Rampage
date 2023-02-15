@@ -121,8 +121,9 @@ public class PlayerAttack : MonoBehaviour
 		float newAmmo = stats.loseAmmo();
 		if (newAmmo > 0)
 		{
-			// Play sound
-			shot.Play();
+            // Play sound
+            //shot.Play();
+            FindObjectOfType<AudioManager>().PlaySound("player attack");
 
 			// Only deal damage if the player is shooting at an enemy. Calls specific script within enemy that contains health
 			if (canShoot)

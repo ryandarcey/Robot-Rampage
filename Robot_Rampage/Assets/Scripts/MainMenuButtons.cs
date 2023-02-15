@@ -10,13 +10,21 @@ public class MainMenuButtons : MonoBehaviour
         // Set cursor to be visible and unlocked
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-    }
+
+		//FindObjectOfType<AudioManager>().PlayMusic("menu music");
+	}
 
     public void Play()
     {
         Debug.Log("Play Game");
+		
+        Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		
         SceneManager.LoadScene("RoomGenerationTest", LoadSceneMode.Single);
-    }
+		
+        //FindObjectOfType<AudioManager>().ChangeLevelMusic();
+	}
 
     public void Quit()
     {

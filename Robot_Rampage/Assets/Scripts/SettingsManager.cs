@@ -44,7 +44,7 @@ public class SettingsManager : MonoBehaviour
 
         // use parser to turn into JSON object
         JSON json = JSON.ParseString(fileContents);
-
+        
         // call methods to set parameters
 
         // Change the camera type between "firstPerson", "thirdPerson", or "overhead"
@@ -60,6 +60,8 @@ public class SettingsManager : MonoBehaviour
         Application.targetFrameRate = json.GetInt("targetFPS");
 
         roundManager.roundNumber = json.GetInt("roundNumber");
+
+        // to change shader, should just be material.setFloat or something?
     }
 
     // Update is called once per frame
