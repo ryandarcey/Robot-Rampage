@@ -65,12 +65,13 @@ public class RoundManager : MonoBehaviour
 
 	public void ShotHit()
 	{
-		shotsHit++;
+        FindObjectOfType<LogManager>().writeLog("Shot hit");
+        shotsHit++;
 	}
 
 	public void EndRound()
 	{
-		string now = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now);
+        /*string now = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now);
 		string filename = now + "_round-" + roundNumber.ToString();
 
 		string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RobotRampage_RoundLogs\" + filename + ".txt";
@@ -91,10 +92,11 @@ public class RoundManager : MonoBehaviour
 			sw.WriteLine("shots fired:	" + shotsFired.ToString());
 			sw.WriteLine("shots hit:	" + shotsHit.ToString());
 			sw.WriteLine("Done! ");
-		}
+		}*/
 
+        FindObjectOfType<LogManager>().writeLog("end round");
 
-		SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
 	}
 }
 

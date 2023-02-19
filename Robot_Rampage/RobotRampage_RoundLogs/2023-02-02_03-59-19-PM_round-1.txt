@@ -1,6 +1,0 @@
-New file created: 2/2/2023 3:59:19 PM
-Author: Robot Rampage
-Time left in round:	126.65
-shots fired:	31
-shots hit:	31
-Done! 

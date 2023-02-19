@@ -15,8 +15,48 @@ public class SettingsManager : MonoBehaviour
 
     float enemyMovementSpeed = 1;
 
+    public static SettingsManager instance;
+
+    void Awake()
+    {
+        // singleton SettingsManager
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            // already have SettingsManager in scene, don't need another one
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);  // SettingsManager persists between scenes
+    }
+
     // Start is called before the first frame update
     void Start()
+    {
+        getSettings();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (Input.GetKeyDown("p"))
+        {
+            getSettings();
+        }
+
+    }
+
+    public float getEnemyMovementSpeed()
+    {
+        return enemyMovementSpeed;
+    }
+
+    void getSettings()
     {
         // get relevant game objects
         if (cameraChange == null)
@@ -60,16 +100,7 @@ public class SettingsManager : MonoBehaviour
         Application.targetFrameRate = json.GetInt("targetFPS");
 
         roundManager.roundNumber = json.GetInt("roundNumber");
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public float getEnemyMovementSpeed()
-    {
-        return enemyMovementSpeed;
+        // to change shader, should just be material.setFloat or something?
     }
 }
