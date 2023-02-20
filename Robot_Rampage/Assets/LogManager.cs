@@ -8,12 +8,10 @@ using UnityEngine;
 
 public class LogManager : MonoBehaviour
 {
-
     string path;
 
-    StreamWriter sw;
-
     public int roundNumber = 1;
+    DateTime startTime;
 
     public static LogManager instance;
 
@@ -37,20 +35,30 @@ public class LogManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string now = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now);
-        string filename = now + "_round-" + roundNumber.ToString();
+        string now = string.Format("{0:yyyy-MM-dd_hh-mm-ss-fff-tt}", DateTime.Now);
+        startTime = DateTime.Now;
 
-        path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RobotRampage_RoundLogs\" + filename + ".txt";
+        string filename = "session_" + now;
+
+        path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RobotRampage_RoundLogs\" + filename + ".csv";
 
         if (!File.Exists(path))
         {
             //Debug.Log("file at  " + path + "  does not exist");
-            path = @".\RobotRampage_RoundLogs\" + filename + ".txt";
+            path = @".\RobotRampage_RoundLogs\" + filename + ".csv";
         }
 
-        sw = File.CreateText(path);
+		StreamWriter sw = File.CreateText(path);    // creates file
+        sw.Close();
 
-        Debug.Log("LogManager Start() called");
+		using (StreamWriter stream = File.AppendText(path))
+		{
+            string columnHeaders = "seconds_since_start,round_number,action";  // TODO: figure out what columns we want
+            stream.WriteLine(columnHeaders);
+            Debug.Log(columnHeaders);
+		}
+
+		Debug.Log("LogManager Start() called");
     }
 
     // Update is called once per frame
@@ -61,6 +69,17 @@ public class LogManager : MonoBehaviour
 
     public void writeLog(string log)
     {
-        File.AppendAllText(path, log);
+		// string builder? / construct string
+		//string now = string.Format("{0:hh:mm:ss.fff}", DateTime.Now);   // time of day
+        TimeSpan timeSinceStart = DateTime.Now - startTime;
+        string timeSinceStartString = timeSinceStart.TotalSeconds.ToString();
+
+        string line = timeSinceStartString + "," + roundNumber.ToString() + "," + log;
+
+		// write new line to file
+		using (StreamWriter stream = File.AppendText(path))
+        {
+            stream.WriteLine(line);
+        }
     }
 }

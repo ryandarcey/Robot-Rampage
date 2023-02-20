@@ -43,12 +43,10 @@ public class SettingsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKeyDown("p"))
+        if (Input.GetKeyDown("l"))
         {
             getSettings();
         }
-
     }
 
     public float getEnemyMovementSpeed()
@@ -100,7 +98,8 @@ public class SettingsManager : MonoBehaviour
         Application.targetFrameRate = json.GetInt("targetFPS");
 
         roundManager.roundNumber = json.GetInt("roundNumber");
+        FindObjectOfType<LogManager>().roundNumber = json.GetInt("roundNumber");
 
-        // to change shader, should just be material.setFloat or something?
-    }
+		// to change shader, should just be material.setFloat or something?
+	}
 }
