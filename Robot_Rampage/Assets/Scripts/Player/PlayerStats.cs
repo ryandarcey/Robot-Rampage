@@ -48,7 +48,7 @@ public class PlayerStats : MonoBehaviour
 		}
     }
 
-    public float loseAmmo()
+    public void loseAmmo()
     {
         if (ammo > 0)
         {
@@ -56,12 +56,6 @@ public class PlayerStats : MonoBehaviour
             Debug.Log("Ammo: " + ammo);
 
             updateUI();
-
-            return ammo;
-        }
-        else
-        {
-            return ammo;
         }
     }
 
