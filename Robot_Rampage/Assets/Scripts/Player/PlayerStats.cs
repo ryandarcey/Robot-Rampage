@@ -36,6 +36,8 @@ public class PlayerStats : MonoBehaviour
     public void isHit(float damage)
     {
 
+        FindObjectOfType<LogManager>().writeLog("Player hit");
+
         health -= damage;
 
         Debug.Log("Current health: " + health);
@@ -44,7 +46,8 @@ public class PlayerStats : MonoBehaviour
 
         if (health <= 0)
         {
-			roundManager.EndRound();
+            FindObjectOfType<LogManager>().writeLog("Player dead");
+            roundManager.EndRound();
 		}
     }
 

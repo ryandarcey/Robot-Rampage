@@ -57,6 +57,7 @@ public class EnemyAction : MonoBehaviour
         health -= damage;
         if (health <= 0f && !isDestroyed)
         {
+            FindObjectOfType<LogManager>().writeLog("Enemy destroyed");
             isDestroyed = true;
             dropPack();
             animator.SetTrigger("destroyed");
