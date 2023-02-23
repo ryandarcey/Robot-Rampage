@@ -3313,6 +3313,14 @@ PrefabInstance:
       propertyPath: TIME_TO_FADE
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7974956593050105823, guid: 84642fc7e1d6e5f4484a869de265e361, type: 3}
+      propertyPath: sounds.Array.data[1].volume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974956593050105823, guid: 84642fc7e1d6e5f4484a869de265e361, type: 3}
+      propertyPath: sounds.Array.data[7].volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 9173701053731371135, guid: 84642fc7e1d6e5f4484a869de265e361, type: 3}
       propertyPath: m_RootOrder
       value: 1

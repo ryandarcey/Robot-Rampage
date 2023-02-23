@@ -38,6 +38,9 @@ public class PlayerStats : MonoBehaviour
 
         health -= damage;
 
+        // Play sound
+        FindObjectOfType<AudioManager>().PlaySound("player damage");
+
         Debug.Log("Current health: " + health);
 
         updateUI();
@@ -87,6 +90,9 @@ public class PlayerStats : MonoBehaviour
             }
             Debug.Log("Collected Ammo, Ammo: " + ammo);
         }
+
+        // Play sound
+        FindObjectOfType<AudioManager>().PlaySound("player pickup");
 
         updateUI();
 

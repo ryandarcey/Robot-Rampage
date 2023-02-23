@@ -341,6 +341,9 @@ namespace StarterAssets
                     {
                         _animator.SetBool(_animIDJump, true);
                     }
+
+                    // Play sound
+                    FindObjectOfType<AudioManager>().PlaySound("player jump");
                 }
 
                 // jump timeout
@@ -418,6 +421,7 @@ namespace StarterAssets
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
+
         }
     }
 }

@@ -37,6 +37,8 @@ public class RunStateEnemy : StateMachineBehaviour
         chaseSpeed = animator.transform.GetComponent<EnemyAction>().chaseSpeed;
         chaseSpeedMultiplier = settingsManager.GetComponent<SettingsManager>().getEnemyMovementSpeed();
 
+        // Play looping walk sound
+        FindObjectOfType<AudioManager>().PlaySound("enemy run");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -65,7 +67,10 @@ public class RunStateEnemy : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-/*        agent.SetDestination(agent.transform.position);*/
+        /*        agent.SetDestination(agent.transform.position);*/
+
+        // Stop looping walk sound
+        FindObjectOfType<AudioManager>().StopSound("enemy run");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

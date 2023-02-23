@@ -121,6 +121,7 @@ public class PlayerAttack : MonoBehaviour
 		float newAmmo = stats.loseAmmo();
 		if (newAmmo > 0)
 		{
+
             // Play sound
             //shot.Play();
             FindObjectOfType<AudioManager>().PlaySound("player attack");

@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,17 +51,31 @@ public class EnemyAction : MonoBehaviour
         // Push object forward towards player
         shot.AddRelativeForce(transform.forward * 40f, ForceMode.Impulse);
         shot.AddForce(transform.up * 1f, ForceMode.Impulse);
+
+        // Play sound
+        FindObjectOfType<AudioManager>().PlaySound("enemy attack");
     }
 
     public void isHit(float damage)
     {
         health -= damage;
+
         if (health <= 0f && !isDestroyed)
         {
             isDestroyed = true;
+
+            // Play random death sound
+            int num = Random.Range(1, 4);
+            FindObjectOfType<AudioManager>().PlaySound("enemy death " + num.ToString());
+
             dropPack();
             animator.SetTrigger("destroyed");
             //GetComponentInChildren<BoxCollider>().enabled = false;
+        }
+        else
+        {
+            // Play sound
+            FindObjectOfType<AudioManager>().PlaySound("enemy damage");
         }
     }
  
