@@ -10,6 +10,9 @@ public class PlayerAttack : MonoBehaviour
     // Used to update ammo
     PlayerStats stats;
 
+    // Particle system
+    public ParticleSystem muzzleFlash;
+
     // Damage and range for the current gun
     public float damage = 5f;
     public float range = 30f;
@@ -123,6 +126,7 @@ public class PlayerAttack : MonoBehaviour
 		{
             // Play sound
             //shot.Play();
+            muzzleFlash.Play();
             FindObjectOfType<AudioManager>().PlaySound("player attack");
 
 			// Only deal damage if the player is shooting at an enemy. Calls specific script within enemy that contains health

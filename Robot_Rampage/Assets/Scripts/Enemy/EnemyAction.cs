@@ -14,6 +14,7 @@ public class EnemyAction : MonoBehaviour
     public bool canChase;
     public bool canAttack;
 
+    // Particle system
     public ParticleSystem sparks;
 
     // Animator for enemy
