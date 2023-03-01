@@ -7,21 +7,23 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.SceneView;
+using System.Threading;
 
 public class RoundManager : MonoBehaviour
 {
-    public bool isRoundOver = false;
-
 	// Starting time for player
 	public const float roundTime = 180f;
 	public float time = roundTime;
 	double timeRounded;
 	public TextMeshProUGUI timeText;
+	public TextMeshProUGUI winText;
 
 	public int roundNumber = 1;
 	private int shotsFired = 0;
 	private int shotsHit = 0;
+
+	private bool isRoundOver = false;
+	private float timeSinceRoundOver = 0f;
 
 	// TODO: stats we want to log each round:
 	//		- number of shots fired
@@ -43,7 +45,17 @@ public class RoundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (time <= 0)
+		if(isRoundOver)
+		{
+			timeSinceRoundOver += Time.deltaTime;
+		}
+		if(timeSinceRoundOver > 3)
+		{
+			EndRound();
+		}
+		
+		
+		if (time <= 0 && !isRoundOver)
 		{
 			EndRound();
 		}
@@ -69,32 +81,24 @@ public class RoundManager : MonoBehaviour
 	}
 
 	public void EndRound()
-	{
-		string now = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now);
-		string filename = now + "_round-" + roundNumber.ToString();
-
-		string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RobotRampage_RoundLogs\" + filename + ".txt";
-
-		if (!File.Exists(path))
-		{
-			//Debug.Log("file at  " + path + "  does not exist");
-			path = @".\RobotRampage_RoundLogs\" + filename + ".txt";
-		}
-
-		// write stats and stuff to log file
-		using (StreamWriter sw = File.CreateText(path))
-		{
-			sw.WriteLine("New file created: {0}", DateTime.Now.ToString());
-			sw.WriteLine("Author: Robot Rampage");
-			float t = (float)Math.Round((roundTime - time), 2);
-			sw.WriteLine("Seconds taken:	" + t.ToString());
-			sw.WriteLine("shots fired:	" + shotsFired.ToString());
-			sw.WriteLine("shots hit:	" + shotsHit.ToString());
-			sw.WriteLine("Done! ");
-		}
-
-
+	{ 
 		SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
 	}
+
+	public void WinRound()
+	{
+		isRoundOver = true;
+		winText.SetText("You Win! :)");
+		FindObjectOfType<AudioManager>().PlaySound("level clear");
+		FindObjectOfType<LogManager>().writeLog("level won");
+	}
+
+	public void RoundLose()
+	{
+		isRoundOver = true;
+		winText.SetText("You Lose :(");
+		FindObjectOfType<LogManager>().writeLog("level lost");
+	}
+
 }
 

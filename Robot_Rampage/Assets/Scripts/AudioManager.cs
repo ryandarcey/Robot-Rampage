@@ -136,23 +136,23 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(string musicName, bool isFirstCall=false, float timeToFade=TIME_TO_FADE)
     {
-/*        musicName = musicName.ToLower();
+        musicName = musicName.ToLower();
         Sound sound = Array.Find(music, s => s.name == musicName);
         if (sound == null)
         {
-			Debug.LogWarning("Music: " + musicName + " not found.");
-			return;
-		}
+            Debug.LogWarning("Music: " + musicName + " not found.");
+            return;
+        }
 
         // fade in/fade to music
-		StopAllCoroutines();
-		StartCoroutine(FadeMusicToNewTrack(sound, isFirstCall, timeToFade));
-		musicTrackPlaying = Array.FindIndex(music, s => s.name == musicName);*/
-	}
+        StopAllCoroutines();
+        StartCoroutine(FadeMusicToNewTrack(sound, isFirstCall, timeToFade));
+        musicTrackPlaying = Array.FindIndex(music, s => s.name == musicName);
+    }
 
     public void ChangeLevelMusic()
     {
-/*        StopAllCoroutines();
+        StopAllCoroutines();
 
         Sound nextTrack = music[(musicTrackPlaying + 1) % NUM_LEVEL_TRACKS];
         if (musicTrackPlaying >= 5)
@@ -165,8 +165,8 @@ public class AudioManager : MonoBehaviour
             StartCoroutine(FadeMusicToNewTrack(nextTrack));
         }
 
-        musicTrackPlaying = (musicTrackPlaying + 1) % NUM_LEVEL_TRACKS;*/
-	}
+        musicTrackPlaying = (musicTrackPlaying + 1) % NUM_LEVEL_TRACKS;
+    }
 
     private IEnumerator FadeMusicToNewTrack(Sound nextTrack, bool isFirstCall=false, float timeToFade=TIME_TO_FADE)
     {

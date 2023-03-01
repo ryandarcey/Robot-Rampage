@@ -198,6 +198,37 @@ Transform:
   m_Father: {fileID: 8123501863189720582}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &1922253193416754719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1748375632940006168}
+  m_Layer: 0
+  m_Name: WinBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1748375632940006168
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922253193416754719}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8123501863226614650}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2175587629705423288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1823,9 +1854,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8123501863226614650}
-  - component: {fileID: 2629545303901220196}
+  - component: {fileID: 5996936669121885498}
+  - component: {fileID: 4905285223721473768}
   m_Layer: 0
-  m_Name: SquareRoomDoors
+  m_Name: WinRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1848,10 +1880,11 @@ Transform:
   - {fileID: 8123501864396798303}
   - {fileID: 8123501863189720582}
   - {fileID: 1842966409168951131}
+  - {fileID: 1748375632940006168}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2629545303901220196
+--- !u!114 &5996936669121885498
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1860,11 +1893,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 8123501863226614649}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5cc73f000e3cc44bb430a449ba6df23, type: 3}
+  m_Script: {fileID: 11500000, guid: 845d2ee9b2fa3614cb55f3bc13a7a036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3808898148122099106, guid: 1404e3d077be42a43ba2174be529a800, type: 3}
+  enemyPrefab: {fileID: 0}
   roomSize: {x: 30, y: 15, z: 30}
+--- !u!65 &4905285223721473768
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8123501863226614649}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 27.309906, y: 9.016349, z: 19.241539}
+  m_Center: {x: -0.10273886, y: 4.0081763, z: 3.4101353}
 --- !u!1 &8123501863609171606
 GameObject:
   m_ObjectHideFlags: 0

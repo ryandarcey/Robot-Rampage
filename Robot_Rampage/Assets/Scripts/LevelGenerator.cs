@@ -12,6 +12,7 @@ public class LevelGenerator : MonoBehaviour
     public TConnection tConnectionPrefab;
     public TallRoom tallRoomPrefab;
     public DownHallway downHallwayPrefab;
+    public WinRoom winRoomPrefab;
 
     public GameObject robotEasyPrefab;
     public GameObject robotMediumPrefab;
@@ -58,7 +59,7 @@ public class LevelGenerator : MonoBehaviour
 
             if(i == numRooms-1)
             {
-                nextRoom = Instantiate(squareRoomPrefab);
+                nextRoom = Instantiate(winRoomPrefab);
 			}
             // simple logic to prevent more than 3 hallways from being placed in a row,
             //  "hallway" currently being a hallway, tConnection, or downHallway
