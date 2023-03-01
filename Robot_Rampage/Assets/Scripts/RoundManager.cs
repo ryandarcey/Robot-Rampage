@@ -23,9 +23,6 @@ public class RoundManager : MonoBehaviour
 	private int shotsFired = 0;
 	private int shotsHit = 0;
 
-	public bool isPaused = false;
-	private float previousTimeScale = 1f;
-
 	// TODO: stats we want to log each round:
 	//		- number of shots fired
 	//		- number of shots hit
@@ -36,25 +33,6 @@ public class RoundManager : MonoBehaviour
 	//		- types of pickups picked up
 	//		- number / layout of rooms
 	//		- 
-
-	public static RoundManager instance;
-
-	void Awake()
-	{
-		// singleton RoundManager
-		if (instance == null)
-		{
-			instance = this;
-		}
-		else
-		{
-			// already have RoundManager in scene, don't need another one
-			Destroy(gameObject);
-			return;
-		}
-
-		DontDestroyOnLoad(gameObject);  // RoundManager persists between scenes
-	}
 
 	// Start is called before the first frame update
 	void Start()
@@ -78,11 +56,6 @@ public class RoundManager : MonoBehaviour
 		{
 			EndRound();
 		}
-
-		if (Input.GetKeyDown("p"))
-		{
-			TogglePause();
-		}
 	}
 
 	public void ShotGun()
@@ -92,13 +65,12 @@ public class RoundManager : MonoBehaviour
 
 	public void ShotHit()
 	{
-        FindObjectOfType<LogManager>().writeLog("Shot hit");
-        shotsHit++;
+		shotsHit++;
 	}
 
 	public void EndRound()
 	{
-        /*string now = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now);
+		string now = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now);
 		string filename = now + "_round-" + roundNumber.ToString();
 
 		string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RobotRampage_RoundLogs\" + filename + ".txt";
@@ -119,32 +91,10 @@ public class RoundManager : MonoBehaviour
 			sw.WriteLine("shots fired:	" + shotsFired.ToString());
 			sw.WriteLine("shots hit:	" + shotsHit.ToString());
 			sw.WriteLine("Done! ");
-		}*/
-
-        FindObjectOfType<LogManager>().writeLog("end round");
-
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
-	}
-
-	public void TogglePause()
-	{
-		if (Time.timeScale > 0)
-		{
-			previousTimeScale = Time.timeScale;
-			Time.timeScale = 0;
-			AudioListener.pause = true;		// maybe?
-			//pauseLabel.enabled = true;	// UI element
-
-			isPaused = true;
 		}
-		else if (Time.timeScale == 0)
-		{
-			Time.timeScale = previousTimeScale;
-			AudioListener.pause = false;    // maybe?
-			//pauseLabel.enabled = true;	// UI element
 
-			isPaused = false;
-		}
+
+		SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
 	}
 }
 

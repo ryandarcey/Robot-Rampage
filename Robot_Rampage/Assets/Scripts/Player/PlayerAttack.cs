@@ -10,6 +10,9 @@ public class PlayerAttack : MonoBehaviour
     // Used to update ammo
     PlayerStats stats;
 
+    // Particle system
+    public ParticleSystem muzzleFlash;
+
     // Damage and range for the current gun
     public float damage = 5f;
     public float range = 30f;
@@ -102,36 +105,43 @@ public class PlayerAttack : MonoBehaviour
 		{
 			if (Input.GetButtonDown("Fire1"))   // currently left mouse button
 			{
-                ShootGun();
+                if (canShoot)
+                {
+                    // Sets the next time a shot can be made and checks if a shot connected
+                    nextShotTime = coolDownTime + Time.time;
+                    animator.SetBool("Shoot", true);
+                    ShootGun();
+                }
 			}
 		}
 	}
 
     void ShootGun()
     {
-		if (stats.ammo > 0)
-		{
-			// Play sound
-			shot.Play();
-			nextShotTime = coolDownTime + Time.time;
-			animator.SetBool("Shoot", true);
-			stats.loseAmmo();
+        GameObject enemy = GetEnemyWithSmallestXZAngle();   // get enemy that is closest to direction player is facing
+        EnemyAction enemyAction = enemy.GetComponent<EnemyAction>();
 
-            FindObjectOfType<LogManager>().writeLog("Shot fired");
+		float newAmmo = stats.loseAmmo();
+		if (newAmmo > 0)
+		{
+
+            // Play sound
+            //shot.Play();
+            muzzleFlash.Play();
+            FindObjectOfType<AudioManager>().PlaySound("player attack");
 
 			// Only deal damage if the player is shooting at an enemy. Calls specific script within enemy that contains health
 			if (canShoot)
 			{
-				GameObject enemy = GetEnemyWithSmallestXZAngle();   // get enemy that is closest to direction player is facing
-				EnemyAction enemyAction = enemy.GetComponent<EnemyAction>();
-
 				if (enemyAction != null)
-                {
-
-                    enemyAction.isHit(damage);
-
-                    FindObjectOfType<LogManager>().writeLog("Shot hit");
-                }
+				{
+					enemyAction.isHit(damage);
+                    stats.ShotGun();
+                    stats.ShotHit();
+                    // TODO: tell player stats / round manager if shot that was fired hit enemy
+                    //          --> may have enemy itself tell RM this
+                    //          (currently not necessary -- all shots fired hit enemy)
+				}
 			}
 		}
 	}

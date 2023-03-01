@@ -36,8 +36,6 @@ public class PlayerStats : MonoBehaviour
     public void isHit(float damage)
     {
 
-        FindObjectOfType<LogManager>().writeLog("Player hit");
-
         health -= damage;
 
         // Play sound
@@ -49,12 +47,11 @@ public class PlayerStats : MonoBehaviour
 
         if (health <= 0)
         {
-            FindObjectOfType<LogManager>().writeLog("Player dead");
-            roundManager.EndRound();
+			roundManager.EndRound();
 		}
     }
 
-    public void loseAmmo()
+    public float loseAmmo()
     {
         if (ammo > 0)
         {
@@ -62,6 +59,12 @@ public class PlayerStats : MonoBehaviour
             Debug.Log("Ammo: " + ammo);
 
             updateUI();
+
+            return ammo;
+        }
+        else
+        {
+            return ammo;
         }
     }
 
