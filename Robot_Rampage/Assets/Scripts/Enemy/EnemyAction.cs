@@ -65,6 +65,7 @@ public class EnemyAction : MonoBehaviour
         sparks.Play();
         if (health <= 0f && !isDestroyed)
         {
+            FindObjectOfType<LogManager>().writeLog("Enemy destroyed");
             isDestroyed = true;
 
             // Play random death sound
