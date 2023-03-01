@@ -40,13 +40,19 @@ public class LogManager : MonoBehaviour
 
 		string filename = "session_" + now;
 
-		path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RobotRampage_RoundLogs\" + filename + ".csv";
+		path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RobotRampage_RoundLogs\";
 
-		if (!File.Exists(path))
+		if (!Directory.Exists(path))
 		{
 			//Debug.Log("file at  " + path + "  does not exist");
 			path = @".\RobotRampage_RoundLogs\" + filename + ".csv";
 		}
+		else
+		{
+			path += filename + ".csv";
+		}
+		
+		Debug.Log(path);
 
 		StreamWriter sw = File.CreateText(path);    // creates file
 		sw.Close();
