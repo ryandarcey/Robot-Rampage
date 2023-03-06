@@ -96,7 +96,8 @@ public class PlayerAttack : MonoBehaviour
 		{
 			if (Input.GetButtonDown("Fire1"))   // currently left mouse button
 			{
-				ShootGun();
+                animator.SetBool("Shoot", true);
+                ShootGun();
 			}
 		}
 	}
@@ -110,7 +111,7 @@ public class PlayerAttack : MonoBehaviour
 			muzzleFlash.Play();
 
 			nextShotTime = coolDownTime + Time.time;
-			animator.SetBool("Shoot", true);
+			//animator.SetBool("Shoot", true);
 			stats.loseAmmo();
 
 			FindObjectOfType<LogManager>().writeLog("Shot fired");
