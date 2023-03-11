@@ -21,8 +21,8 @@ public class RoundManager : MonoBehaviour
 	public TextMeshProUGUI winText;
 
 	public int roundNumber = 1;
-	private int shotsFired = 0;
-	private int shotsHit = 0;
+/*	private int shotsFired = 0;
+	private int shotsHit = 0;*/
 
 	// Round Ending related values
 	private bool isRoundOver = false;
@@ -87,7 +87,7 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-	public void ShotGun()
+/*	public void ShotGun()
 	{
 		shotsFired++;
 	}
@@ -95,7 +95,7 @@ public class RoundManager : MonoBehaviour
 	public void ShotHit()
 	{
 		shotsHit++;
-	}
+	}*/
 
 	// Exit the game
 	public void EndRound()

@@ -13,7 +13,6 @@ public class PlayerStats : MonoBehaviour
     public float ammo = 20f;
     public float ammoMax = 50f;
     
-
     // UI elements for health and ammo
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI ammoText;
@@ -21,6 +20,7 @@ public class PlayerStats : MonoBehaviour
     public GameObject roundManagerGO;
     private RoundManager roundManager;
 
+    // Set up UI and RoundManager 
     public void Start()
     {
         roundManager = roundManagerGO.GetComponent<RoundManager>();
@@ -32,7 +32,7 @@ public class PlayerStats : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    // Update the player's health after taking damage
     public void isHit(float damage)
     {
 
@@ -45,12 +45,14 @@ public class PlayerStats : MonoBehaviour
 
         updateUI();
 
+        // End round if the player has no health left
         if (health <= 0)
         {
 			roundManager.RoundLose();
 		}
     }
 
+    // Reduce the amount of ammo after a shot
     public float loseAmmo()
     {
         if (ammo > 0)
@@ -59,15 +61,12 @@ public class PlayerStats : MonoBehaviour
             Debug.Log("Ammo: " + ammo);
 
             updateUI();
+        }
 
-            return ammo;
-        }
-        else
-        {
-            return ammo;
-        }
+        return ammo;
     }
 
+    // Update specific player stats based on the picked up item
     public void collectItem(bool isHealth, float value)
     {
         // If the item was a health pack, increase the health up to the max value
@@ -98,13 +97,14 @@ public class PlayerStats : MonoBehaviour
 
     }
 
+    // Update UI elements related to player
     void updateUI()
     {
         healthText.text = "Health: " + health + " / " + healthMax.ToString();
         ammoText.text = "Ammo: " + ammo + " / " + ammoMax.ToString();
     }
 
-    public void ShotGun()
+/*    public void ShotGun()
     {
         roundManager.ShotGun();
     }
@@ -112,5 +112,5 @@ public class PlayerStats : MonoBehaviour
     public void ShotHit()
     {
         roundManager.ShotHit();
-    }
+    }*/
 }

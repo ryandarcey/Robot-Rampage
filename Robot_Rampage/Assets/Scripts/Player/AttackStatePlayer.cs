@@ -16,6 +16,7 @@ public class AttackStatePlayer : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // Based on time passed since entered, turn off state after a specific amount of time
         timer += Time.deltaTime;
         if(timer > .2)
         {
