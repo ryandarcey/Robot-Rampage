@@ -18,6 +18,7 @@ public class CameraChange : MonoBehaviour
     public MeshRenderer playerRenderer;
     //public GameObject firstPersonGun;
 
+    // Load third person controller and current camera mode
     void Start()
     {
         thirdPersonController = playerArmature.GetComponent<ThirdPersonController>();
@@ -35,6 +36,7 @@ public class CameraChange : MonoBehaviour
 		}
     }
 
+    // Change camera to the next mode
     private IEnumerator CamChange()
     {
         yield return new WaitForSeconds(0.01f);
@@ -53,6 +55,7 @@ public class CameraChange : MonoBehaviour
 		}
     }
 
+    // Set the camera given the camera mode string
     public void SetCameraMode(string cameraModeStr)
     {
         if(thirdPersonController == null)
