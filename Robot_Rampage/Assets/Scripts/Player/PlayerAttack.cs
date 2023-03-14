@@ -144,7 +144,8 @@ public class PlayerAttack : MonoBehaviour
 
 					enemyAction.isHit(damage);
 
-					FindObjectOfType<LogManager>().writeLog("Shot hit");
+                    FindObjectOfType<ScoreManager>().addPoints(100);
+                    FindObjectOfType<LogManager>().writeLog("Shot hit");
 				}
 			}
 		}
