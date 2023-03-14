@@ -8566,6 +8566,7 @@ MonoBehaviour:
   overheadCamera: {fileID: 558593258}
   cameraMode: 2
   hitbox: {fileID: 531203288}
+  crosshair: {fileID: 1335849337}
   playerModel: {fileID: 1011606280}
   playerRenderer: {fileID: 0}
 --- !u!4 &1812117339

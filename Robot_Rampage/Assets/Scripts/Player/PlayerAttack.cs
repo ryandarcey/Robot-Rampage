@@ -88,16 +88,20 @@ public class PlayerAttack : MonoBehaviour
 		if (enemyList.Count > 0)
 		{
 			canShoot = true;
-			crosshair.SetColor(Color.red);
 
+            // Set color of crosshair to red. Utilize current alpha value
+            crosshair.SetColor(new Color(1f, 0f, 0f, crosshair.GetAlpha()));
+            
 			// Overhead view specific hitbox
-			overheadHitBox.startColor = Color.red;
+            overheadHitBox.startColor = Color.red;
             overheadHitBox.endColor = Color.red;
         }
 		else
 		{
 			canShoot = false;
-			crosshair.SetColor(Color.white);
+			
+			// Set color of crosshair to white. Utilize current alpha value
+            crosshair.SetColor(new Color(1f, 1f, 1f, crosshair.GetAlpha()));
 
             // Overhead view specific hitbox
             overheadHitBox.startColor = Color.white;
