@@ -38,6 +38,10 @@ public class PlayerAttack : MonoBehaviour
 	public GameObject playerModel;
 	public GameObject playerCameraRoot;
 
+	// Hitbox for overhead view
+	[SerializeField] private LineRenderer overheadHitBox;
+
+	// Particle system
 	public ParticleSystem muzzleFlash;
 
 
@@ -80,15 +84,24 @@ public class PlayerAttack : MonoBehaviour
 		GetEnemyList();
 		FindEnemiesThatCanBeShot();
 
+		// If an enemy can be shot, change the color to red canShoot to true. Otherwise, set to white and false
 		if (enemyList.Count > 0)
 		{
 			canShoot = true;
 			crosshair.SetColor(Color.red);
-		}
+
+			// Overhead view specific hitbox
+			overheadHitBox.startColor = Color.red;
+            overheadHitBox.endColor = Color.red;
+        }
 		else
 		{
 			canShoot = false;
 			crosshair.SetColor(Color.white);
+
+            // Overhead view specific hitbox
+            overheadHitBox.startColor = Color.white;
+            overheadHitBox.endColor = Color.white;
 		}
 
 		// Shoots the gun if the cooldown time is over

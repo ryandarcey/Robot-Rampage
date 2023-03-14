@@ -13,6 +13,9 @@ public class CameraChange : MonoBehaviour
     public GameObject overheadCamera;       // 2
     public int cameraMode;
 
+    // Hitbox graphic specifically for overhead view
+    [SerializeField] private GameObject hitbox;
+
     // Player Mesh for Third Person and Gun for First Person
     public GameObject playerModel;
     public MeshRenderer playerRenderer;
@@ -76,6 +79,7 @@ public class CameraChange : MonoBehaviour
             //playerRenderer.enabled = false;
             //firstPersonGun.SetActive(true);
             thirdPersonController.LockCameraPosition = false;
+            hitbox.SetActive(false);
             return;
         }
         if(cameraModeStr == "overhead")
@@ -90,6 +94,7 @@ public class CameraChange : MonoBehaviour
             //playerRenderer.enabled = true;
             //firstPersonGun.SetActive(false);
             thirdPersonController.LockCameraPosition = true;
+            hitbox.SetActive(true);
             return;
         }
         
@@ -110,5 +115,6 @@ public class CameraChange : MonoBehaviour
         //playerRenderer.enabled = true;
         //firstPersonGun.SetActive(false);
         thirdPersonController.LockCameraPosition = false;
+        hitbox.SetActive(false);
     }
 }
