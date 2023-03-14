@@ -35,8 +35,9 @@ public class PlayerStats : MonoBehaviour
     // Update the player's health after taking damage
     public void isHit(float damage)
     {
-
+        // Lower health and points
         health -= damage;
+        FindObjectOfType<ScoreManager>().addPoints(-50);
 
         // Play sound
         FindObjectOfType<AudioManager>().PlaySound("player damage");

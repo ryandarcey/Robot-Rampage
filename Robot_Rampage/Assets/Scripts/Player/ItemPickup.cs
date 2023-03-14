@@ -17,7 +17,13 @@ public class ItemPickup : MonoBehaviour
             if (stats != null)
             {
                 Debug.Log("Item collected");
+                
+                // Depending on item type, apply the item value to the correct stat
                 stats.collectItem(isHealth, itemValue);
+
+                // Add points
+                FindObjectOfType<ScoreManager>().addPoints(10);
+                
                 Destroy(gameObject);
 
             }

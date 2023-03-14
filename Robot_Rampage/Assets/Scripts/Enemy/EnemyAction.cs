@@ -65,6 +65,9 @@ public class EnemyAction : MonoBehaviour
         sparks.Play();
         if (health <= 0f && !isDestroyed)
         {
+            // Add points
+            FindObjectOfType<ScoreManager>().addPoints(100);
+
             isDestroyed = true;
 
             // Play random death sound
