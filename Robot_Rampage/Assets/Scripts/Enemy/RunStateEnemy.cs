@@ -27,7 +27,6 @@ public class RunStateEnemy : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        settingsManager = GameObject.FindGameObjectWithTag("SettingsManager");
 
         chaseRange = animator.transform.GetComponent<EnemyAction>().chaseRange;
         attackRange = animator.transform.GetComponent<EnemyAction>().attackRange;
@@ -35,7 +34,7 @@ public class RunStateEnemy : StateMachineBehaviour
         canAttack = animator.transform.GetComponent<EnemyAction>().canAttack;
 
         chaseSpeed = animator.transform.GetComponent<EnemyAction>().chaseSpeed;
-        chaseSpeedMultiplier = settingsManager.GetComponent<SettingsManager>().getEnemyMovementSpeed();
+        chaseSpeedMultiplier = FindObjectOfType<SettingsManager>().getEnemyMovementSpeed();
 
         // Play looping walk sound
         FindObjectOfType<AudioManager>().PlaySound("enemy run");

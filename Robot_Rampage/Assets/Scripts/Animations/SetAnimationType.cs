@@ -13,17 +13,16 @@ public class SetAnimationType : MonoBehaviour
     // Given the index, change the animations to the new controller
     public void SetAnim()
     {
+        index = FindObjectOfType<SettingsManager>().getAnimationValue();
         overrider.SetAnimations(controllers[index]);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Toggle on and off the pause functionality
-        if (Input.GetKeyDown("o"))
+        // Check if the animation value from settingsManager has changed. If so, call SetAnim()
+        if (FindObjectOfType<SettingsManager>().getAnimationValue() != index)
         {
-            index = (index + 1) % 2;
-            Debug.Log("Index = " + index);
             SetAnim();
         }
     }

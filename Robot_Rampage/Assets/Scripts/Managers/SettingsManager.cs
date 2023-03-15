@@ -5,6 +5,7 @@ using UnityEngine;
 using Leguar.TotalJSON;
 using System.IO;
 using System;
+using Unity.VisualScripting;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -14,6 +15,27 @@ public class SettingsManager : MonoBehaviour
     private RoundManager roundManager;
 
     float enemyMovementSpeed = 1;
+
+    int animationOverrideValue = 0;
+
+    public static SettingsManager instance;
+
+    void Awake()
+    {
+        // singleton SettingsManager
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            // already have SettingsManager in scene, don't need another one
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);  // SettingsManager persists between scenes
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -55,11 +77,14 @@ public class SettingsManager : MonoBehaviour
         // Change enemy movement speed given the multiplier provided
         enemyMovementSpeed = json.GetFloat("enemyMovementSpeed");
 
-        // TODO
-
+        // Set frame rate
         Application.targetFrameRate = json.GetInt("targetFPS");
 
+        // Set current round number
         roundManager.roundNumber = json.GetInt("roundNumber");
+
+        // Toggle animations on and off
+        animationOverrideValue = json.GetInt("animationsOn");
 
         // to change shader, should just be material.setFloat or something?
     }
@@ -67,11 +92,19 @@ public class SettingsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown("l"))
+        {
+            Start();
+        }
     }
 
     public float getEnemyMovementSpeed()
     {
         return enemyMovementSpeed;
+    }
+
+    public int getAnimationValue()
+    {
+        return animationOverrideValue;
     }
 }

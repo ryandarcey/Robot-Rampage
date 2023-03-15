@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] music;
     public int NUM_LEVEL_TRACKS = 5;
 
-    private bool isLoopingLevelTracks = false;
+    //private bool isLoopingLevelTracks = false;
     
     private int musicTrackPlaying = -1;
     private float timeSinceSwitchingTracks = 0f;
