@@ -99,6 +99,10 @@ PrefabInstance:
       propertyPath: chaseSpeed
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7972850836515754106, guid: 66e1506867160f343a40f3de7795b072, type: 3}
+      propertyPath: overrider
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8015096129966241223, guid: 66e1506867160f343a40f3de7795b072, type: 3}
       propertyPath: looping
       value: 0

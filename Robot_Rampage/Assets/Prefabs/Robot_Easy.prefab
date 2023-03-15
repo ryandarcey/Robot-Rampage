@@ -399,6 +399,8 @@ GameObject:
   - component: {fileID: 7794662231566916659}
   - component: {fileID: 5178157772714245282}
   - component: {fileID: 5178157772714245311}
+  - component: {fileID: -3004995589543270499}
+  - component: {fileID: 540589039688587364}
   m_Layer: 6
   m_Name: Robot_Easy
   m_TagString: Untagged
@@ -486,6 +488,34 @@ MonoBehaviour:
   healthPack: {fileID: 8938195931814358227, guid: fbd39f365bef48045b8980b100426742, type: 3}
   ammoPack: {fileID: 867605460628769545, guid: c4eac0422fcd40d498c65837a6f02fd4, type: 3}
   projectilePosition: {fileID: 5178157772155508745}
+--- !u!114 &-3004995589543270499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3818329113558598490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deaadc8bf4e3fdf49b8f92f045560b9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &540589039688587364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3818329113558598490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 663cdcfb43ff2614ca725d0c80d411bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrider: {fileID: -3004995589543270499}
+  controllers:
+  - {fileID: 22100000, guid: adbdf6c38c6c64c409c58149267e8465, type: 2}
+  - {fileID: 22100000, guid: eae54087f2f782c44a49af314e06fc0a, type: 2}
 --- !u!1 &3857732895741113014
 GameObject:
   m_ObjectHideFlags: 0

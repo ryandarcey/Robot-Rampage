@@ -92,16 +92,13 @@ public class EnemyAction : MonoBehaviour
 
         Rigidbody pack;
 
-/*        if (randomNum == 1) {
-            randomNum = Random.Range(0, 1);*/
-            if(randomNum == 1)
-            {
-                pack = Instantiate(healthPack, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
-            }
-            else
-            {
-                pack = Instantiate(ammoPack, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
-            }
+        if(randomNum == 1)
+        {
+            pack = Instantiate(healthPack, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
+        }
+        else
+        {
+            pack = Instantiate(ammoPack, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
+        }
     }
-    //}
 }
