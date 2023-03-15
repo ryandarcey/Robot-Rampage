@@ -58,7 +58,7 @@ PrefabInstance:
     - target: {fileID: 3405424277500160193, guid: 51b8fc57b62d76244865e7cebf9465c6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 46e3b6d051bbc5f4e8b7112631b2207c, type: 2}
+      objectReference: {fileID: 2100000, guid: 01b81e02b23d74149ac0939620c2bd67, type: 2}
     - target: {fileID: 3818329113558598490, guid: 51b8fc57b62d76244865e7cebf9465c6, type: 3}
       propertyPath: m_Name
       value: Robot_Medium
