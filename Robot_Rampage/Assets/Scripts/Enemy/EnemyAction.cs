@@ -28,6 +28,9 @@ public class EnemyAction : MonoBehaviour
     public GameObject healthPack;
     public GameObject ammoPack;
 
+    // Changes the range within which enemies shoot
+    public float horizontalRange = 15; 
+
     // Position where projectile is instantiated
     public Transform projectilePosition;
 
@@ -49,8 +52,10 @@ public class EnemyAction : MonoBehaviour
         // Shoots out a rigidbody as a projectile
         Rigidbody shot = Instantiate(enemyProjectile, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
         shot.GetComponent<EnemyProjectileBehavior>().damage = damage;
+
         // Rotates object to properly shoot towards player. Angle changes randomly for enemy accuracy
-        shot.MoveRotation(Quaternion.Euler(0, Random.Range(-100, -85), 0));
+        shot.MoveRotation(Quaternion.Euler(0, Random.Range(-95 - horizontalRange, -95 + horizontalRange), 0));
+
         // Push object forward towards player
         shot.AddRelativeForce(transform.forward * 40f, ForceMode.Impulse);
         shot.AddForce(transform.up * 1f, ForceMode.Impulse);

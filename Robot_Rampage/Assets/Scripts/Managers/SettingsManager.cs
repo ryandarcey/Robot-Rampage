@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 using Leguar.TotalJSON;
@@ -72,7 +73,7 @@ public class SettingsManager : MonoBehaviour
         // Change the camera type between "firstPerson", "thirdPerson", or "overhead"
         cameraChange.SetCameraMode(json.GetString("cameraMode"));
         // Change player attack accuracy by adjusting the horizontal range
-        playerArmature.GetComponent<PlayerAttack>().horizontalRange = json.GetFloat("horizontalRange");
+        //playerArmature.GetComponent<PlayerAttack>().horizontalRange = json.GetFloat("horizontalRange");
 
         // Change enemy movement speed given the multiplier provided
         enemyMovementSpeed = json.GetFloat("enemyMovementSpeed");
@@ -85,6 +86,18 @@ public class SettingsManager : MonoBehaviour
 
         // Toggle animations on and off
         animationOverrideValue = json.GetInt("animationsOn");
+
+        // Change accuracy of the player and enemy given the difficulty. 0 = easy, 1 = hard
+        if (json.GetInt("difficulty") == 1)
+        {
+            playerArmature.GetComponent<PlayerAttack>().horizontalRange = 5;
+            setEnemyDifficulty(2);
+        }
+        else
+        {
+            playerArmature.GetComponent<PlayerAttack>().horizontalRange = 15;
+            setEnemyDifficulty(15);
+        }
 
         // to change shader, should just be material.setFloat or something?
     }
@@ -106,5 +119,19 @@ public class SettingsManager : MonoBehaviour
     public int getAnimationValue()
     {
         return animationOverrideValue;
+    }
+
+    void setEnemyDifficulty(int range)
+    {
+        GameObject[] GOArray = SceneManager.GetActiveScene().GetRootGameObjects();// GetComponents<GameObject>();
+
+        for (int i = 0; i < GOArray.Length; i++)
+        {
+            GameObject go = GOArray[i];
+            if (go.layer == 6 && go.GetComponent<EnemyAction>() != null)
+            {
+                go.GetComponent<EnemyAction>().horizontalRange = range;
+            }
+        }
     }
 }

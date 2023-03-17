@@ -8,5 +8,6 @@
 "shaderPixelWidth" : 4,
 "shaderPixelHeight" : 4,
 "roundNumber" : 1,
-"animationsOn" : 0
+"animationsOn" : 0,
+"difficulty" : 0
 }
