@@ -100,6 +100,9 @@ public class SettingsManager : MonoBehaviour
         }
 
         // to change shader, should just be material.setFloat or something?
+
+        // Update round manager
+        FindObjectOfType<LogManager>().updateParameters(json.GetString("cameraMode"), json.GetInt("difficulty"), json.GetInt("animationsOn"));
     }
 
     // Update is called once per frame

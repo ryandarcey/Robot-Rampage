@@ -15,6 +15,11 @@ public class LogManager : MonoBehaviour
 
 	public static LogManager instance;
 
+	// Game parameter related values
+	string currentCamera;
+	string currentDifficulty;
+	string currentAnimation;
+
 	void Awake()
 	{
 		// singleton LogManager
@@ -80,12 +85,48 @@ public class LogManager : MonoBehaviour
 		TimeSpan timeSinceStart = DateTime.Now - startTime;
 		string timeSinceStartString = timeSinceStart.TotalSeconds.ToString();
 
-		string line = timeSinceStartString + "," + roundNumber.ToString() + "," + log;
+		string line = timeSinceStartString + "," + roundNumber.ToString() + "," + currentCamera + "," + currentDifficulty + "," + currentAnimation + "," + log;
 
 		// write new line to file
 		using (StreamWriter stream = File.AppendText(path))
 		{
 			stream.WriteLine(line);
 		}
+	}
+
+	public void updateParameters(string camera, int difficulty, int animations)
+	{
+
+		// Set camera mode
+		currentCamera = camera;
+
+		// Set difficulty mode
+		switch (difficulty)
+		{
+			case 0:
+				currentDifficulty = "easy";
+				break;
+			case 1:
+                currentDifficulty = "hard";
+                break;
+			default:
+				break;
+        }
+
+        // Set animation mode
+        switch (animations)
+        {
+            case 0:
+                currentAnimation = "off";
+                break;
+            case 1:
+                currentDifficulty = "on";
+                break;
+            default:
+                break;
+        }
+
+
+        writeLog("New Round Started");
 	}
 }
