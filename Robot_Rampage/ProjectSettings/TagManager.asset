@@ -7,6 +7,7 @@ TagManager:
   - RoomConnection
   - CinemachineTarget
   - SettingsManager
+  - Particles
   layers:
   - Default
   - TransparentFX

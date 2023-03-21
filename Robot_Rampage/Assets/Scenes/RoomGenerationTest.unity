@@ -1968,7 +1968,7 @@ GameObject:
   - component: {fileID: 1084815409}
   m_Layer: 0
   m_Name: MuzzleFlash
-  m_TagString: Untagged
+  m_TagString: Particles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8466,7 +8466,6 @@ MonoBehaviour:
   time: 180
   timeText: {fileID: 264660811}
   winText: {fileID: 1096503999}
-  roundNumber: 1
   isPaused: 0
 --- !u!4 &1631544755
 Transform:

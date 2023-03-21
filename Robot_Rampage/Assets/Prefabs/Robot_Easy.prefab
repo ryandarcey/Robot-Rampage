@@ -487,6 +487,7 @@ MonoBehaviour:
   enemyProjectile: {fileID: 5694467063962508460, guid: 494e6cc9c8d6e3848b05075e8324e36d, type: 3}
   healthPack: {fileID: 8938195931814358227, guid: fbd39f365bef48045b8980b100426742, type: 3}
   ammoPack: {fileID: 867605460628769545, guid: c4eac0422fcd40d498c65837a6f02fd4, type: 3}
+  horizontalRange: 15
   projectilePosition: {fileID: 5178157772155508745}
 --- !u!114 &-3004995589543270499
 MonoBehaviour:
@@ -592,7 +593,7 @@ GameObject:
   - component: {fileID: 4295439513932798295}
   m_Layer: 0
   m_Name: PS_Sparks
-  m_TagString: Untagged
+  m_TagString: Particles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -19,6 +19,10 @@ public class SettingsManager : MonoBehaviour
     float enemyProjectileSpeed = 40f;
     int targetFPS = 60;
 
+    // Particle related values
+    bool setParticles;
+    GameObject[] particleObjects;
+
     int animationOverrideValue = 0;
 
     public static SettingsManager instance;
@@ -52,30 +56,6 @@ public class SettingsManager : MonoBehaviour
         if (Input.GetKeyDown("l"))
         {
             Start();
-        }
-    }
-
-    public float getEnemyMovementSpeed()
-    {
-        return enemyMovementSpeed;
-    }
-
-    public int getAnimationValue()
-    {
-        return animationOverrideValue;
-    }
-
-    void setEnemyDifficulty(int range)
-    {
-        GameObject[] GOArray = SceneManager.GetActiveScene().GetRootGameObjects();// GetComponents<GameObject>();
-
-        for (int i = 0; i < GOArray.Length; i++)
-        {
-            GameObject go = GOArray[i];
-            if (go.layer == 6 && go.GetComponent<EnemyAction>() != null)
-            {
-                go.GetComponent<EnemyAction>().horizontalRange = range;
-            }
         }
     }
 
@@ -114,6 +94,17 @@ public class SettingsManager : MonoBehaviour
 
         // Toggle animations on and off. 1 if off, 0 is on. Corresponds to animation override controller index
         animationOverrideValue = json.GetInt("animationsOff");
+        
+        // Based on animation value, turn on or off the particle effects. 
+        if(animationOverrideValue == 0)
+        {
+            setParticles = true;
+        }
+        else
+        {
+            setParticles = false;
+        }
+        setParticlesState();
 
         // Change accuracy of the player and enemy given the difficulty. 0 = easy, 1 = hard
         if (json.GetInt("difficulty") == 1)
@@ -129,5 +120,42 @@ public class SettingsManager : MonoBehaviour
 
         // Update round manager
         FindObjectOfType<LogManager>().updateParameters(json.GetString("cameraMode"), json.GetInt("difficulty"), json.GetInt("animationsOff"));
+    }
+
+    public float getEnemyMovementSpeed()
+    {
+        return enemyMovementSpeed;
+    }
+
+    public int getAnimationValue()
+    {
+        return animationOverrideValue;
+    }
+
+    void setEnemyDifficulty(int range)
+    {
+        GameObject[] GOArray = SceneManager.GetActiveScene().GetRootGameObjects();// GetComponents<GameObject>();
+
+        for (int i = 0; i < GOArray.Length; i++)
+        {
+            GameObject go = GOArray[i];
+            if (go.layer == 6 && go.GetComponent<EnemyAction>() != null)
+            {
+                go.GetComponent<EnemyAction>().horizontalRange = range;
+                
+            }
+        }
+    }
+
+    void setParticlesState()
+    {
+        // Get all particle effect objects
+        particleObjects = GameObject.FindGameObjectsWithTag("Particles");
+
+        // Iterate through each particle effect and set current active state
+        foreach(GameObject particle in particleObjects)
+        {
+            particle.GetComponent<Renderer>().enabled = setParticles;
+        }
     }
 }
