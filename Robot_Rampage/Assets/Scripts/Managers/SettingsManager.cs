@@ -15,7 +15,9 @@ public class SettingsManager : MonoBehaviour
     public GameObject roundManagerGO;
     private RoundManager roundManager;
 
-    float enemyMovementSpeed = 1;
+    float enemyMovementSpeed = 1f;
+    float enemyProjectileSpeed = 40f;
+    int targetFPS = 60;
 
     int animationOverrideValue = 0;
 
@@ -41,66 +43,7 @@ public class SettingsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // get relevant game objects
-        if (cameraChange == null)
-        {
-            // should probably make sure to grab things programatically
-            // just in case
-            Debug.Log("CAMERA CHANGER IS NULL");
-        }
-        // TODO
-        if (roundManager == null)
-        {
-            roundManager = roundManagerGO.GetComponent<RoundManager>();
-        }
-
-        // grab settings .txt file as string
-        string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\testing_game_settings.txt";
-        if (!File.Exists(path))
-        {
-            //Debug.Log("file at  " + path + "  does not exist");
-            path = @".\testing_game_settings.txt";
-        }
-
-        // get JSON object as a string
-        string fileContents = File.ReadAllText(path);
-
-        // use parser to turn into JSON object
-        JSON json = JSON.ParseString(fileContents);
-        
-        // call methods to set parameters
-
-        // Change the camera type between "firstPerson", "thirdPerson", or "overhead"
-        cameraChange.SetCameraMode(json.GetString("cameraMode"));
-        // Change player attack accuracy by adjusting the horizontal range
-        //playerArmature.GetComponent<PlayerAttack>().horizontalRange = json.GetFloat("horizontalRange");
-
-        // Change enemy movement speed given the multiplier provided
-        enemyMovementSpeed = json.GetFloat("enemyMovementSpeed");
-
-        // Set frame rate
-        Application.targetFrameRate = json.GetInt("targetFPS");
-
-        // Set current round number
-        roundManager.roundNumber = json.GetInt("roundNumber");
-
-        // Toggle animations on and off
-        animationOverrideValue = json.GetInt("animationsOn");
-
-        // Change accuracy of the player and enemy given the difficulty. 0 = easy, 1 = hard
-        if (json.GetInt("difficulty") == 1)
-        {
-            playerArmature.GetComponent<PlayerAttack>().horizontalRange = 5;
-            setEnemyDifficulty(2);
-        }
-        else
-        {
-            playerArmature.GetComponent<PlayerAttack>().horizontalRange = 15;
-            setEnemyDifficulty(15);
-        }
-
-        // Update round manager
-        FindObjectOfType<LogManager>().updateParameters(json.GetString("cameraMode"), json.GetInt("difficulty"), json.GetInt("animationsOn"));
+        changeSettings();
     }
 
     // Update is called once per frame
@@ -138,6 +81,53 @@ public class SettingsManager : MonoBehaviour
 
     public void changeSettings()
     {
-        Start();
+        // get relevant game objects
+        if (cameraChange == null)
+        {
+            // should probably make sure to grab things programatically
+            // just in case
+            Debug.Log("CAMERA CHANGER IS NULL");
+        }
+
+        // grab settings .txt file as string
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\testing_game_settings.txt";
+        if (!File.Exists(path))
+        {
+            //Debug.Log("file at  " + path + "  does not exist");
+            path = @".\testing_game_settings.txt";
+        }
+
+        // get JSON object as a string
+        string fileContents = File.ReadAllText(path);
+
+        // use parser to turn into JSON object
+        JSON json = JSON.ParseString(fileContents);
+
+        // Change the camera type between "firstPerson", "thirdPerson", or "overhead"
+        cameraChange.SetCameraMode(json.GetString("cameraMode"));
+
+        // Set frame rate
+        Application.targetFrameRate = targetFPS;
+
+        // Set current round number
+        FindObjectOfType<RoundManager>().setRoundNumber(json.GetInt("roundNumber"));
+
+        // Toggle animations on and off. 1 if off, 0 is on. Corresponds to animation override controller index
+        animationOverrideValue = json.GetInt("animationsOff");
+
+        // Change accuracy of the player and enemy given the difficulty. 0 = easy, 1 = hard
+        if (json.GetInt("difficulty") == 1)
+        {
+            playerArmature.GetComponent<PlayerAttack>().horizontalRange = 5;
+            setEnemyDifficulty(2);
+        }
+        else
+        {
+            playerArmature.GetComponent<PlayerAttack>().horizontalRange = 15;
+            setEnemyDifficulty(15);
+        }
+
+        // Update round manager
+        FindObjectOfType<LogManager>().updateParameters(json.GetString("cameraMode"), json.GetInt("difficulty"), json.GetInt("animationsOff"));
     }
 }

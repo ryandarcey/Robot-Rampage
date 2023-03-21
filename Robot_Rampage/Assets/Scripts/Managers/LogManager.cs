@@ -84,8 +84,9 @@ public class LogManager : MonoBehaviour
 		//string now = string.Format("{0:hh:mm:ss.fff}", DateTime.Now);   // time of day
 		TimeSpan timeSinceStart = DateTime.Now - startTime;
 		string timeSinceStartString = timeSinceStart.TotalSeconds.ToString();
+		roundNumber = FindObjectOfType<RoundManager>().getRoundNumber();
 
-		string line = timeSinceStartString + "," + roundNumber.ToString() + "," + currentCamera + "," + currentDifficulty + "," + currentAnimation + "," + log;
+        string line = timeSinceStartString + "," + roundNumber.ToString() + "," + currentCamera + "," + currentDifficulty + "," + currentAnimation + "," + log;
 
 		// write new line to file
 		using (StreamWriter stream = File.AppendText(path))

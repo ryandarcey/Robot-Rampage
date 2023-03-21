@@ -21,11 +21,6 @@ public class AnimationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Toggle on and off the pause functionality
-        if (Input.GetKeyDown("o"))
-        {
-            animationsOn = !animationsOn;
-        }
     }
 
     // Given the index, change the animations to the new controller
