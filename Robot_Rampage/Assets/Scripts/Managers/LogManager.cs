@@ -64,7 +64,7 @@ public class LogManager : MonoBehaviour
 
 		using (StreamWriter stream = File.AppendText(path))
 		{
-			string columnHeaders = "seconds_since_start,round_number,action";  // TODO: figure out what columns we want
+			string columnHeaders = "seconds_since_start,round_number,camera,difficulty,animation,action";  // TODO: figure out what columns we want
 			stream.WriteLine(columnHeaders);
 			Debug.Log(columnHeaders);
 		}
@@ -117,10 +117,10 @@ public class LogManager : MonoBehaviour
         switch (animations)
         {
             case 0:
-                currentAnimation = "off";
+                currentAnimation = "on";
                 break;
             case 1:
-                currentDifficulty = "on";
+                currentDifficulty = "off";
                 break;
             default:
                 break;

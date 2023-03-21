@@ -1,6 +1,0 @@
-New file created: 2/14/2023 7:43:29 PM
-Author: Robot Rampage
-Seconds taken:	2.98
-shots fired:	2
-shots hit:	2
-Done! 

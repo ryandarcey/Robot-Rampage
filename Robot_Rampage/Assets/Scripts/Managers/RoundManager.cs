@@ -131,6 +131,9 @@ public class RoundManager : MonoBehaviour
             AudioListener.pause = true;     // maybe?
                                             //pauseLabel.enabled = true;	// UI element
 
+			// Log the end of the round
+            FindObjectOfType<LogManager>().writeLog("Pause");
+
             isPaused = true;
         }
         else if (Time.timeScale == 0)
@@ -138,6 +141,9 @@ public class RoundManager : MonoBehaviour
             Time.timeScale = previousTimeScale;
             AudioListener.pause = false;    // maybe?
                                             //pauseLabel.enabled = true;	// UI element
+
+            // Log the end of the round
+            FindObjectOfType<LogManager>().writeLog("Unpause");
 
             isPaused = false;
         }
