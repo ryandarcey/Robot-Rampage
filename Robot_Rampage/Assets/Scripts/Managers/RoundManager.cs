@@ -132,7 +132,8 @@ public class RoundManager : MonoBehaviour
                                             //pauseLabel.enabled = true;	// UI element
 
 			// Log the end of the round
-            FindObjectOfType<LogManager>().writeLog("Pause");
+            FindObjectOfType<LogManager>().writeLog("End Round");
+            FindObjectOfType<LogManager>().writeLog("Round Score: " + FindObjectOfType<ScoreManager>().getScore().ToString());
 
             isPaused = true;
         }
@@ -143,7 +144,7 @@ public class RoundManager : MonoBehaviour
                                             //pauseLabel.enabled = true;	// UI element
 
             // Log the end of the round
-            FindObjectOfType<LogManager>().writeLog("Unpause");
+            FindObjectOfType<SettingsManager>().changeSettings();
 
             isPaused = false;
         }

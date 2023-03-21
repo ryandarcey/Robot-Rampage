@@ -99,8 +99,6 @@ public class SettingsManager : MonoBehaviour
             setEnemyDifficulty(15);
         }
 
-        // to change shader, should just be material.setFloat or something?
-
         // Update round manager
         FindObjectOfType<LogManager>().updateParameters(json.GetString("cameraMode"), json.GetInt("difficulty"), json.GetInt("animationsOn"));
     }
@@ -136,5 +134,10 @@ public class SettingsManager : MonoBehaviour
                 go.GetComponent<EnemyAction>().horizontalRange = range;
             }
         }
+    }
+
+    public void changeSettings()
+    {
+        Start();
     }
 }

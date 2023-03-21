@@ -131,7 +131,7 @@ public class PlayerAttack : MonoBehaviour
 			//animator.SetBool("Shoot", true);
 			stats.loseAmmo();
 
-			FindObjectOfType<LogManager>().writeLog("Shot fired");
+			FindObjectOfType<LogManager>().writeLog("Shot Fired");
 
 			// Only deal damage if the player is shooting at an enemy. Calls specific script within enemy that contains health
 			if (canShoot)
@@ -145,7 +145,7 @@ public class PlayerAttack : MonoBehaviour
 					enemyAction.isHit(damage);
 
                     FindObjectOfType<ScoreManager>().addPoints(50);
-                    FindObjectOfType<LogManager>().writeLog("Shot hit");
+                    FindObjectOfType<LogManager>().writeLog("Shot Hit");
 				}
 			}
 		}

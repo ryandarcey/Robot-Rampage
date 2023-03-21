@@ -52,4 +52,9 @@ public class ScoreManager : MonoBehaviour
 	{
 		score += points;
 	}
+
+	public int getScore()
+	{
+		return score;
+	}
 }
