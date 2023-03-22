@@ -16,7 +16,7 @@ public class SettingsManager : MonoBehaviour
     private RoundManager roundManager;
 
     float enemyMovementSpeed = 1f;
-    float enemyProjectileSpeed = 40f;
+    //float enemyProjectileSpeed = 40f;
     int targetFPS = 60;
 
     // Particle related values

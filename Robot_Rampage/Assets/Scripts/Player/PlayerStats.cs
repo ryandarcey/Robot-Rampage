@@ -36,7 +36,7 @@ public class PlayerStats : MonoBehaviour
     public void isHit(float damage)
     {
         // Lower health and points
-        health -= damage;
+        //health -= damage;
         FindObjectOfType<ScoreManager>().addPoints(-50);
 
         // Play sound
@@ -107,13 +107,4 @@ public class PlayerStats : MonoBehaviour
         ammoText.text = "Ammo: " + ammo + " / " + ammoMax.ToString();
     }
 
-/*    public void ShotGun()
-    {
-        roundManager.ShotGun();
-    }
-
-    public void ShotHit()
-    {
-        roundManager.ShotHit();
-    }*/
 }

@@ -12,7 +12,7 @@ using System.Threading;
 public class RoundManager : MonoBehaviour
 {
 	// Starting time for player
-	public const float roundTime = 180f;
+	public const float roundTime = 30f;
 	public float time = roundTime;
 	double timeRounded;
 
@@ -61,15 +61,15 @@ public class RoundManager : MonoBehaviour
 			EndRound();
 		}
 		
-		// 
+		// Continue to set time to 0 once the given time has passed
 		if (time <= 0 && !isRoundOver)
 		{
-			EndRound();
+            time = 0;
 		}
 
         // Calculate current round time and display it in UI
         time -= Time.deltaTime;
-        timeRounded = System.Math.Round(time, 2);
+        timeRounded = System.Math.Round(time);
 		timeText.text = "Time: " + timeRounded.ToString();
 
 		// End the round immediately
@@ -153,5 +153,9 @@ public class RoundManager : MonoBehaviour
         return roundNumber;
     }
 
+    public void resetTime()
+    {
+        time = roundTime;
+    }
 }
 

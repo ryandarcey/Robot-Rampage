@@ -127,6 +127,8 @@ public class LogManager : MonoBehaviour
                 break;
         }
 
+        // Reset round timer
+        FindObjectOfType<RoundManager>().resetTime();
 
         writeLog("New Round Started");
 	}
