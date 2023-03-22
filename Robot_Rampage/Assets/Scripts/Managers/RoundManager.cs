@@ -20,7 +20,7 @@ public class RoundManager : MonoBehaviour
 	public TextMeshProUGUI timeText;
 	public TextMeshProUGUI winText;
 
-	private int roundNumber = 1;
+	private int roundNumber = 0;
 
 	// Round Ending related values
 	private bool isRoundOver = false;
@@ -138,9 +138,14 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    public void setRoundNumber(int num)
+    /*public void setRoundNumber(int num)
     {
         roundNumber = num;
+    }*/
+
+    public void increaseRoundNumber()
+    {
+        roundNumber++;
     }
 
     public int getRoundNumber()

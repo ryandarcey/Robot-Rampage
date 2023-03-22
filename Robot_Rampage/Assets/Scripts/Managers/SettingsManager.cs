@@ -90,7 +90,7 @@ public class SettingsManager : MonoBehaviour
         Application.targetFrameRate = targetFPS;
 
         // Set current round number
-        FindObjectOfType<RoundManager>().setRoundNumber(json.GetInt("roundNumber"));
+        FindObjectOfType<RoundManager>().increaseRoundNumber();
 
         // Toggle animations on and off. 1 if off, 0 is on. Corresponds to animation override controller index
         animationOverrideValue = json.GetInt("animationsOff");

@@ -1,6 +1,5 @@
 {
 "cameraMode" : "thirdPerson",
-"roundNumber" : 1,
 "animationsOff" : 0,
 "difficulty" : 0
 }

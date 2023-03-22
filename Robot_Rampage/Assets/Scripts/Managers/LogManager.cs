@@ -1,3 +1,4 @@
+using Leguar.TotalJSON;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ public class LogManager : MonoBehaviour
 {
 	string path;
 
-	public int roundNumber = 1;
+	public int roundNumber = 0;
 	DateTime startTime;
 
 	public static LogManager instance;
@@ -97,9 +98,8 @@ public class LogManager : MonoBehaviour
 
 	public void updateParameters(string camera, int difficulty, int animations)
 	{
-
-		// Set camera mode
-		currentCamera = camera;
+        // Set camera mode
+        currentCamera = camera;
 
 		// Set difficulty mode
 		switch (difficulty)
