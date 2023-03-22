@@ -58,7 +58,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (ammo > 0)
         {
-            ammo--;
+            //ammo--;
             Debug.Log("Ammo: " + ammo);
 
             updateUI();

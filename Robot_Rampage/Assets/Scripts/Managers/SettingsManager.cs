@@ -106,16 +106,24 @@ public class SettingsManager : MonoBehaviour
         }
         setParticlesState();
 
-        // Change accuracy of the player and enemy given the difficulty. 0 = easy, 1 = hard
-        if (json.GetInt("difficulty") == 1)
+        // Change accuracy of the player and enemy given the difficulty.
+        switch(json.GetInt("difficulty"))
         {
-            playerArmature.GetComponent<PlayerAttack>().horizontalRange = 5;
-            setEnemyDifficulty(2);
-        }
-        else
-        {
-            playerArmature.GetComponent<PlayerAttack>().horizontalRange = 15;
-            setEnemyDifficulty(15);
+            // Easy
+            case 0:
+                playerArmature.GetComponent<PlayerAttack>().horizontalRange = 15;
+                setEnemyDifficulty(15);
+                break;
+            // Medium
+            case 1:
+                playerArmature.GetComponent<PlayerAttack>().horizontalRange = 10;
+                setEnemyDifficulty(10);
+                break;
+            // Hard
+            case 2:
+                playerArmature.GetComponent<PlayerAttack>().horizontalRange = 5;
+                setEnemyDifficulty(2);
+                break;
         }
 
         // Update round manager

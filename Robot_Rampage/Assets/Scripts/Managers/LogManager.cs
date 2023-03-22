@@ -108,9 +108,12 @@ public class LogManager : MonoBehaviour
 				currentDifficulty = "easy";
 				break;
 			case 1:
+                currentDifficulty = "medium";
+                break;
+            case 2:
                 currentDifficulty = "hard";
                 break;
-			default:
+            default:
 				break;
         }
 
