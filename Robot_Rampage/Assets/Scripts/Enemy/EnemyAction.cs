@@ -79,7 +79,7 @@ public class EnemyAction : MonoBehaviour
             int num = Random.Range(1, 4);
             FindObjectOfType<AudioManager>().PlaySound("enemy death " + num.ToString());
 
-            dropPack();
+            //dropPack();
             animator.SetTrigger("destroyed");
             //GetComponentInChildren<BoxCollider>().enabled = false;
         }
