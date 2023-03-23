@@ -39,12 +39,12 @@ public class CameraChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Camera"))
+/*        if(Input.GetButtonDown("Camera"))
         { 
             cameraMode = (cameraMode + 1) % 3;
 			//Debug.Log("camera button down, camera mode  " + cameraMode);
 			StartCoroutine(CamChange());
-		}
+		}*/
     }
 
     // Change camera to the next mode

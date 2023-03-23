@@ -53,10 +53,10 @@ public class SettingsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("l"))
+/*        if (Input.GetKeyDown("l"))
         {
             Start();
-        }
+        }*/
     }
 
     public void changeSettings()

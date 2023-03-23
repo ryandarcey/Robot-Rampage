@@ -30,17 +30,6 @@ public class RoundManager : MonoBehaviour
     public bool isPaused = false;
     private float previousTimeScale = 1f;
 
-    // TODO: stats we want to log each round:
-    //		- number of shots fired
-    //		- number of shots hit
-    //		- number of hits/damage taken				<--
-    //		- number of enemies killed / damage dealt
-    //		- number of each enemy type that spawned
-    //		- time taken/left to finish round			<--
-    //		- types of pickups picked up
-    //		- number / layout of rooms
-    //		- 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -73,10 +62,10 @@ public class RoundManager : MonoBehaviour
 		timeText.text = "Time: " + timeRounded.ToString();
 
 		// End the round immediately
-		if (Input.GetButtonDown("EndRound"))
+		/*if (Input.GetButtonDown("EndRound"))
 		{
 			EndRound();
-		}
+		}*/
 
 		// Toggle on and off the pause functionality
         if (Input.GetKeyDown("p"))
