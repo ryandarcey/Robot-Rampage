@@ -25,8 +25,8 @@ public class EnemyAction : MonoBehaviour
     public GameObject enemyProjectile;
 
     // Gameobjects used for health and ammo packs
-    public GameObject healthPack;
-    public GameObject ammoPack;
+    public GameObject speedPack;
+    public GameObject damagePack;
 
     // Changes the range within which enemies shoot
     public float horizontalRange = 15; 
@@ -79,7 +79,7 @@ public class EnemyAction : MonoBehaviour
             int num = Random.Range(1, 4);
             FindObjectOfType<AudioManager>().PlaySound("enemy death " + num.ToString());
 
-            //dropPack();
+            dropPack();
             animator.SetTrigger("destroyed");
             //GetComponentInChildren<BoxCollider>().enabled = false;
         }
@@ -93,17 +93,21 @@ public class EnemyAction : MonoBehaviour
     // Randomly determines whether or not to drop an item pack, then chooses which one
     void dropPack()
     {
-        int randomNum = Random.Range(0, 2);
+        // 66% chance for an item to drop
+        int randomNum = Random.Range(0, 4);
 
         Rigidbody pack;
 
-        if(randomNum == 1)
+        switch(randomNum)
         {
-            pack = Instantiate(healthPack, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
-        }
-        else
-        {
-            pack = Instantiate(ammoPack, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
+            case 0:
+                pack = Instantiate(speedPack, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
+                break;
+            case 1:
+                pack = Instantiate(damagePack, projectilePosition.position, Quaternion.identity).GetComponent<Rigidbody>();
+                break;
+            default:
+                break;
         }
     }
 }

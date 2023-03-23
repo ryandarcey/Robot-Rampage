@@ -723,8 +723,9 @@ MonoBehaviour:
   sparks: {fileID: 0}
   animator: {fileID: 0}
   enemyProjectile: {fileID: 5694467063962508460, guid: 494e6cc9c8d6e3848b05075e8324e36d, type: 3}
-  healthPack: {fileID: 8938195931814358227, guid: fbd39f365bef48045b8980b100426742, type: 3}
-  ammoPack: {fileID: 867605460628769545, guid: c4eac0422fcd40d498c65837a6f02fd4, type: 3}
+  speedPack: {fileID: 8938195931814358227, guid: a88375b9dd70d8540ac91c97e4c20474, type: 3}
+  damagePack: {fileID: 8938195931814358227, guid: 9310dd34d17db4947a55f0526cde60ed, type: 3}
+  horizontalRange: 15
   projectilePosition: {fileID: 3808898147606550804}
 --- !u!114 &-1545644155735032778
 MonoBehaviour:

@@ -5,8 +5,8 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour
 {
     // Bool that dictates the type of item. True if it is health, false if it is ammo
-    public bool isHealth;
-    public float itemValue;
+    [SerializeField] private int itemType;
+    [SerializeField] private float itemValue;
 
     void OnTriggerEnter(Collider collision)
     {
@@ -19,7 +19,7 @@ public class ItemPickup : MonoBehaviour
                 Debug.Log("Item collected");
                 
                 // Depending on item type, apply the item value to the correct stat
-                stats.collectItem(isHealth, itemValue);
+                stats.collectItem(itemType, itemValue);
 
                 // Add points
                 FindObjectOfType<ScoreManager>().addPoints(10);
