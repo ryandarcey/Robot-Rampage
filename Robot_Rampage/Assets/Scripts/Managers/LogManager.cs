@@ -19,7 +19,8 @@ public class LogManager : MonoBehaviour
 	// Game parameter related values
 	string currentCamera;
 	string currentDifficulty;
-	string currentAnimation;
+	//string currentAnimation;
+	string currentTexture;
 
 	void Awake()
 	{
@@ -65,7 +66,7 @@ public class LogManager : MonoBehaviour
 
 		using (StreamWriter stream = File.AppendText(path))
 		{
-			string columnHeaders = "seconds_since_start,round_number,camera,difficulty,animation,action";  // TODO: figure out what columns we want
+			string columnHeaders = "seconds_since_start,round_number,camera,difficulty,textures,action";  // TODO: figure out what columns we want
 			stream.WriteLine(columnHeaders);
 			Debug.Log(columnHeaders);
 		}
@@ -87,7 +88,7 @@ public class LogManager : MonoBehaviour
 		string timeSinceStartString = timeSinceStart.TotalSeconds.ToString();
 		roundNumber = FindObjectOfType<RoundManager>().getRoundNumber();
 
-        string line = timeSinceStartString + "," + roundNumber.ToString() + "," + currentCamera + "," + currentDifficulty + "," + currentAnimation + "," + log;
+        string line = timeSinceStartString + "," + roundNumber.ToString() + "," + currentCamera + "," + currentDifficulty + "," + currentTexture + "," + log;
 
 		// write new line to file
 		using (StreamWriter stream = File.AppendText(path))
@@ -96,7 +97,7 @@ public class LogManager : MonoBehaviour
 		}
 	}
 
-	public void updateParameters(string camera, int difficulty, int animations)
+	public void updateParameters(string camera, int difficulty, String textureQuality)
 	{
         // Set camera mode
         currentCamera = camera;
@@ -105,30 +106,33 @@ public class LogManager : MonoBehaviour
 		switch (difficulty)
 		{
 			case 0:
-				currentDifficulty = "easy";
+				currentDifficulty = "Easy";
 				break;
 			case 1:
-                currentDifficulty = "medium";
+                currentDifficulty = "Medium";
                 break;
             case 2:
-                currentDifficulty = "hard";
+                currentDifficulty = "Hard";
                 break;
             default:
 				break;
         }
 
-        // Set animation mode
-        switch (animations)
-        {
-            case 0:
-                currentAnimation = "on";
-                break;
-            case 1:
-                currentDifficulty = "off";
-                break;
-            default:
-                break;
-        }
+		// Set animation mode
+		/*        switch (animations)
+				{
+					case 0:
+						currentAnimation = "on";
+						break;
+					case 1:
+						currentAnimation = "off";
+						break;
+					default:
+						break;
+				}*/
+
+		// Set texture quality
+		currentTexture = textureQuality;
 
         // Reset round timer
         FindObjectOfType<RoundManager>().resetTime();

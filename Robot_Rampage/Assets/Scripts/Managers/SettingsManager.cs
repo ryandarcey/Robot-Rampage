@@ -20,6 +20,7 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private Texture texHigh;
     [SerializeField] private Texture texMed;
     [SerializeField] private Texture texLow;
+    private string currTextureQuality = "";
 
     float enemyMovementSpeed = 1f;
     //float enemyProjectileSpeed = 40f;
@@ -99,10 +100,10 @@ public class SettingsManager : MonoBehaviour
         FindObjectOfType<RoundManager>().increaseRoundNumber();
 
         // Toggle animations on and off. 1 if off, 0 is on. Corresponds to animation override controller index
-        animationOverrideValue = json.GetInt("animationsOff");
+        //animationOverrideValue = json.GetInt("animationsOff");
         
         // Based on animation value, turn on or off the particle effects. 
-        if(animationOverrideValue == 0)
+/*        if(animationOverrideValue == 0)
         {
             setParticles = true;
         }
@@ -110,22 +111,26 @@ public class SettingsManager : MonoBehaviour
         {
             setParticles = false;
         }
-        setParticlesState();
+        setParticlesState();*/
 
         // Set textures based on value
         switch(json.GetInt("textures"))
         {
             case 0:
                 material.SetTexture("_MainTex", texLow);
+                currTextureQuality = "Low";
                 break;
             case 1:
                 material.SetTexture("_MainTex", texMed);
+                currTextureQuality = "Medium";
                 break;
             case 2:
                 material.SetTexture("_MainTex", texHigh);
+                currTextureQuality = "High";
                 break;
             default:
                 material.SetTexture("_MainTex", texMed);
+                currTextureQuality = "Med";
                 break;
         }
 
@@ -150,7 +155,7 @@ public class SettingsManager : MonoBehaviour
         }
 
         // Update round manager
-        FindObjectOfType<LogManager>().updateParameters(json.GetString("cameraMode"), json.GetInt("difficulty"), json.GetInt("animationsOff"));
+        FindObjectOfType<LogManager>().updateParameters(json.GetString("cameraMode"), json.GetInt("difficulty"), currTextureQuality);
     }
 
     public float getEnemyMovementSpeed()
