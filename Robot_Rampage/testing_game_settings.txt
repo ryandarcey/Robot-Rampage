@@ -1,5 +1,5 @@
 {
-"cameraMode" : "thirdPerson",
+"cameraMode" : "overhead",
 "animationsOff" : 0,
 "difficulty" : 0
 }
