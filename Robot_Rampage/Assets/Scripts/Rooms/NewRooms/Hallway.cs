@@ -10,6 +10,6 @@ public class Hallway : Room
 {
 	public Hallway()
 	{
-		this.roomSize = new Vector3(20, 15, 30); // (x-axis size, y-axis size, z-axis size)
+		this.roomSize = new Vector3(20, 12, 32); // (x-axis size, y-axis size, z-axis size)
 	}
 }

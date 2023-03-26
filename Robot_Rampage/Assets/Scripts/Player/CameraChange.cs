@@ -77,7 +77,7 @@ public class CameraChange : MonoBehaviour
         //Debug.Log(cameraModeStr);
         if(cameraModeStr == "firstPerson")
         {
-            cameraMode = 0;
+			cameraMode = 0;
             firstPersonCamera.SetActive(true);
             thirdPersonCamera.SetActive(false);
             overheadCamera.SetActive(false);
@@ -96,13 +96,13 @@ public class CameraChange : MonoBehaviour
         }
         if(cameraModeStr == "overhead")
         {
-            cameraMode = 2;
+			cameraMode = 2;
             firstPersonCamera.SetActive(false);
             thirdPersonCamera.SetActive(false);
             overheadCamera.SetActive(true);
 
-            //playerModel.SetActive(true);
-            playerModel.GetComponent<SkinnedMeshRenderer>().enabled = true;
+			//playerModel.SetActive(true);
+			playerModel.GetComponent<SkinnedMeshRenderer>().enabled = true;
             //playerRenderer.enabled = true;
             //firstPersonGun.SetActive(false);
             thirdPersonController.LockCameraPosition = true;
@@ -110,6 +110,8 @@ public class CameraChange : MonoBehaviour
             //crosshair.SetActive(false);
             crosshair.SetAlpha(0f);
             hitbox.SetActive(true);
+
+            
             
             return;
         }

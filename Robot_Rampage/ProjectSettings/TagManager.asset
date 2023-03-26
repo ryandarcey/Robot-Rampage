@@ -8,6 +8,8 @@ TagManager:
   - CinemachineTarget
   - SettingsManager
   - Particles
+  - Door
+  - Connection
   layers:
   - Default
   - TransparentFX

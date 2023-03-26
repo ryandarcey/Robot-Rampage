@@ -68,6 +68,7 @@ public class PlayerStats : MonoBehaviour
         FindObjectOfType<AudioManager>().PlaySound("player damage");
 
         FindObjectOfType<LogManager>().writeLog("Player Hit");
+        //Debug.Log("Current health: " + health);
 
         //updateUI();
 
@@ -84,7 +85,7 @@ public class PlayerStats : MonoBehaviour
 /*        if (ammo > 0)
         {
             ammo--;
-            Debug.Log("Ammo: " + ammo);
+            //Debug.Log("Ammo: " + ammo);
 
             updateUI();
         }*/
