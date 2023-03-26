@@ -15,6 +15,12 @@ public class SettingsManager : MonoBehaviour
     public GameObject roundManagerGO;
     private RoundManager roundManager;
 
+    // Texture related values
+    [SerializeField] private Material material;
+    [SerializeField] private Texture texHigh;
+    [SerializeField] private Texture texMed;
+    [SerializeField] private Texture texLow;
+
     float enemyMovementSpeed = 1f;
     //float enemyProjectileSpeed = 40f;
     int targetFPS = 60;
@@ -105,6 +111,23 @@ public class SettingsManager : MonoBehaviour
             setParticles = false;
         }
         setParticlesState();
+
+        // Set textures based on value
+        switch(json.GetInt("textures"))
+        {
+            case 0:
+                material.SetTexture("_MainTex", texLow);
+                break;
+            case 1:
+                material.SetTexture("_MainTex", texMed);
+                break;
+            case 2:
+                material.SetTexture("_MainTex", texHigh);
+                break;
+            default:
+                material.SetTexture("_MainTex", texMed);
+                break;
+        }
 
         // Change accuracy of the player and enemy given the difficulty.
         switch(json.GetInt("difficulty"))

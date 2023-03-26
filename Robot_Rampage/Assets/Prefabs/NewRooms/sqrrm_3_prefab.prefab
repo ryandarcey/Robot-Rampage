@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -1194169011952954133}
   - component: {fileID: -7581030986751952558}
   - component: {fileID: 5210405914677249935}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
