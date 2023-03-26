@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Room : MonoBehaviour
 {
 	public EnemyAction enemyPrefab;
+	private ArrayList spawnedEnemies = new();
 
 	// TODO: get size from code?
 	public Vector3 roomSize;
@@ -13,6 +15,7 @@ public abstract class Room : MonoBehaviour
 	ArrayList connectionArr = new();
 	ArrayList openConnections = new();
 	ArrayList doors = new();
+	public GameObject downDoor;
 
 	public void Awake()
 	{
@@ -175,18 +178,40 @@ public abstract class Room : MonoBehaviour
 		}
 	}*/
 
+	public void SetDownDoorActive()
+	{
+		downDoor.SetActive(true);
+	}
+
 	// FOR NOW, SHOULD ONLY BE CALLED ON SQUARE ROOMS
 	// TODO: redo this method
-	public void SpawnEnemies(GameObject robot)
+	public void SpawnEnemies(GameObject[] robotPrefabs)
 	{
-/*		EnemyAction enemy1 = Instantiate(enemyPrefab);
-		EnemyAction enemy2 = Instantiate(enemyPrefab);*/
+		int enemyType = 0;
+		Component[] components = this.GetComponentsInChildren(typeof(Component));
+		foreach (Component component in components)
+		{
+			string compString = component.ToString();
 
-		/*GameObject enemy1 = Instantiate(robot);
-		GameObject enemy2 = Instantiate(robot);
+			if (compString.Contains("enemy_spawn"))
+			{
+				Vector3 pos = component.transform.position;
 
-		enemy1.transform.position = this.transform.position + new Vector3(6, 5, 6);
-		enemy2.transform.position = this.transform.position + new Vector3(-6, 5, 6);*/
+				//int random = UnityEngine.Random.Range(0, 3);
+				GameObject enemy = Instantiate(robotPrefabs[enemyType]);
+				enemyType++;
+				spawnedEnemies.Add(enemy);
+				enemy.transform.position = pos;
+			}
+		}
+	}
+
+	public void DespawnEnemies()
+	{
+		foreach (GameObject enemy in spawnedEnemies)
+		{
+			Destroy(enemy);
+		}
 	}
 
 	void OnTriggerEnter(Collider other)

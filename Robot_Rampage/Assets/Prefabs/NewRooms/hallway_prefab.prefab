@@ -773,6 +773,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 0}
   roomSize: {x: 20, y: 12, z: 32}
   roomID: 0
+  downDoor: {fileID: 8190637107826313419}
 --- !u!65 &5065750748167834262
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1266,6 +1267,11 @@ PrefabInstance:
 --- !u!4 &4387884982231928959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 116052589524358398, guid: 4bb3bc1b19642c2458261e47e04be6d2, type: 3}
+  m_PrefabInstance: {fileID: 4429478334512596097}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8190637107826313419 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5535581580668914762, guid: 4bb3bc1b19642c2458261e47e04be6d2, type: 3}
   m_PrefabInstance: {fileID: 4429478334512596097}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4719641595164860491

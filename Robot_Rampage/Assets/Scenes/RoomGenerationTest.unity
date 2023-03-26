@@ -1353,7 +1353,7 @@ MonoBehaviour:
   robotEasyPrefab: {fileID: 3818329113558598490, guid: 51b8fc57b62d76244865e7cebf9465c6, type: 3}
   robotMediumPrefab: {fileID: 1243355303252313515, guid: 66e1506867160f343a40f3de7795b072, type: 3}
   robotHardPrefab: {fileID: 2837587908702567597, guid: 3cb0e4cdd7712d04783d861fa163aae3, type: 3}
-  numRoomsToGenerateAtATime: 4
+  numRoomsToGenerateAtATime: 2
   maxNumHallwaysInARow: 1
 --- !u!1 &1011606280 stripped
 GameObject:
@@ -7006,7 +7006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: MoveSpeed
-      value: 12
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: JumpHeight

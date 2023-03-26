@@ -22,6 +22,8 @@ public class LevelGenerator : MonoBehaviour
 
 	private ArrayList placedRooms = new();
 	private int nextRoomID = 0;
+	private int roomPlayerIsIn = 0;
+	private int farthestRoomPlayerEntered = 0;
 
 	public int numRoomsToGenerateAtATime = 20;
     public int maxNumHallwaysInARow = 1;    // TODO: get rid of this and hardcode max 1 hallway in a row
@@ -69,13 +71,18 @@ public class LevelGenerator : MonoBehaviour
 		{
 			return true;
 		}
-		// TODO: more robust overlap checking (essentially full hitbox checking)
 
 		//Debug.Log(connection.ToString());
 		Vector3 connForward = connection.transform.forward;
 		// estimate position of new room by adding Z/2 in the direction of the connection to the connection's position
 		Vector3 newRoomEstimate = connection.transform.position + room.roomSize.z/2 * connForward;
-		Vector3 newRoomSize = room.roomSize;
+
+		float newRoomLength = room.roomSize.z;
+
+		float newRoomMinX = newRoomEstimate.x - newRoomLength / 2;
+		float newRoomMaxX = newRoomEstimate.x + newRoomLength / 2;
+		float newRoomMinZ = newRoomEstimate.z - newRoomLength / 2;
+		float newRoomMaxZ = newRoomEstimate.z + newRoomLength / 2;
 		//Debug.Log("New Room Estimated Pos:  " + newRoomEstimate.ToString());
 
 		foreach (Room placedRoom in placedRooms)
@@ -84,40 +91,23 @@ public class LevelGenerator : MonoBehaviour
 			Vector3 placedSize = placedRoom.roomSize;
 			Vector3 diff = placedPos - newRoomEstimate;
 
-			/*Debug.Log("");
-			Debug.Log("PLACED ROOM POSITION: " + placedPos);
-			Debug.Log("NEW ROOM POSITION:    " + newRoomEstimate);
-			Debug.Log("");*/
-
-			if (true/*diff.magnitude < overlapCheckRadius*/)
+			if (diff.magnitude < overlapCheckRadius)
 			{
-				float placedRoomLength;
-				if (placedSize.x > placedSize.z)
-					placedRoomLength = placedSize.x;
-				else
-					placedRoomLength = placedSize.z;
+				//Debug.Log("~~\tPLACED ROOM POS:\t" + placedPos + "\tNEW ROOM POS:\t" + newRoomEstimate);
 
-				float newRoomLength;
-				if (newRoomSize.x > newRoomSize.z)
-					newRoomLength = newRoomSize.x;
-				else
-					newRoomLength = newRoomSize.z;
+				float placedRoomLength = placedSize.z;
 
 				float placedRoomMinX = placedPos.x - placedRoomLength/2;
-				float placedRoomMaxX = placedPos.x - placedRoomLength/2;
+				float placedRoomMaxX = placedPos.x + placedRoomLength/2;
 				float placedRoomMinZ = placedPos.z - placedRoomLength/2;
-				float placedRoomMaxZ = placedPos.z - placedRoomLength/2;
-
-				float newRoomMinX = newRoomEstimate.x - newRoomLength/2;
-				float newRoomMaxX = newRoomEstimate.x - newRoomLength/2;
-				float newRoomMinZ = newRoomEstimate.z - newRoomLength/2;
-				float newRoomMaxZ = newRoomEstimate.z - newRoomLength/2;
-
+				float placedRoomMaxZ = placedPos.z + placedRoomLength/2;
+				
 				// check if rooms overlap
-				if ((placedRoomMaxX >= newRoomMinX && newRoomMaxX >= placedRoomMinX)
-					&& (placedRoomMaxZ >= newRoomMinZ && newRoomMaxZ >= placedRoomMinZ))
+				if ((placedRoomMinX < newRoomMaxX && placedRoomMaxX > newRoomMinX)
+					&& (placedRoomMinZ < newRoomMaxZ && placedRoomMaxZ > newRoomMinZ))
 				{
-					return true;// !DeleteRoom(placedRoom);
+					//Debug.Log("~~~\tINSIDE BIG IF() CHECK");
+					return !DeleteRoom(placedRoom);
 				}
 			}
 		}
@@ -130,6 +120,27 @@ public class LevelGenerator : MonoBehaviour
 	//	false if not deleted
 	bool DeleteRoom(Room room)
 	{
+		//Debug.Log("~\tIN DeleteRoom()");
+		int roomToDeleteID = room.roomID;
+
+		if (roomToDeleteID < (roomPlayerIsIn - 1))
+		{
+			int previouslyDestroyedID = ((Room)placedRooms[0]).roomID;
+
+			while (previouslyDestroyedID < roomToDeleteID)
+			{
+				Room previouslyDestroyed = (Room)placedRooms[0];
+				placedRooms.RemoveAt(0);
+				previouslyDestroyedID = previouslyDestroyed.roomID;
+				previouslyDestroyed.DespawnEnemies();
+				Destroy(previouslyDestroyed.gameObject);
+			}
+
+			((Room)placedRooms[0]).SetDownDoorActive();
+
+			return true;
+		}
+		
 		return false;
 	}
 
@@ -141,19 +152,25 @@ public class LevelGenerator : MonoBehaviour
 
     public void RoomEntered(int roomID)
     {
-		if (roomID % (numRoomsToGenerateAtATime) == numRoomsToGenerateAtATime / 2)
+		roomPlayerIsIn = roomID;
+
+		if (roomID > farthestRoomPlayerEntered)
 		{
-			Debug.Log("~~~~ player entered room " + roomID + " -- GENERATING more rooms");
-			GenerateRooms();
-		}
-		else if (roomID % (numRoomsToGenerateAtATime) == 0 && roomID >= numRoomsToGenerateAtATime)
-		{
-			Debug.Log("~~~~ player entered room " + roomID + " -- DESTROYING rooms");
-			DestroyRooms(roomID);
+			if (roomID % (numRoomsToGenerateAtATime) == numRoomsToGenerateAtATime / 2)
+			{
+				Debug.Log("~~~~ player entered room " + roomID + " -- GENERATING more rooms");
+				GenerateRooms();
+			}
+			else if (roomID % (numRoomsToGenerateAtATime) == 0)
+			{
+				Debug.Log("~~~~ player entered room " + roomID + " -- DESTROYING rooms");
+				DestroyRooms(roomID);
+			}
+
+			farthestRoomPlayerEntered = roomID;
 		}
 		else
 			Debug.Log("~~ player entered room " + roomID);
-
 	}
 
     void GenerateRooms()
@@ -215,7 +232,7 @@ public class LevelGenerator : MonoBehaviour
 				// if the connection won't result in the next room overlapping an existing room,
 				//  then break out of the while()
 				bool willConOverlap = WillConnectionOverlap(previousRoomConnection, nextRoom);
-				Debug.Log("WILL CONNECTION OVERLAP: " + willConOverlap);
+				//Debug.Log("WILL CONNECTION OVERLAP: " + willConOverlap);
 				
 				if (previousRoomConnection != null && !willConOverlap)
 				{
@@ -243,23 +260,26 @@ public class LevelGenerator : MonoBehaviour
 			// if not a hallway, spawn enemies in the room
 			if (isSquare)
 			{
-				int random = UnityEngine.Random.Range(0, 3);
-				nextRoom.SpawnEnemies(robotPrefabs[random]);
-				Debug.Log("SPAWNING ENEMIES");
+				nextRoom.SpawnEnemies(robotPrefabs);
+				//Debug.Log("SPAWNING ENEMIES");
 			}
 		}
 	}
 
     void DestroyRooms(int roomID)
     {
-		int previouslyDestroyedID = -1;
-		while(previouslyDestroyedID < (roomID - numRoomsToGenerateAtATime/2))
+		int previouslyDestroyedID = ((Room)placedRooms[0]).roomID;
+
+		while(previouslyDestroyedID < (roomID - numRoomsToGenerateAtATime/2)-1)
 		{
 			Room previouslyDestroyed = (Room)placedRooms[0];
 			placedRooms.RemoveAt(0);
 			previouslyDestroyedID = previouslyDestroyed.roomID;
+			previouslyDestroyed.DespawnEnemies();
 			Destroy(previouslyDestroyed.gameObject);
 		}
+
+		((Room)placedRooms[0]).SetDownDoorActive();
 	}
 
 }
