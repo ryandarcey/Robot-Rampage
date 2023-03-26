@@ -1,6 +1,5 @@
 {
 "cameraMode" : "thirdPerson",
-"animationsOff" : 0,
 "textures" : 2,
 "difficulty" : 0
 }

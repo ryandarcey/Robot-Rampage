@@ -27,6 +27,8 @@ public class SettingsManager : MonoBehaviour
 	[SerializeField] private Texture groundTexMed;
 	[SerializeField] private Texture groundTexLow;
 
+    private string currTextureQuality;
+
 	float enemyMovementSpeed = 1f;
     //float enemyProjectileSpeed = 40f;
     int targetFPS = 60;
@@ -105,10 +107,10 @@ public class SettingsManager : MonoBehaviour
         FindObjectOfType<RoundManager>().increaseRoundNumber();
 
         // Toggle animations on and off. 1 if off, 0 is on. Corresponds to animation override controller index
-        animationOverrideValue = json.GetInt("animationsOff");
+        //animationOverrideValue = json.GetInt("animationsOff");
         
         // Based on animation value, turn on or off the particle effects. 
-        if(animationOverrideValue == 0)
+/*        if(animationOverrideValue == 0)
         {
             setParticles = true;
         }
@@ -116,7 +118,7 @@ public class SettingsManager : MonoBehaviour
         {
             setParticles = false;
         }
-        setParticlesState();
+        setParticlesState();*/
 
         // Set textures based on value
         switch(json.GetInt("textures"))
@@ -125,21 +127,25 @@ public class SettingsManager : MonoBehaviour
                 wallMaterial.SetTexture("_MainTex", wallTexLow);
 				columnMaterial.SetTexture("_MainTex", wallTexLow);
 				groundMaterial.SetTexture("_MainTex", groundTexLow);
+                currTextureQuality = "Low";
 				break;
             case 1:
                 wallMaterial.SetTexture("_MainTex", wallTexMed);
 				columnMaterial.SetTexture("_MainTex", wallTexMed);
 				groundMaterial.SetTexture("_MainTex", groundTexMed);
+                currTextureQuality = "Medium";
 				break;
             case 2:
                 wallMaterial.SetTexture("_MainTex", wallTexHigh);
 				columnMaterial.SetTexture("_MainTex", wallTexHigh);
 				groundMaterial.SetTexture("_MainTex", groundTexHigh);
+                currTextureQuality = "High";
 				break;
             default:
 				wallMaterial.SetTexture("_MainTex", wallTexMed);
 				columnMaterial.SetTexture("_MainTex", wallTexMed);
 				groundMaterial.SetTexture("_MainTex", groundTexMed);
+                currTextureQuality = "Medium";
 				break;
         }
 
@@ -164,7 +170,7 @@ public class SettingsManager : MonoBehaviour
         }
 
         // Update round manager
-        FindObjectOfType<LogManager>().updateParameters(json.GetString("cameraMode"), json.GetInt("difficulty"), json.GetInt("animationsOff"));
+        FindObjectOfType<LogManager>().updateParameters(json.GetString("cameraMode"), json.GetInt("difficulty"), currTextureQuality);
     }
 
     public float getEnemyMovementSpeed()
