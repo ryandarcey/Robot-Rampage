@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -123,7 +122,7 @@ public class LevelGenerator : MonoBehaviour
 		//Debug.Log("~\tIN DeleteRoom()");
 		int roomToDeleteID = room.roomID;
 
-		if (roomToDeleteID < (roomPlayerIsIn - 1))
+		if (roomToDeleteID < roomPlayerIsIn)
 		{
 			int previouslyDestroyedID = ((Room)placedRooms[0]).roomID;
 
