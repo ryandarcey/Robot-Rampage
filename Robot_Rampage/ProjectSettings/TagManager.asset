@@ -7,6 +7,8 @@ TagManager:
   - RoomConnection
   - CinemachineTarget
   - SettingsManager
+  - Door
+  - Connection
   layers:
   - Default
   - TransparentFX

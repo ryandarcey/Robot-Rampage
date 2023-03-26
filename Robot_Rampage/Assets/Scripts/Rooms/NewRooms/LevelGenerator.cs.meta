@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: bd2f0d19538a0244d8ae87f4338c12cb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - hallwayPrefab: {fileID: 5957951706477297098, guid: dac201a2d162f8547a7e5924f9271e9a, type: 3}
+  - squareRoom1Prefab: {fileID: -4463278661920092547, guid: 905ddc6c27205c84f9d25fb30c4b30f9, type: 3}
+  - squareRoom2Prefab: {fileID: -3041061051338283147, guid: 4bd30f6160c318c468f7311cf3d422e7, type: 3}
+  - squareRoom3Prefab: {fileID: -5918428499412371035, guid: edc76dab077f34b42bb2ba020f9dac46, type: 3}
+  - robotEasyPrefab: {fileID: 3818329113558598490, guid: 51b8fc57b62d76244865e7cebf9465c6, type: 3}
+  - robotMediumPrefab: {fileID: 1243355303252313515, guid: 66e1506867160f343a40f3de7795b072, type: 3}
+  - robotHardPrefab: {fileID: 2837587908702567597, guid: 3cb0e4cdd7712d04783d861fa163aae3, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

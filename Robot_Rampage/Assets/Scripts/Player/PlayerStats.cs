@@ -42,7 +42,7 @@ public class PlayerStats : MonoBehaviour
         // Play sound
         FindObjectOfType<AudioManager>().PlaySound("player damage");
 
-        Debug.Log("Current health: " + health);
+        //Debug.Log("Current health: " + health);
 
         updateUI();
 
@@ -59,7 +59,7 @@ public class PlayerStats : MonoBehaviour
         if (ammo > 0)
         {
             ammo--;
-            Debug.Log("Ammo: " + ammo);
+            //Debug.Log("Ammo: " + ammo);
 
             updateUI();
         }
@@ -78,7 +78,7 @@ public class PlayerStats : MonoBehaviour
             {
                 health = healthMax;
             }
-            Debug.Log("Collected Health, Health: " + health);
+            //Debug.Log("Collected Health, Health: " + health);
         }
         // If the item was an ammo pack, increase the health up to the max value
         else
@@ -88,7 +88,7 @@ public class PlayerStats : MonoBehaviour
             {
                 ammo = ammoMax;
             }
-            Debug.Log("Collected Ammo, Ammo: " + ammo);
+            //Debug.Log("Collected Ammo, Ammo: " + ammo);
         }
 
         // Play sound

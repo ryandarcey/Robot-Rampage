@@ -114,7 +114,7 @@ public class AudioManager : MonoBehaviour
         Sound sound = Array.Find(sounds, s => s.name == soundName);
         if (sound == null)
         {
-            Debug.LogWarning("Sound: " + soundName + " not found.");
+            //Debug.LogWarning("Sound: " + soundName + " not found.");
             return;
         }
 
@@ -127,7 +127,7 @@ public class AudioManager : MonoBehaviour
         Sound sound = Array.Find(sounds, s => s.name == soundName);
         if (sound == null)
         {
-            Debug.LogWarning("Sound: " + soundName + " not found.");
+            //Debug.LogWarning("Sound: " + soundName + " not found.");
             return;
         }
 
@@ -140,7 +140,7 @@ public class AudioManager : MonoBehaviour
         Sound sound = Array.Find(music, s => s.name == musicName);
         if (sound == null)
         {
-            Debug.LogWarning("Music: " + musicName + " not found.");
+            //Debug.LogWarning("Music: " + musicName + " not found.");
             return;
         }
 
@@ -199,7 +199,7 @@ public class AudioManager : MonoBehaviour
         }
 
         previousTrack.audioSource.Stop();
-        Debug.Log("Now playing: " + nextTrack.name);
+        //Debug.Log("Now playing: " + nextTrack.name);
     }
 }
 

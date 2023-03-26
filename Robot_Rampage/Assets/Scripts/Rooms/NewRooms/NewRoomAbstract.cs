@@ -2,89 +2,39 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/*
+
 public abstract class Room : MonoBehaviour
 {
 	public EnemyAction enemyPrefab;
 
 	// TODO: get size from code?
 	public Vector3 roomSize;
+	public int roomID;
 	ArrayList connectionArr = new();
 	ArrayList openConnections = new();
-	ArrayList walls = new();
+	ArrayList doors = new();
 
 	public void Awake()
 	{
-		//Debug.Log("SquareRoom : Awake()");
-		// grabs "connection" components and stores them in an array
 		Component[] components = this.GetComponentsInChildren(typeof(Component));
 		foreach (Component component in components)
 		{
-			string compString = component.ToString();
+			string compString = component.ToString().ToLower();
 
-			if (compString.Contains("Connection"))
+			if (component.CompareTag("Connection"))
 			{
-				//Debug.Log(component.transform.forward);
-				//Debug.Log(component.ToString());
+				connectionArr.Add(component);
 
-				// switch statement for compString wasn't working for some reason
-				if (compString.Contains("DownConnection"))
+				if (!compString.Contains("down"))
 				{
-					//Debug.Log(component.ToString());
-					connectionArr.Insert(0, component);
-					// down is never an open connection
-				}
-				else if (compString.Contains("LeftConnection"))
-				{
-					connectionArr.Add(component);
-					//connectionArr.Insert(1, component);
-					openConnections.Add(component);
-				}
-				else if (compString.Contains("UpConnection"))
-				{
-					connectionArr.Add(component);
-					//connectionArr.Insert(2, component);
-					openConnections.Add(component);
-				}
-				else if (compString.Contains("RightConnection"))
-				{
-					connectionArr.Add(component);
-					//connectionArr.Insert(0, component);
-					openConnections.Add(component);
-				}
-				else if (compString.Contains("TopConnection"))
-				{
-					connectionArr.Add(component);
-					//connectionArr.Insert(0, component);
+					// all connections of new room except 'down' are open
 					openConnections.Add(component);
 				}
 			}
 
-			if (compString.Contains("Wall"))
+			else if (component.CompareTag("Door"))
 			{
-				//Debug.Log(component.transform.forward);
-				//Debug.Log(component.ToString());
-
-				if (compString.Contains("Wall Down"))
-				{
-					// down is always an open entrance
-				}
-				else if (compString.Contains("Wall Left"))
-				{
-					walls.Add(component);
-				}
-				else if (compString.Contains("Wall Up"))
-				{
-					walls.Add(component);
-				}
-				else if (compString.Contains("Wall Right"))
-				{
-					walls.Add(component);
-				}
-				else if (compString.Contains("Wall Top"))
-				{
-					walls.Add(component);
-				}
+				doors.Add(component);
 			}
 
 		}
@@ -127,16 +77,20 @@ public abstract class Room : MonoBehaviour
 			newPos.x += connForward.x * roomLength / 2;
 			//Debug.Log("New X = " + newPos.x);
 		}
-		else if (Math.Abs(connForward.y) > 0.01)
+		/*else if (Math.Abs(connForward.y) > 0.01)
 		{
 			newPos.y += connForward.y * roomLength / 2;
 			//Debug.Log("New Y = " + newPos.y);
-		}
+		}*/
 		else if (Math.Abs(connForward.z) > 0.01)
 		{
 			newPos.z += connForward.z * roomLength / 2;
 			//Debug.Log("New Z = " + newPos.z);
 		}
+
+		newPos.x = (float)Math.Round(newPos.x);
+		newPos.y = 0f;
+		newPos.z = (float)Math.Round(newPos.z);
 
 		return newPos;
 	}
@@ -165,12 +119,13 @@ public abstract class Room : MonoBehaviour
 
 	// makes a wall closed/open depending on if there is a room connected to it
 	//	(both start as active, then it sets one inactive)
-	public void setWalls(Component c)
+	public void SetDoors(Component doorToLeaveOpen, bool isStartingRoom= false)
 	{
 		string direction;
-		if(c != null) 
-		{ 
-			direction = c.ToString().Replace("Connection", ""); 
+		if(doorToLeaveOpen != null) 
+		{
+			direction = doorToLeaveOpen.ToString().Replace("connection_", "");	// TODO: redundant?
+			direction.ToLower();
 		}
 		else
 		{
@@ -179,28 +134,31 @@ public abstract class Room : MonoBehaviour
 
 		//Debug.Log("Direction: " + direction);
 
-		// Strings representing the name of both the wall and entrance given the direction
-		string wallName = "Wall " + direction;
-		string entranceName = "Entrance " + direction;
 
 		Component[] components = this.GetComponentsInChildren(typeof(Component));
 		foreach (Component component in components)
 		{
 			string compString = component.ToString();
 
-			// If an open entrance is found that isn't the already chosen one the corresponding wall is found, disable it
-			if ((compString.Contains("Entrance") && !(compString.Contains(entranceName) || compString.Contains("Entrance Down")))
-				|| (compString.Contains(wallName)))
+			// leave open provided door + down door, close (set active) other doors
+			if (compString.Contains("door") && 
+				(compString.Contains(direction) || 
+					(compString.Contains("down") && !isStartingRoom)))
 			{
 				//Debug.Log("Setting false: " + compString);
 				component.gameObject.SetActive(false);
 			}
+			/*else
+			{
+				component.gameObject.SetActive(true);
+			}*/
 		}
 	}
 
 	// Removes down wall unless it is the starting room
 	// only to be called on starting room -- sets "down" to be a wall instead of doorway
-	public void setDownWall(bool isStartingRoom)
+	// TODO: redo/fix this method
+	/*public void SetDownDoor(bool isStartingRoom=false)
 	{
 		//Debug.Log("Setting down wall");
 		Component[] components = this.GetComponentsInChildren(typeof(Component));
@@ -209,34 +167,33 @@ public abstract class Room : MonoBehaviour
 			string compString = component.ToString();
 
 			// Remove the wall if it is not the starting room
-			if (compString.Contains("Wall Down") && !isStartingRoom)
+			if (compString.Contains("door_down") && isStartingRoom)
 			{
-				component.gameObject.SetActive(false);
+				component.gameObject.SetActive(true);
 				//Debug.Log("Setting true: " + compString);
 			}
-
-			// Remove the down entrance if it is the starting room
-			if (compString.Contains("Entrance Down") && isStartingRoom)
-			{
-				component.gameObject.SetActive(false);
-			}
 		}
-	}
+	}*/
 
 	// FOR NOW, SHOULD ONLY BE CALLED ON SQUARE ROOMS
+	// TODO: redo this method
 	public void SpawnEnemies(GameObject robot)
 	{
 /*		EnemyAction enemy1 = Instantiate(enemyPrefab);
-		EnemyAction enemy2 = Instantiate(enemyPrefab);*//*
+		EnemyAction enemy2 = Instantiate(enemyPrefab);*/
 
-		GameObject enemy1 = Instantiate(robot);
+		/*GameObject enemy1 = Instantiate(robot);
 		GameObject enemy2 = Instantiate(robot);
 
-		/*enemy1.SetPlayer(player);
-		enemy2.SetPlayer(player);*//*
-
 		enemy1.transform.position = this.transform.position + new Vector3(6, 5, 6);
-		enemy2.transform.position = this.transform.position + new Vector3(-6, 5, 6);
+		enemy2.transform.position = this.transform.position + new Vector3(-6, 5, 6);*/
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.CompareTag("Player"))
+		{
+			FindObjectOfType<LevelGenerator>().RoomEntered(roomID);
+		}
 	}
 }
-*/
