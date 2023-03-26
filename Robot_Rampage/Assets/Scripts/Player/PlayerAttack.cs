@@ -198,8 +198,10 @@ public class PlayerAttack : MonoBehaviour
 		Vector3 gameObjectPos = gameObject.transform.position;
 		Vector3 gameObjectDir = gameObjectPos - playerPos;
 
+		LayerMask roomColliderLayer = LayerMask.GetMask("RoomCollider");
+		//Debug.Log("LAYERMASK:\t" + roomColliderLayer + "\tINVERTED:\t" + ~roomColliderLayer);
 
-		if (Physics.Raycast(playerPos, gameObjectDir, out hit))
+		if (Physics.Raycast(playerPos, gameObjectDir, out hit, range, ~roomColliderLayer))
 		{
 			bool canSeeEnemy = hit.collider.gameObject.layer == 6;
 			//Debug.Log("CAN PLAYER SEE ENEMY:  " + canSeeEnemy);

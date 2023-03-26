@@ -16,12 +16,18 @@ public class SettingsManager : MonoBehaviour
     private RoundManager roundManager;
 
     // Texture related values
-    [SerializeField] private Material material;
-    [SerializeField] private Texture texHigh;
-    [SerializeField] private Texture texMed;
-    [SerializeField] private Texture texLow;
+    [SerializeField] private Material wallMaterial;
+    [SerializeField] private Material columnMaterial;
+    [SerializeField] private Texture wallTexHigh;
+    [SerializeField] private Texture wallTexMed;
+    [SerializeField] private Texture wallTexLow;
 
-    float enemyMovementSpeed = 1f;
+	[SerializeField] private Material groundMaterial;
+	[SerializeField] private Texture groundTexHigh;
+	[SerializeField] private Texture groundTexMed;
+	[SerializeField] private Texture groundTexLow;
+
+	float enemyMovementSpeed = 1f;
     //float enemyProjectileSpeed = 40f;
     int targetFPS = 60;
 
@@ -116,17 +122,25 @@ public class SettingsManager : MonoBehaviour
         switch(json.GetInt("textures"))
         {
             case 0:
-                material.SetTexture("_MainTex", texLow);
-                break;
+                wallMaterial.SetTexture("_MainTex", wallTexLow);
+				columnMaterial.SetTexture("_MainTex", wallTexLow);
+				groundMaterial.SetTexture("_MainTex", groundTexLow);
+				break;
             case 1:
-                material.SetTexture("_MainTex", texMed);
-                break;
+                wallMaterial.SetTexture("_MainTex", wallTexMed);
+				columnMaterial.SetTexture("_MainTex", wallTexMed);
+				groundMaterial.SetTexture("_MainTex", groundTexMed);
+				break;
             case 2:
-                material.SetTexture("_MainTex", texHigh);
-                break;
+                wallMaterial.SetTexture("_MainTex", wallTexHigh);
+				columnMaterial.SetTexture("_MainTex", wallTexHigh);
+				groundMaterial.SetTexture("_MainTex", groundTexHigh);
+				break;
             default:
-                material.SetTexture("_MainTex", texMed);
-                break;
+				wallMaterial.SetTexture("_MainTex", wallTexMed);
+				columnMaterial.SetTexture("_MainTex", wallTexMed);
+				groundMaterial.SetTexture("_MainTex", groundTexMed);
+				break;
         }
 
         // Change accuracy of the player and enemy given the difficulty.
