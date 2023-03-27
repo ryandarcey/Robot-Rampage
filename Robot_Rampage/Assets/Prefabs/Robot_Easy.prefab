@@ -479,7 +479,7 @@ MonoBehaviour:
   damage: 5
   chaseSpeed: 0
   chaseRange: 0
-  attackRange: 20
+  attackRange: 40
   canChase: 0
   canAttack: 1
   sparks: {fileID: 3573283265622925696}

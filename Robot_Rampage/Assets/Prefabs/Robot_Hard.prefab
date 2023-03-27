@@ -96,8 +96,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7088846243233659470, guid: 66e1506867160f343a40f3de7795b072, type: 3}
+      propertyPath: chaseRange
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7088846243233659470, guid: 66e1506867160f343a40f3de7795b072, type: 3}
       propertyPath: chaseSpeed
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7088846243233659470, guid: 66e1506867160f343a40f3de7795b072, type: 3}
+      propertyPath: attackRange
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7972850836515754106, guid: 66e1506867160f343a40f3de7795b072, type: 3}
       propertyPath: overrider

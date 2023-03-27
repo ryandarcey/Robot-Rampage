@@ -57,7 +57,7 @@ public class EnemyAction : MonoBehaviour
         shot.MoveRotation(Quaternion.Euler(0, Random.Range(-95 - horizontalRange, -95 + horizontalRange), 0));
 
         // Push object forward towards player
-        shot.AddRelativeForce(transform.forward * 40f, ForceMode.Impulse);
+        shot.AddRelativeForce(transform.forward * 80f, ForceMode.Impulse);
         shot.AddForce(transform.up * 1f, ForceMode.Impulse);
 
         // Play sound

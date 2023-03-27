@@ -122,7 +122,7 @@ public class LevelGenerator : MonoBehaviour
 		//Debug.Log("~\tIN DeleteRoom()");
 		int roomToDeleteID = room.roomID;
 
-		if (roomToDeleteID < roomPlayerIsIn)
+		if (roomToDeleteID < roomPlayerIsIn-1)
 		{
 			int previouslyDestroyedID = ((Room)placedRooms[0]).roomID;
 
@@ -269,7 +269,7 @@ public class LevelGenerator : MonoBehaviour
     {
 		int previouslyDestroyedID = ((Room)placedRooms[0]).roomID;
 
-		while(previouslyDestroyedID < (roomID - numRoomsToGenerateAtATime/2)-1)
+		while(previouslyDestroyedID < (roomPlayerIsIn - 2))
 		{
 			Room previouslyDestroyed = (Room)placedRooms[0];
 			placedRooms.RemoveAt(0);

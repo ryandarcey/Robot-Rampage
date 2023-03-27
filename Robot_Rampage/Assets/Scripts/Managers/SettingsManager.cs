@@ -155,17 +155,17 @@ public class SettingsManager : MonoBehaviour
             // Easy
             case 0:
                 playerArmature.GetComponent<PlayerAttack>().horizontalRange = 15;
-                setEnemyDifficulty(15);
+                setEnemyDifficulty(8);
                 break;
             // Medium
             case 1:
                 playerArmature.GetComponent<PlayerAttack>().horizontalRange = 10;
-                setEnemyDifficulty(10);
+                setEnemyDifficulty(4);
                 break;
             // Hard
             case 2:
-                playerArmature.GetComponent<PlayerAttack>().horizontalRange = 5;
-                setEnemyDifficulty(2);
+                playerArmature.GetComponent<PlayerAttack>().horizontalRange = 6;
+                setEnemyDifficulty(1);
                 break;
         }
 
