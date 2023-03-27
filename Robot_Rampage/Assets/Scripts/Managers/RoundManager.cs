@@ -100,7 +100,18 @@ public class RoundManager : MonoBehaviour
 	// Pause or un-pause the game
     public void TogglePause()
     {
-		// If the timescale is over 0, then the game is currently running and will be paused
+        GameObject[] gameObjects = GameObject.FindObjectsOfType<GameObject>();
+        foreach (GameObject gameObject in gameObjects)
+        {
+            string gameObjName = gameObject.name;
+
+            if(gameObjName.Contains("Bullet"))
+            {
+                Destroy(gameObject);
+            }
+        }
+        
+        // If the timescale is over 0, then the game is currently running and will be paused
         if (Time.timeScale > 0)
         {
             previousTimeScale = Time.timeScale;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public abstract class Room : MonoBehaviour
 {
@@ -127,7 +128,7 @@ public abstract class Room : MonoBehaviour
 		string direction;
 		if(doorToLeaveOpen != null) 
 		{
-			direction = doorToLeaveOpen.ToString().Replace("connection_", "");	// TODO: redundant?
+			direction = doorToLeaveOpen.name.Replace("connection_", "");	// TODO: redundant?
 			direction.ToLower();
 		}
 		else
@@ -137,11 +138,11 @@ public abstract class Room : MonoBehaviour
 
 		//Debug.Log("Direction: " + direction);
 
-
+		Debug.Log($"<color=red>{direction}</color>");
 		Component[] components = this.GetComponentsInChildren(typeof(Component));
 		foreach (Component component in components)
 		{
-			string compString = component.ToString();
+			string compString = component.name;
 
 			// leave open provided door + down door, close (set active) other doors
 			if (compString.Contains("door") && 
@@ -149,6 +150,13 @@ public abstract class Room : MonoBehaviour
 					(compString.Contains("down") && !isStartingRoom)))
 			{
 				//Debug.Log("Setting false: " + compString);
+				component.gameObject.SetActive(false);
+			}
+			
+			else if (compString.Contains("navigation") && !compString.Contains(direction))
+			{
+				Debug.Log("setting\t" + compString + "\tinactive");
+				// turn off green lights that aren't above an open door
 				component.gameObject.SetActive(false);
 			}
 			/*else

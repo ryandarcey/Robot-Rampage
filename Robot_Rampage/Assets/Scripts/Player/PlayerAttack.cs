@@ -203,6 +203,8 @@ public class PlayerAttack : MonoBehaviour
 
 		if (Physics.Raycast(playerPos, gameObjectDir, out hit, range, ~roomColliderLayer))
 		{
+			//Debug.Log(hit.collider.gameObject.name);
+			
 			bool canSeeEnemy = hit.collider.gameObject.layer == 6;
 			//Debug.Log("CAN PLAYER SEE ENEMY:  " + canSeeEnemy);
 			if (canSeeEnemy)

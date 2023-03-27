@@ -313,11 +313,6 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
-
-            if (_speed > 0f)
-            {
-                FindObjectOfType<LogManager>().writeLog("Player move");
-            }
         }
 
         private void JumpAndGravity()
@@ -354,7 +349,7 @@ namespace StarterAssets
 
                     // Play sound
                     FindObjectOfType<AudioManager>().PlaySound("player jump");
-                    FindObjectOfType<LogManager>().writeLog("player jump");
+                    //FindObjectOfType<LogManager>().writeLog("player jump");
                 }
 
                 // jump timeout

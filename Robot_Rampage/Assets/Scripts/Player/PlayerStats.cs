@@ -13,6 +13,8 @@ public class PlayerStats : MonoBehaviour
     // Starting and max ammo for player
     public float ammo = 20f;
     public float ammoMax = 50f;
+
+    public float playerSpeed = 14f;
     
     // UI elements for health and ammo
     public TextMeshProUGUI healthText;
@@ -129,8 +131,8 @@ public class PlayerStats : MonoBehaviour
                 ammoText.color = Color.cyan;
 
                 // Change speed in ThirdPersonController script
-                player.GetComponent<ThirdPersonController>().MoveSpeed = 18f;
-                player.GetComponent<ThirdPersonController>().SprintSpeed = 24f;
+                player.GetComponent<ThirdPersonController>().MoveSpeed = player.GetComponent<ThirdPersonController>().MoveSpeed + 4f;
+                //player.GetComponent<ThirdPersonController>().SprintSpeed = 24f;
 
                 FindObjectOfType<LogManager>().writeLog("Collected Speed Up");
                 break;
@@ -167,8 +169,8 @@ public class PlayerStats : MonoBehaviour
     private void resetValues()
     {
         // Speed
-        player.GetComponent<ThirdPersonController>().MoveSpeed = 12f;
-        player.GetComponent<ThirdPersonController>().SprintSpeed = 18f;
+        player.GetComponent<ThirdPersonController>().MoveSpeed = playerSpeed;
+        //player.GetComponent<ThirdPersonController>().SprintSpeed = 18f;
 
         // Damage
         player.GetComponent<PlayerAttack>().damage = 5;

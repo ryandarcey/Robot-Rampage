@@ -8061,6 +8061,7 @@ MonoBehaviour:
   healthMax: 100
   ammo: 30
   ammoMax: 50
+  playerSpeed: 14
   healthText: {fileID: 682653478}
   ammoText: {fileID: 480320910}
   roundManagerGO: {fileID: 1631544753}
