@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class IdleStateEnemy : StateMachineBehaviour
 {
-    float timer;
+    //float timer;
+    
     // Player used to determine position
     Transform player;
 
@@ -19,7 +20,7 @@ public class IdleStateEnemy : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer = 0;
+        //timer = 0;
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         chaseRange = animator.transform.GetComponent<EnemyAction>().chaseRange;

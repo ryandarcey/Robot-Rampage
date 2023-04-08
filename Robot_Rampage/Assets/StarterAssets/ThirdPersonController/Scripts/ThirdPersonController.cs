@@ -228,6 +228,10 @@ namespace StarterAssets
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
+            if (LockCameraPosition)
+            {
+                _cinemachineTargetYaw = 0;
+			}
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
@@ -236,7 +240,8 @@ namespace StarterAssets
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            // CHANGED -- no sprinting
+            float targetSpeed = MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -279,11 +284,19 @@ namespace StarterAssets
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _mainCamera.transform.eulerAngles.y;
+                
+                // potential overhead camera movement change
+                //  --> makes player move relative to direction the player model is facing (instead of the camera direction)
+                /*if(LockCameraPosition)
+                {
+                    _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
+								  transform.eulerAngles.y;
+				}*/
+
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                //  --> DON'T WANT THIS FOR R.R.
                 //transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
             
@@ -333,6 +346,10 @@ namespace StarterAssets
                     {
                         _animator.SetBool(_animIDJump, true);
                     }
+
+                    // Play sound
+                    FindObjectOfType<AudioManager>().PlaySound("player jump");
+                    //FindObjectOfType<LogManager>().writeLog("player jump");
                 }
 
                 // jump timeout
@@ -410,6 +427,7 @@ namespace StarterAssets
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
+
         }
     }
 }

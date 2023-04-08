@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6989887456081757896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9173701053731371135}
+  - component: {fileID: 7974956593050105823}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9173701053731371135
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6989887456081757896}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7974956593050105823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6989887456081757896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b57f9ce3c93b101418723b19c1f856ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: level clear
+    audioClip: {fileID: 8300000, guid: d63e06ee972860c40be8d7712e6c0065, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 0
+    audioSource: {fileID: 0}
+  - name: player attack
+    audioClip: {fileID: 8300000, guid: 0bde713a478d22344a1c715ef3ce114d, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 0
+    audioSource: {fileID: 0}
+  - name: player damage
+    audioClip: {fileID: 8300000, guid: 5c28b92d31e3c964881b50a6f84464c7, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 0
+    audioSource: {fileID: 0}
+  - name: player jump
+    audioClip: {fileID: 8300000, guid: 0f3f69dd32f60f4478809ce30e271027, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 0
+    audioSource: {fileID: 0}
+  - name: player land
+    audioClip: {fileID: 8300000, guid: c3a6acee90426274c95ff651fe9d8d03, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 0
+    audioSource: {fileID: 0}
+  - name: player pickup
+    audioClip: {fileID: 8300000, guid: 612711139902ec7499b9ccf9c503d48e, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 0
+    audioSource: {fileID: 0}
+  - name: player walk
+    audioClip: {fileID: 8300000, guid: a7c85d1e9000b6c4ba5971443e45620d, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 1
+    audioSource: {fileID: 0}
+  - name: enemy attack
+    audioClip: {fileID: 8300000, guid: 59e48c1f802141c449793059869c9398, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 0
+    audioSource: {fileID: 0}
+  - name: enemy damage
+    audioClip: {fileID: 8300000, guid: 2726d62dd80face46bb69942ebe214ae, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 0
+    audioSource: {fileID: 0}
+  - name: enemy death 1
+    audioClip: {fileID: 8300000, guid: c284188b91c0aa448a2ee86a4b170d62, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 0
+    audioSource: {fileID: 0}
+  - name: enemy death 2
+    audioClip: {fileID: 8300000, guid: d33b6b79ee0cfaa4a9647c328af7bb12, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 0
+    audioSource: {fileID: 0}
+  - name: enemy death 3
+    audioClip: {fileID: 8300000, guid: 1e16b370edefdbe4887655699d36d494, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 0
+    audioSource: {fileID: 0}
+  - name: enemy run
+    audioClip: {fileID: 8300000, guid: abc0846a03afa9744b1bf1302e0025ce, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 1
+    audioSource: {fileID: 0}
+  music:
+  - name: 8-bit espionage
+    audioClip: {fileID: 8300000, guid: 602f875627fc1c446a405c66251c1bf5, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 1
+    audioSource: {fileID: 0}
+  - name: arcade drama
+    audioClip: {fileID: 8300000, guid: aeb9a687fbd97334990809a1ec75036f, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 1
+    audioSource: {fileID: 0}
+  - name: caffeine
+    audioClip: {fileID: 8300000, guid: f4250a741991edf4c816a93724225acc, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 1
+    audioSource: {fileID: 0}
+  - name: cyberpunk arcade
+    audioClip: {fileID: 8300000, guid: f006737e530646b4eb532a64fb1596d7, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 1
+    audioSource: {fileID: 0}
+  - name: more 8-bit drama
+    audioClip: {fileID: 8300000, guid: 041a1bdae57b5eb4a93bc90e4cab371a, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 1
+    audioSource: {fileID: 0}
+  - name: menu music
+    audioClip: {fileID: 8300000, guid: 2cbfb70a02ab29941b6583354274d5d9, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 1
+    audioSource: {fileID: 0}
+  - name: end music
+    audioClip: {fileID: 8300000, guid: 36f2b4380a2ec9541a52d9bcbea11b12, type: 3}
+    volume: 1
+    pitch: 1
+    isLooping: 1
+    audioSource: {fileID: 0}
