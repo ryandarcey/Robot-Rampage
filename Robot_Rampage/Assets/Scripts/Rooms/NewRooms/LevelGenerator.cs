@@ -26,6 +26,7 @@ public class LevelGenerator : MonoBehaviour
 
 	public int numRoomsToGenerateAtATime = 20;
     public int maxNumHallwaysInARow = 1;    // TODO: get rid of this and hardcode max 1 hallway in a row
+	private int currentNumHallways = 0;
 
 	public static LevelGenerator instance;
 
@@ -177,7 +178,6 @@ public class LevelGenerator : MonoBehaviour
 		GameObject[] robotPrefabs = { robotEasyPrefab, robotMediumPrefab, robotHardPrefab };
 		SquareRoom[] squareRoomPrefabs = { squareRoom1Prefab, squareRoom2Prefab, squareRoom3Prefab };
 
-		int currentNumHallways = 0;
 		for (int i = 0; i < numRoomsToGenerateAtATime; i++)
 		{
 			////////////////////////////////////////
